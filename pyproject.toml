@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "wool"
+version = "0.1.0"
+description = "A library allowing you to use Minecraft format codes in strings."
+authors = ["trag1c <trag1cdev@yahoo.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+wool = "wool.__main__:main"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
