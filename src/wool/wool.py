@@ -4,8 +4,9 @@ import json
 import os
 
 from dataclasses import dataclass
-from typing import Any
+from re import finditer
 from sys import platform
+from typing import Any
 
 
 if platform in {"win32", "cygwin"}:
@@ -13,77 +14,82 @@ if platform in {"win32", "cygwin"}:
 
 
 with open(f"{os.path.dirname(__file__)}/codes.json") as f:
-    __CODES = json.load(f)
+    _CODES = json.load(f)
 
 
-__FORMAT_TEMPLATES = {0: "\033[{}m", 8: "\033[38;5;{}m", 24: "\033[38;2;{};{};{}m"}
+_FORMAT_TEMPLATES = {3: "\033[{}m", 8: "\033[38;5;{}m", 24: "\033[38;2;{};{};{}m"}
+_FORMAT_BG_TEMPLATES = {3: "\033[{}m", 8: "\033[48;5;{}m", 24: "\033[48;2;{};{};{}m"}
 
-__STYLE_CODES = "lmnor"
+_STYLE_CODES = "lmnor"
+
+_DEFAULT_PATTERN = r"&(~?)([0-9a-gl-or])"
+_CUSTOM_PATTERN = r"&(~?)\[#([0-9a-fA-F]{6})\]"
 
 
 class WoolError(Exception):
     pass
 
 
-AMPERSAND = "&"
-SECTION_SIGN = "§"
-
-
 @dataclass
-class __Config:
-    __char: str = "&"
-    __depth: int = 24
+class _Config:
+    _depth: int = 24
 
     def __repr__(self) -> str:
-        return f"Config[{self.char} | {self.depth}]"
+        return f"Config[{self.depth}]"
 
     @property
     def depth(self) -> int:
-        return self.__depth
-    
+        return self._depth
+
     @depth.setter
     def depth(self, value: int) -> None:
-        if value not in {0, 8, 24}:
-            raise WoolError(f"Invalid depth {value}, must be 0, 8, or 24")
-        self.__depth = value
-
-    @property
-    def char(self) -> str:
-        return self.__char
-
-    @char.setter
-    def char(self, value: str) -> None:
-        if value not in "&§":
-            raise WoolError(f"Invalid character '{value}', must be '&' or '§'")
-        self.__char = value
+        if value not in {3, 8, 24}:
+            raise WoolError(f"Invalid depth {value}, must be 3, 8, or 24")
+        self._depth = value
 
 
-config = __Config()
+config = _Config()
 
 
-def __get_ansi(char: str) -> str:
-    if char in __STYLE_CODES:
-        filler = __CODES["format"][char]
-        template = __FORMAT_TEMPLATES[0]
+def _find_codes(string: str) -> list[tuple[str, bool, str]]:
+    codes: list[tuple[str, bool, str]] = []
+    for pattern in (_DEFAULT_PATTERN, _CUSTOM_PATTERN):
+        for match in finditer(pattern, string):
+            s, bg, color = (match.group(0), *match.groups())
+            codes.append((s, bg == "~", color))
+    return codes
+
+
+def _get_ansi(code: str, bg: bool = False) -> str:
+    formats = _FORMAT_BG_TEMPLATES if bg else _FORMAT_TEMPLATES
+    if len(code) == 6:
+        template = formats[24]
+        r, g, b = (int(code[i:i + 2], 16) for i in (0, 2, 4))
+        return template.format(r, g, b)
     else:
-        filler = __CODES[str(config.depth)][char]
-        template = __FORMAT_TEMPLATES[config.depth]
-    if config.depth == 24 and char not in __STYLE_CODES:
-        return template.format(*filler)
-    return template.format(filler)
+        if code in _STYLE_CODES:
+            template = formats[3]
+            value = _CODES["format"][code]
+        else:
+            template = formats[config.depth]
+            value = _CODES[str(config.depth)][code]
+        if config.depth == 8 or code in _STYLE_CODES:
+            return template.format(value)
+        elif config.depth == 24:
+            return template.format(*value)
+        else:
+            return template.format(value + 10 * bg)
 
 
 def test():
-    wprint("&00&11&22&33&44&55&66&77&88&99&aa&bb&cc&dd&ee&ff&gg&r&ll&r&mm&r&nn&r&oo")
+    wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 
 def wool(string: str) -> str:
-    prefix = config.char
-    if string[-2:] not in {"&r", "§r"}:
-        string += config.char + "r"
-    for char in "0123456789abcdefglmnor":
-        if (code := prefix + char) in string:
-            string = string.replace(code, __get_ansi(char))
+    if not string.endswith("&r"):
+        string += "&r"
+    for code, bg, color in _find_codes(string):
+        string = string.replace(code, _get_ansi(color, bg))
     return string
 
 
