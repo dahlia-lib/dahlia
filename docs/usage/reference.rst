@@ -17,7 +17,7 @@ The coloring can be applied on the background if a ``~`` is inserted between ``&
     * - Code
       - 3-bit
       - 8-bit
-      - 16-bit
+      - 24-bit
     * - ``0``
       - #000000
       - #000000
