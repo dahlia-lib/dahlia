@@ -13,6 +13,10 @@ wprint
 ------
 .. autofunction:: wprint
 
+clean
+-----
+.. autofunction:: clean
+
 test
 ----
 .. autofunction:: test
