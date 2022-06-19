@@ -1,3 +1,6 @@
+div.highlight-bash div.highlight pre {
+    color: #ABB2BF;
+}
 .format-code tbody td {
   color: var(--clr);
 }
