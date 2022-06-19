@@ -1,67 +1,118 @@
 .format-code tbody td {
-    color: var(--clr);
+  color: var(--clr);
+}
+.\&\~0 {
+  background-color: #000000;
+}
+.\&\~1 {
+  background-color: #0000aa;
+}
+.\&\~2 {
+  background-color: #00aa00;
+}
+.\&\~3 {
+  background-color: #00aaaa;
+}
+.\&\~4 {
+  background-color: #aa0000;
+}
+.\&\~5 {
+  background-color: #aa00aa;
+}
+.\&\~6 {
+  background-color: #ffaa00;
+}
+.\&\~7 {
+  background-color: #aaaaaa;
+}
+.\&\~8 {
+  background-color: #555555;
+}
+.\&\~9 {
+  background-color: #5555ff;
+}
+.\&\~a {
+  background-color: #55ff55;
+}
+.\&\~b {
+  background-color: #55ffff;
+}
+.\&\~c {
+  background-color: #ff5555;
+}
+.\&\~d {
+  background-color: #ff55ff;
+}
+.\&\~e {
+  background-color: #ffff55;
+}
+.\&\~f {
+  background-color: #ffffff;
+}
+.\&\~g {
+  background-color: #ddd605;
 }
 
 .\&0 {
-    color: #000000;
+  color: #000000;
 }
 .\&1 {
-    color: #0000aa;
+  color: #0000aa;
 }
 .\&2 {
-    color: #00aa00;
+  color: #00aa00;
 }
 .\&3 {
-    color: #00aaaa;
+  color: #00aaaa;
 }
 .\&4 {
-    color: #aa0000;
+  color: #aa0000;
 }
 .\&5 {
-    color: #aa00aa;
+  color: #aa00aa;
 }
 .\&6 {
-    color: #ffaa00;
+  color: #ffaa00;
 }
 .\&7 {
-    color: #aaaaaa;
+  color: #aaaaaa;
 }
 .\&8 {
-    color: #555555;
+  color: #555555;
 }
 .\&9 {
-    color: #5555ff;
+  color: #5555ff;
 }
 .\&a {
-    color: #55ff55;
+  color: #55ff55;
 }
 .\&b {
-    color: #55ffff;
+  color: #55ffff;
 }
 .\&c {
-    color: #ff5555;
+  color: #ff5555;
 }
 .\&d {
-    color: #ff55ff;
+  color: #ff55ff;
 }
 .\&e {
-    color: #ffff55;
+  color: #ffff55;
 }
 .\&f {
-    color: #ffffff;
+  color: #ffffff;
 }
 .\&g {
-    color: #ddd605;
+  color: #ddd605;
 }
 .\&l {
-    font-weight: bold;
+  font-weight: bold;
 }
 .\&m {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 .\&n {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .\&o {
-    font-style: italic;
+  font-style: italic;
 }
