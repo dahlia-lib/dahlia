@@ -27,6 +27,7 @@ _CUSTOM_PATTERN = r"&(~?)\[#([0-9a-fA-F]{6})\]"
 
 
 class WoolError(Exception):
+    """An Exception for errors within Wool."""
     pass
 
 
@@ -82,10 +83,44 @@ def _get_ansi(code: str, bg: bool = False) -> str:
 
 
 def test():
+    """Prints all format codes and their formatting."""
     wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 
 def wool(string: str) -> str:
+    """
+    Formats a string using the format codes.
+
+    Example
+    -------
+
+    .. code-block :: python
+
+        text = wool("&aHello\\n&cWorld")
+        print(text)
+
+
+    Output would be 
+    
+    .. raw:: html
+        
+        <pre>
+            <span class="&a">Hello</span>
+            <span class="&c">World</span>
+        </pre>
+
+    For more see :ref:`wool usage <usage>`
+
+    Parameters
+    ----------
+    string :
+        String containing text and format codes.
+    
+    Returns
+    -------
+    str :
+        A formatted string with the appropriate formatting applied.
+    """
     if not string.endswith("&r"):
         string += "&r"
     for code, bg, color in _find_codes(string):
@@ -94,4 +129,31 @@ def wool(string: str) -> str:
 
 
 def wprint(*string: str, **kwargs: Any) -> None:
+    r"""
+    Wrapper over :func:`print`, calling the :func:`wool` method for each argument.
+
+    Example
+    -------
+    .. code-block :: python
+
+        text = wprint("&bHello\n&5World")
+
+
+    Output would be 
+    
+    .. raw:: html
+        
+        <pre>
+            <span class="&b">Hello</span>
+            <span class="&5">World</span>
+        </pre>
+
+    Parameters
+    ----------
+    \*string :
+        String(s) containing text and format codes.
+
+    \*\*kwargs :
+        Keyword arguments to pass to :func:`print`
+    """
     print(*map(wool, string), **kwargs)
