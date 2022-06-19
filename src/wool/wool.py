@@ -83,6 +83,19 @@ def _get_ansi(code: str, bg: bool = False) -> str:
 
 
 def clean(string: str) -> str:
+    """
+    Removes all formatting from a string.
+
+    Parameters
+    ----------
+    string :
+        String to clear formatting from.
+
+    Returns
+    -------
+    str :
+        Cleaned string without formatting.
+    """
     for code, *_ in _find_codes(string):
         string = string.replace(code, "", 1)
     return string
