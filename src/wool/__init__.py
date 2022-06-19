@@ -1,3 +1,3 @@
-from .wool import config, test, wool, wprint
+from .wool import clean, config, test, wool, wprint
 
-__all__ = ("config", "test", "wool", "wprint")
+__all__ = ("clean", "config", "test", "wool", "wprint")
