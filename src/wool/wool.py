@@ -81,6 +81,12 @@ def _get_ansi(code: str, bg: bool = False) -> str:
             return template.format(value + 10 * bg)
 
 
+def clean(string: str) -> str:
+    for code, *_ in _find_codes(string):
+        string = string.replace(code, "", 1)
+    return string
+
+
 def test():
     wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
