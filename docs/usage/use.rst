@@ -39,7 +39,7 @@ The underlying usage is exactly the same. For brevity the examples will mostly b
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
 Formatting is done in wool by prefixing with ``&`` followed by a format code. (ex: ``&a``)
-The basic color codes are a number from ``0`` through ``9`` or letter from ``a`` through ``o``.
+The basic color codes are a number from ``0`` through ``9`` or letter from ``a`` through ``g``.
 To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 
 
