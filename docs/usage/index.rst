@@ -7,5 +7,5 @@ Usage
     :maxdepth: 2
 
     quickstart
-    use
+    programmatic
     reference
