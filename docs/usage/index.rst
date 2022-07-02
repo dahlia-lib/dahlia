@@ -8,4 +8,5 @@ Usage
 
     quickstart
     programmatic
+    cli 
     reference
