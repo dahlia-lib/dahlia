@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 from argparse import ArgumentParser
-from sys import argv
 
-from .wool import clean, config, test, wprint
+from .wool import clean, clean_ansi, config, test, wprint
 
 
-def parse_args() -> tuple[str, bool]:
+def parse_args() -> tuple[str, bool, bool]:
     UNSET = object()
     parser = ArgumentParser()
     parser.add_argument(
@@ -19,6 +18,9 @@ def parse_args() -> tuple[str, bool]:
         "-c", "--clean", help="clean codes", action="store_true"
     )
     parser.add_argument(
+        "-a", "--clean-ansi", help="clean ANSI codes", action="store_true"
+    )
+    parser.add_argument(
         "string", nargs="?", help="the string to color", default=UNSET
     )
     args = parser.parse_args()
@@ -28,13 +30,15 @@ def parse_args() -> tuple[str, bool]:
         if args.test:
             test()
         exit()
-    return args.string, args.clean
+    return args.string, args.clean, args.clean_ansi
 
 
 def main() -> None:
-    string, clean_ = parse_args()
+    string, clean_, clean_ansi_ = parse_args()
     if clean_:
         print(clean(string))
+    elif clean_ansi_:
+        print(clean_ansi(string))
     else:
         wprint(string)
 
