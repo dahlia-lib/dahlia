@@ -25,6 +25,10 @@ _STYLE_CODES = "lmnor"
 _DEFAULT_PATTERN = r"&(~?)([0-9a-gl-or])"
 _CUSTOM_PATTERN = r"&(~?)\[#([0-9a-fA-F]{6})\]"
 
+_ANSI_3BIT_PATTERN = r"\033\[(\d+)m"
+_ANSI_8BIT_PATTERN = r"\033\[(?:3|4)8;5;(\d+)m"
+_ANSI_24BIT_PATTERN = r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"
+
 
 class WoolError(Exception):
     """An Exception for errors within Wool."""
@@ -61,11 +65,19 @@ def _find_codes(string: str) -> list[tuple[str, bool, str]]:
     return codes
 
 
+def _find_ansi_codes(string: str) -> list[str]:
+    return [
+        match.group(0)
+        for pattern in (_ANSI_3BIT_PATTERN, _ANSI_8BIT_PATTERN, _ANSI_24BIT_PATTERN)
+        for match in finditer(pattern, string)
+    ]
+
+
 def _get_ansi(code: str, bg: bool = False) -> str:
     formats = _FORMAT_BG_TEMPLATES if bg else _FORMAT_TEMPLATES
     if len(code) == 6:
         template = formats[24]
-        r, g, b = (int(code[i:i + 2], 16) for i in (0, 2, 4))
+        r, g, b = (int(code[i : i + 2], 16) for i in (0, 2, 4))
         return template.format(r, g, b)
     else:
         if code in _STYLE_CODES:
@@ -98,6 +110,12 @@ def clean(string: str) -> str:
     """
     for code, *_ in _find_codes(string):
         string = string.replace(code, "", 1)
+    return string
+
+
+def clean_ansi(string: str) -> str:
+    for ansi_code in _find_ansi_codes(string):
+        string = string.replace(ansi_code, "", 1)
     return string
 
 
