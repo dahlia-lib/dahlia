@@ -114,6 +114,19 @@ def clean(string: str) -> str:
 
 
 def clean_ansi(string: str) -> str:
+    """
+    Removes all ansi escape sequences from a string.
+
+    Parameters
+    ----------
+    string :
+        String to clear ansi escapses from.
+
+    Returns
+    -------
+    str :
+        Cleaned string without escapes.
+    """
     for ansi_code in _find_ansi_codes(string):
         string = string.replace(ansi_code, "", 1)
     return string

@@ -17,6 +17,10 @@ clean
 -----
 .. autofunction:: clean
 
+clean_ansi
+----------
+.. autofunction:: clean_ansi
+
 test
 ----
 .. autofunction:: test

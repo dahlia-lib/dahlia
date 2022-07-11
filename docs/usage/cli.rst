@@ -68,7 +68,18 @@ _____
 .. code-block:: bash
 
     $ wool "&aw&co&3o&~0&6l"
-
-.. code-block:: bash
-
     wool
+
+
+Clean Ansi
+_____
+``--clean-ansi``/``-a`` removes all ansi escapse from a string.
+
+.. raw:: html
+
+    <div class="highlight-bash notranslate">
+        <div class="highlight">
+            <pre>$ wool "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
+    wool</pre>
+        </div>
+    </div>
