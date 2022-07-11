@@ -15,6 +15,9 @@ def parse_args() -> tuple[str, bool, bool]:
         "-t", "--test", help="test the colors", action="store_true"
     )
     parser.add_argument(
+        "-v", "--version", help="print the version", action="store_true"
+    )
+    parser.add_argument(
         "-c", "--clean", help="clean codes", action="store_true"
     )
     parser.add_argument(
@@ -29,6 +32,8 @@ def parse_args() -> tuple[str, bool, bool]:
     if args.string is UNSET:
         if args.test:
             test()
+        elif args.version:
+            print("Wool 1.0.0")
         exit()
     return args.string, args.clean, args.clean_ansi
 

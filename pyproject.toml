@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "wool"
-version = "0.1.0"
+version = "1.0.0"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
 documentation = "https://wool-py.readthedocs.io/en/latest"
-repository = "https://github.com/trag1c/wool"
+repository = "https://github.com/trag1c/Wool"
 
 [tool.poetry.dependencies]
 python = "^3.8"
