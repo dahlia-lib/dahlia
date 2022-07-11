@@ -7,8 +7,8 @@ Reference
 Color Format Codes
 ------------------
 
-Each digit/letter corresponds to hex value (dependant on if using 3-bit, 8-bit or 16-bit color).
-The coloring can be applied on the background if a ``~`` is inserted between ``&`` and the code.
+Each digit/letter corresponds to a hex value (dependent on the color depth).
+The coloring can be applied to the background if a ``~`` is inserted between ``&`` and the code.
 
 .. list-table:: 
     :header-rows: 1
@@ -109,7 +109,7 @@ Formatting Codes
 Custom Colors
 -------------
 
-For colors by hex code, use square brackets containing the hexcode inside of it.
+For colors by hex code, use square brackets containing the hex code inside of it.
 
 
 .. list-table::

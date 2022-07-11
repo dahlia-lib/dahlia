@@ -96,7 +96,7 @@ def _get_ansi(code: str, bg: bool = False) -> str:
 
 def clean(string: str) -> str:
     """
-    Removes all formatting from a string.
+    Removes all Wool formatting from a string.
 
     Parameters
     ----------
@@ -115,17 +115,17 @@ def clean(string: str) -> str:
 
 def clean_ansi(string: str) -> str:
     """
-    Removes all ansi escape sequences from a string.
+    Removes all ANSI codes from a string.
 
     Parameters
     ----------
     string :
-        String to clear ansi escapses from.
+        String to clear ANSI codes from.
 
     Returns
     -------
     str :
-        Cleaned string without escapes.
+        Cleaned string without codes.
     """
     for ansi_code in _find_ansi_codes(string):
         string = string.replace(ansi_code, "", 1)
@@ -133,7 +133,7 @@ def clean_ansi(string: str) -> str:
 
 
 def test():
-    """Prints all format codes and their formatting."""
+    """Prints all default format codes and their formatting."""
     wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 

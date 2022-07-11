@@ -5,7 +5,7 @@ Wool can be used via its CLI to provide formatting.
 It is invoked using ``wool``.
 
 
-To see that wool is installed correctly and working, run the test command.
+To see that Wool is installed correctly and working, run the test command.
 This shows all the formatting codes and their resulting formatting.
 
 .. code-block:: bash
@@ -25,7 +25,7 @@ This shows all the formatting codes and their resulting formatting.
 Basic Use
 ---------
 
-Just like programmatic wool, the CLI uses the same methods of formatting.
+Just like programmatic Wool, the CLI uses the same methods of formatting.
 The primary argument is the text to be formatted.
 
 .. code-block:: bash
@@ -63,7 +63,7 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
 Clean
 _____
-``--clean``/``-c`` removes all formatting characters from a string.
+``--clean``/``-c`` removes all Wool formatting sequences from a string.
 
 .. code-block:: bash
 
@@ -73,7 +73,7 @@ _____
 
 Clean Ansi
 _____
-``--clean-ansi``/``-a`` removes all ansi escapse from a string.
+``--clean-ansi``/``-a`` removes all ANSI codes from a string.
 
 .. raw:: html
 

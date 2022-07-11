@@ -4,7 +4,7 @@ Quickstart
 Installation
 ------------
 
-Wool is available on pypi and can be installed with pip (or any other package manager)
+Wool is available on PyPI and can be installed with pip (or any other package manager)
 
 
 
@@ -20,7 +20,7 @@ Wool is available on pypi and can be installed with pip (or any other package ma
 Seeing if wool is working
 -------------------------
 
-In the terminal, simply run the test command. If there is an error or the formatting does not appear, there may be an issue with your wool install.
+In the terminal, simply run the test command. If there is an error or the formatting does not appear, there may be an issue with your Wool install.
 
 .. raw:: html
 
