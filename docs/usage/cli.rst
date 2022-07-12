@@ -67,19 +67,7 @@ _____
 
 .. code-block:: bash
 
-    $ dahlia "&aw&co&3o&~0&6l"
+    $ dahlia -c "&aw&co&3o&~0&6l"
     dahlia
 
 
-Clean Ansi
-_____
-``--clean-ansi``/``-a`` removes all ANSI codes from a string.
-
-.. raw:: html
-
-    <div class="highlight-bash notranslate">
-        <div class="highlight">
-            <pre>$ dahlia "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
-    dahlia</pre>
-        </div>
-    </div>

@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from .dahlia import clean, clean_ansi, config, test, dprint
 
 
-def parse_args() -> tuple[str, bool, bool]:
+def parse_args() -> tuple[str, bool]:
     UNSET = object()
     parser = ArgumentParser()
     parser.add_argument(
@@ -21,9 +21,6 @@ def parse_args() -> tuple[str, bool, bool]:
         "-c", "--clean", help="clean codes", action="store_true"
     )
     parser.add_argument(
-        "-a", "--clean-ansi", help="clean ANSI codes", action="store_true"
-    )
-    parser.add_argument(
         "string", nargs="?", help="the string to color", default=UNSET
     )
     args = parser.parse_args()
@@ -35,15 +32,13 @@ def parse_args() -> tuple[str, bool, bool]:
         elif args.version:
             print("Dahlia 1.0.0")
         exit()
-    return args.string, args.clean, args.clean_ansi
+    return args.string, args.clean
 
 
 def main() -> None:
-    string, clean_, clean_ansi_ = parse_args()
+    string, clean_ = parse_args()
     if clean_:
         print(clean(string))
-    elif clean_ansi_:
-        print(clean_ansi(string))
     else:
         dprint(string)
 
