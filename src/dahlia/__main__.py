@@ -30,7 +30,7 @@ def parse_args() -> tuple[str, bool]:
         if args.test:
             test()
         elif args.version:
-            print("Dahlia 1.0.0")
+            print("Dahlia 1.0.1")
         exit()
     return args.string, args.clean
 
