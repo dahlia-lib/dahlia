@@ -1,17 +1,17 @@
-Wool API Reference
+Camellia API Reference
 ==================
 
 .. _api:
 
-.. currentmodule:: wool
+.. currentmodule:: camellia
 
-wool
+camellia
 ----
-.. autofunction:: wool
+.. autofunction:: camellia
 
-wprint
+cprint
 ------
-.. autofunction:: wprint
+.. autofunction:: cprint
 
 clean
 -----
@@ -25,6 +25,6 @@ test
 ----
 .. autofunction:: test
 
-WoolError
+CamelliaError
 ---------
-.. autoexception:: wool.wool.WoolError
+.. autoexception:: camellia.camellia.CamelliaError

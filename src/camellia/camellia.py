@@ -30,8 +30,8 @@ _ANSI_8BIT_PATTERN = r"\033\[(?:3|4)8;5;(\d+)m"
 _ANSI_24BIT_PATTERN = r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"
 
 
-class WoolError(Exception):
-    """An Exception for errors within Wool."""
+class CamelliaError(Exception):
+    """An Exception for errors within Camellia."""
     pass
 
 
@@ -49,7 +49,7 @@ class _Config:
     @depth.setter
     def depth(self, value: int) -> None:
         if value not in {3, 8, 24}:
-            raise WoolError(f"Invalid depth {value}, must be 3, 8, or 24")
+            raise CamelliaError(f"Invalid depth {value}, must be 3, 8, or 24")
         self._depth = value
 
 
@@ -96,7 +96,7 @@ def _get_ansi(code: str, bg: bool = False) -> str:
 
 def clean(string: str) -> str:
     """
-    Removes all Wool formatting from a string.
+    Removes all Camellia formatting from a string.
 
     Parameters
     ----------
@@ -137,7 +137,7 @@ def test():
     wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 
-def wool(string: str) -> str:
+def camellia(string: str) -> str:
     """
     Formats a string using the format codes.
 
@@ -146,7 +146,7 @@ def wool(string: str) -> str:
 
     .. code-block :: python
 
-        text = wool("&aHello\\n&cWorld")
+        text = camellia("&aHello\\n&cWorld")
         print(text)
 
 
@@ -159,7 +159,7 @@ def wool(string: str) -> str:
             <span class="&c">World</span>
         </pre>
 
-    For more see :ref:`wool usage <usage>`
+    For more see :ref:`camellia usage <usage>`
 
     Parameters
     ----------
@@ -180,7 +180,7 @@ def wool(string: str) -> str:
 
 def wprint(*string: str, **kwargs: Any) -> None:
     r"""
-    Wrapper over :func:`print`, calling the :func:`wool` method for each argument.
+    Wrapper over :func:`print`, calling the :func:`camellia` method for each argument.
 
     Example
     -------
@@ -206,4 +206,4 @@ def wprint(*string: str, **kwargs: Any) -> None:
     \*\*kwargs :
         Keyword arguments to pass to :func:`print`
     """
-    print(*map(wool, string), **kwargs)
+    print(*map(camellia, string), **kwargs)

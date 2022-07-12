@@ -1,17 +1,17 @@
 [tool.poetry]
-name = "wool"
+name = "camellia"
 version = "1.0.0"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
-documentation = "https://wool-py.readthedocs.io/en/latest"
-repository = "https://github.com/trag1c/Wool"
+documentation = "https://camellia.readthedocs.io/en/latest"
+repository = "https://github.com/trag1c/Camellia"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
 [tool.poetry.scripts]
-wool = "wool.__main__:main"
+camellia = "camellia.__main__:main"
 
 [tool.poetry.dev-dependencies]
 

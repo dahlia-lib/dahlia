@@ -1,23 +1,23 @@
-Programmatic Wool
+Programmatic Camellia
 =================
 
-The two ways wool can be used with Python are with the functions :func:`~wool.wool` and :func:`~wool.wprint`.
+The two ways camellia can be used with Python are with the functions :func:`~camellia.camellia` and :func:`~camellia.wprint`.
 
-The difference between the two is :func:`~wool.wprint` will print the value while :func:`~wool.wool` will return it. 
+The difference between the two is :func:`~camellia.wprint` will print the value while :func:`~camellia.camellia` will return it. 
 The underlying usage is the same. For brevity, the examples will mostly be using ``wprint``.
 
 .. note:: 
     
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
-Formatting is done in wool by prefixing with ``&`` followed by a format code. (ex: ``&a``)
+Formatting is done in camellia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
 The primary color codes are a number from ``0`` through ``9`` or a letter from ``a`` through ``g``.
 To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 
 
 .. code-block:: python
 
-    from wool import wprint
+    from camellia import wprint
     wprint("&dHello There")
     wprint("&aw&co&3o&6l")
     wprint("&~0&bblack background")
@@ -37,7 +37,7 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
 
 .. code-block:: python
 
-    from wool import wprint
+    from camellia import wprint
     wprint("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
 
 
@@ -50,11 +50,11 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
     </div>
 
 
-Terminals support a wide range of colors that are not covered by the base format codes. Wool can use hex codes to display a specific color as well.
+Terminals support a wide range of colors that are not covered by the base format codes. Camellia can use hex codes to display a specific color as well.
 
 .. code-block:: python
 
-    from wool import wprint
+    from camellia import wprint
     wprint("use &[#1793d1]ars&r")
 
 

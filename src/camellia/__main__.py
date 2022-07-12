@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from argparse import ArgumentParser
 
-from .wool import clean, clean_ansi, config, test, wprint
+from .camellia import clean, clean_ansi, config, test, wprint
 
 
 def parse_args() -> tuple[str, bool, bool]:
@@ -33,7 +33,7 @@ def parse_args() -> tuple[str, bool, bool]:
         if args.test:
             test()
         elif args.version:
-            print("Wool 1.0.0")
+            print("Camellia 1.0.0")
         exit()
     return args.string, args.clean, args.clean_ansi
 

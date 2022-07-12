@@ -1,16 +1,16 @@
-Wool CLI
+Camellia CLI
 ========
 
-Wool can be used via its CLI to provide formatting.
-It is invoked using ``wool``.
+Camellia can be used via its CLI to provide formatting.
+It is invoked using ``camellia``.
 
 
-To see that Wool is installed correctly and working, run the test command.
+To see that Camellia is installed correctly and working, run the test command.
 This shows all the formatting codes and their resulting formatting.
 
 .. code-block:: bash
 
-    $ wool --test
+    $ camellia --test
 
 .. raw:: html
 
@@ -25,12 +25,12 @@ This shows all the formatting codes and their resulting formatting.
 Basic Use
 ---------
 
-Just like programmatic Wool, the CLI uses the same methods of formatting.
+Just like programmatic Camellia, the CLI uses the same methods of formatting.
 The primary argument is the text to be formatted.
 
 .. code-block:: bash
 
-    $ wool "&aw&co&3o&~0&6l"
+    $ camellia "&aw&co&3o&~0&6l"
 
 .. raw:: html
 
@@ -51,7 +51,7 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
 .. code-block:: bash
 
-    $ wool "&~0&624&7-&abit" --depth 24
+    $ camellia "&~0&624&7-&abit" --depth 24
     
 .. raw:: html
 
@@ -63,12 +63,12 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
 Clean
 _____
-``--clean``/``-c`` removes all Wool formatting sequences from a string.
+``--clean``/``-c`` removes all Camellia formatting sequences from a string.
 
 .. code-block:: bash
 
-    $ wool "&aw&co&3o&~0&6l"
-    wool
+    $ camellia "&aw&co&3o&~0&6l"
+    camellia
 
 
 Clean Ansi
@@ -79,7 +79,7 @@ _____
 
     <div class="highlight-bash notranslate">
         <div class="highlight">
-            <pre>$ wool "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
-    wool</pre>
+            <pre>$ camellia "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
+    camellia</pre>
         </div>
     </div>
