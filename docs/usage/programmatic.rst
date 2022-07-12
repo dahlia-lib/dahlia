@@ -1,7 +1,7 @@
 Programmatic Dahlia
 =================
 
-The two ways dahlia can be used with Python are with the functions :func:`~dahlia.dahlia` and :func:`~dahlia.dprint`.
+The two ways Dahlia can be used with Python are with the functions :func:`~dahlia.dahlia` and :func:`~dahlia.dprint`.
 
 The difference between the two is :func:`~dahlia.dprint` will print the value while :func:`~dahlia.dahlia` will return it. 
 The underlying usage is the same. For brevity, the examples will mostly be using ``dprint``.
@@ -10,7 +10,7 @@ The underlying usage is the same. For brevity, the examples will mostly be using
     
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
-Formatting is done in dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
+Formatting is done in Dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
 The primary color codes are a number from ``0`` through ``9`` or a letter from ``a`` through ``g``.
 To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 

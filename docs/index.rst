@@ -8,7 +8,7 @@ Dahlia Documentation
 
 .. image:: https://badge.fury.io/py/dahlia.svg
     :target: https://badge.fury.io/py/dahlia
-    :alt: pypi package
+    :alt: PyPI Package
 
 .. image:: https://readthedocs.org/projects/dahlia/badge/?version=latest
     :target: https://dahlia.readthedocs.io/en/latest/?badge=latest
@@ -17,9 +17,9 @@ Dahlia Documentation
 What is Dahlia?
 -------------
 
-Camelllia is a simple text formatting package, inspired by text formatting in the game Minecraft.
+Dahlia is a simple text formatting package, inspired by text formatting in the game Minecraft.
 
-Text can be similar to the in the game, text can be formatting by typing a special character (``&`` for Dahlia) followed by a format code and finally the text to be formatted.
+Text is formatted in similar way to in the game. With Dahlia, it is formatted by typing a special character ``&`` followed by a format code and finally the text to be formatted.
 
 
 .. raw:: html
