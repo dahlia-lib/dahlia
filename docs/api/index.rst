@@ -9,9 +9,9 @@ dahlia
 ----
 .. autofunction:: dahlia
 
-cprint
+dprint
 ------
-.. autofunction:: cprint
+.. autofunction:: dprint
 
 clean
 -----
