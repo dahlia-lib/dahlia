@@ -30,8 +30,8 @@ _ANSI_8BIT_PATTERN = r"\033\[(?:3|4)8;5;(\d+)m"
 _ANSI_24BIT_PATTERN = r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"
 
 
-class CamelliaError(Exception):
-    """An Exception for errors within Camellia."""
+class DahliaError(Exception):
+    """An Exception for errors within Dahlia."""
     pass
 
 
@@ -49,7 +49,7 @@ class _Config:
     @depth.setter
     def depth(self, value: int) -> None:
         if value not in {3, 8, 24}:
-            raise CamelliaError(f"Invalid depth {value}, must be 3, 8, or 24")
+            raise DahliaError(f"Invalid depth {value}, must be 3, 8, or 24")
         self._depth = value
 
 
@@ -96,7 +96,7 @@ def _get_ansi(code: str, bg: bool = False) -> str:
 
 def clean(string: str) -> str:
     """
-    Removes all Camellia formatting from a string.
+    Removes all Dahlia formatting from a string.
 
     Parameters
     ----------
@@ -134,10 +134,10 @@ def clean_ansi(string: str) -> str:
 
 def test():
     """Prints all default format codes and their formatting."""
-    wprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
+    dprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 
-def camellia(string: str) -> str:
+def dahlia(string: str) -> str:
     """
     Formats a string using the format codes.
 
@@ -146,7 +146,7 @@ def camellia(string: str) -> str:
 
     .. code-block :: python
 
-        text = camellia("&aHello\\n&cWorld")
+        text = dahlia("&aHello\\n&cWorld")
         print(text)
 
 
@@ -159,7 +159,7 @@ def camellia(string: str) -> str:
             <span class="&c">World</span>
         </pre>
 
-    For more see :ref:`camellia usage <usage>`
+    For more see :ref:`dahlia usage <usage>`
 
     Parameters
     ----------
@@ -178,15 +178,15 @@ def camellia(string: str) -> str:
     return string
 
 
-def wprint(*string: str, **kwargs: Any) -> None:
+def dprint(*string: str, **kwargs: Any) -> None:
     r"""
-    Wrapper over :func:`print`, calling the :func:`camellia` method for each argument.
+    Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
 
     Example
     -------
     .. code-block :: python
 
-        text = wprint("&bHello\n&5World")
+        text = dprint("&bHello\n&5World")
 
 
     Output would be 
@@ -206,4 +206,4 @@ def wprint(*string: str, **kwargs: Any) -> None:
     \*\*kwargs :
         Keyword arguments to pass to :func:`print`
     """
-    print(*map(camellia, string), **kwargs)
+    print(*map(dahlia, string), **kwargs)

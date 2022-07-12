@@ -1,13 +1,13 @@
-Camellia API Reference
+Dahlia API Reference
 ==================
 
 .. _api:
 
-.. currentmodule:: camellia
+.. currentmodule:: dahlia
 
-camellia
+dahlia
 ----
-.. autofunction:: camellia
+.. autofunction:: dahlia
 
 cprint
 ------
@@ -25,6 +25,6 @@ test
 ----
 .. autofunction:: test
 
-CamelliaError
+DahliaError
 ---------
-.. autoexception:: camellia.camellia.CamelliaError
+.. autoexception:: dahlia.dahlia.DahliaError

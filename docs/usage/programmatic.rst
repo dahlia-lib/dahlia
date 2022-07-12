@@ -1,26 +1,26 @@
-Programmatic Camellia
+Programmatic Dahlia
 =================
 
-The two ways camellia can be used with Python are with the functions :func:`~camellia.camellia` and :func:`~camellia.wprint`.
+The two ways dahlia can be used with Python are with the functions :func:`~dahlia.dahlia` and :func:`~dahlia.dprint`.
 
-The difference between the two is :func:`~camellia.wprint` will print the value while :func:`~camellia.camellia` will return it. 
-The underlying usage is the same. For brevity, the examples will mostly be using ``wprint``.
+The difference between the two is :func:`~dahlia.dprint` will print the value while :func:`~dahlia.dahlia` will return it. 
+The underlying usage is the same. For brevity, the examples will mostly be using ``dprint``.
 
 .. note:: 
     
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
-Formatting is done in camellia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
+Formatting is done in dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
 The primary color codes are a number from ``0`` through ``9`` or a letter from ``a`` through ``g``.
 To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 
 
 .. code-block:: python
 
-    from camellia import wprint
-    wprint("&dHello There")
-    wprint("&aw&co&3o&6l")
-    wprint("&~0&bblack background")
+    from dahlia import dprint
+    dprint("&dHello There")
+    dprint("&aw&co&3o&6l")
+    dprint("&~0&bblack background")
 
 .. raw:: html
 
@@ -37,8 +37,8 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
 
 .. code-block:: python
 
-    from camellia import wprint
-    wprint("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
+    from dahlia import dprint
+    dprint("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
 
 
 .. raw:: html
@@ -50,12 +50,12 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
     </div>
 
 
-Terminals support a wide range of colors that are not covered by the base format codes. Camellia can use hex codes to display a specific color as well.
+Terminals support a wide range of colors that are not covered by the base format codes. Dahlia can use hex codes to display a specific color as well.
 
 .. code-block:: python
 
-    from camellia import wprint
-    wprint("use &[#1793d1]ars&r")
+    from dahlia import dprint
+    dprint("use &[#1793d1]ars&r")
 
 
 .. raw:: html

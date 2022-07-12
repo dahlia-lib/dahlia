@@ -1,17 +1,17 @@
 [tool.poetry]
-name = "camellia"
+name = "dahlia"
 version = "1.0.0"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
-documentation = "https://camellia.readthedocs.io/en/latest"
-repository = "https://github.com/trag1c/Camellia"
+documentation = "https://dahlia.readthedocs.io/en/latest"
+repository = "https://github.com/trag1c/Dahlia"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
 [tool.poetry.scripts]
-camellia = "camellia.__main__:main"
+dahlia = "dahlia.__main__:main"
 
 [tool.poetry.dev-dependencies]
 

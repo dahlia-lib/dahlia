@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from argparse import ArgumentParser
 
-from .camellia import clean, clean_ansi, config, test, wprint
+from .dahlia import clean, clean_ansi, config, test, dprint
 
 
 def parse_args() -> tuple[str, bool, bool]:
@@ -33,7 +33,7 @@ def parse_args() -> tuple[str, bool, bool]:
         if args.test:
             test()
         elif args.version:
-            print("Camellia 1.0.0")
+            print("Dahlia 1.0.0")
         exit()
     return args.string, args.clean, args.clean_ansi
 
@@ -45,7 +45,7 @@ def main() -> None:
     elif clean_ansi_:
         print(clean_ansi(string))
     else:
-        wprint(string)
+        dprint(string)
 
 
 if __name__ == "__main__":

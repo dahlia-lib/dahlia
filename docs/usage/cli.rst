@@ -1,16 +1,16 @@
-Camellia CLI
+Dahlia CLI
 ========
 
-Camellia can be used via its CLI to provide formatting.
-It is invoked using ``camellia``.
+Dahlia can be used via its CLI to provide formatting.
+It is invoked using ``dahlia``.
 
 
-To see that Camellia is installed correctly and working, run the test command.
+To see that Dahlia is installed correctly and working, run the test command.
 This shows all the formatting codes and their resulting formatting.
 
 .. code-block:: bash
 
-    $ camellia --test
+    $ dahlia --test
 
 .. raw:: html
 
@@ -25,12 +25,12 @@ This shows all the formatting codes and their resulting formatting.
 Basic Use
 ---------
 
-Just like programmatic Camellia, the CLI uses the same methods of formatting.
+Just like programmatic Dahlia, the CLI uses the same methods of formatting.
 The primary argument is the text to be formatted.
 
 .. code-block:: bash
 
-    $ camellia "&aw&co&3o&~0&6l"
+    $ dahlia "&aw&co&3o&~0&6l"
 
 .. raw:: html
 
@@ -51,7 +51,7 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
 .. code-block:: bash
 
-    $ camellia "&~0&624&7-&abit" --depth 24
+    $ dahlia "&~0&624&7-&abit" --depth 24
     
 .. raw:: html
 
@@ -63,12 +63,12 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
 Clean
 _____
-``--clean``/``-c`` removes all Camellia formatting sequences from a string.
+``--clean``/``-c`` removes all Dahlia formatting sequences from a string.
 
 .. code-block:: bash
 
-    $ camellia "&aw&co&3o&~0&6l"
-    camellia
+    $ dahlia "&aw&co&3o&~0&6l"
+    dahlia
 
 
 Clean Ansi
@@ -79,7 +79,7 @@ _____
 
     <div class="highlight-bash notranslate">
         <div class="highlight">
-            <pre>$ camellia "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
-    camellia</pre>
+            <pre>$ dahlia "<span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span>"
+    dahlia</pre>
         </div>
     </div>

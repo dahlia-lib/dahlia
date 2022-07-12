@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'camellia'
+project = 'dahlia'
 copyright = '2022, trag1c'
 author = 'trag1c'
 
@@ -36,10 +36,10 @@ pygments_style = "one-dark"
 
 html_static_path = ['_static']
 html_css_files = [
-    'camellia.css'
+    'dahlia.css'
 ]
 html_js_files = [
-    'camellia.js'
+    'dahlia.js'
 ]
 
 # -- Extension configuration -------------------------------------------------
