@@ -17,7 +17,7 @@ Dahlia is available on PyPI and can be installed with pip (or any other package 
     On some systems, you may need to use either ``pip3``, ``python -m pip`` or ``py -m pip`` instead of ``pip``
 
 
-Seeing if dahlia is working
+Seeing if Dahlia is working
 -------------------------
 
 In the terminal, simply run the test command. If there is an error or the formatting does not appear, there may be an issue with your Dahlia install.
