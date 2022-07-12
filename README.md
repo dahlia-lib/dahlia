@@ -23,3 +23,7 @@ Dahlia documentation is available at https://dahlia.readthedocs.io.
 ## License
 
 Dahlia is licensed under the MIT License.
+
+## Examples
+
+<img width="802" alt="image" src="https://user-images.githubusercontent.com/77130613/178481441-f62c22b7-2765-4937-bed9-7db1ec673484.png">
