@@ -137,7 +137,7 @@ def test():
     dprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
 
-def dahlia(string: str) -> str:
+def dahlia(string: str, *, no_reset: bool = False) -> str:
     """
     Formats a string using the format codes.
 
@@ -171,7 +171,7 @@ def dahlia(string: str) -> str:
     str :
         A formatted string with the appropriate formatting applied.
     """
-    if not string.endswith("&r"):
+    if not (string.endswith("&r") or no_reset):
         string += "&r"
     for code, bg, color in _find_codes(string):
         string = string.replace(code, _get_ansi(color, bg))
@@ -206,4 +206,5 @@ def dprint(*string: str, **kwargs: Any) -> None:
     \*\*kwargs :
         Keyword arguments to pass to :func:`print`
     """
-    print(*map(dahlia, string), **kwargs)
+    no_reset = kwargs.pop("no_reset", False)
+    print(*(dahlia(s, no_reset=no_reset) for s in string), **kwargs)
