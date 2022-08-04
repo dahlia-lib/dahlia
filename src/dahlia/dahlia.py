@@ -178,8 +178,8 @@ def dahlia(string: str, *, no_reset: bool = False) -> str:
     return string
 
 
-def dinput(prompt: str) -> str:
-    return input(dahlia(prompt))
+def dinput(prompt: str, *, no_reset: bool = False) -> str:
+    return input(dahlia(prompt, no_reset=no_reset))
 
 
 def dprint(*string: str, **kwargs: Any) -> None:
