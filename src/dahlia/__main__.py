@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from argparse import ArgumentParser
 
-from .dahlia import clean, clean_ansi, config, test, dprint
+from .dahlia import clean, config, test, dprint
 
 
 def parse_args() -> tuple[str, bool]:
