@@ -178,6 +178,10 @@ def dahlia(string: str, *, no_reset: bool = False) -> str:
     return string
 
 
+def dinput(prompt: str) -> str:
+    return input(dahlia(prompt))
+
+
 def dprint(*string: str, **kwargs: Any) -> None:
     r"""
     Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
