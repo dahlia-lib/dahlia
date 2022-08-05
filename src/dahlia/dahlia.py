@@ -236,7 +236,7 @@ def dprint(*string: str, **kwargs: Any) -> None:
         String(s) containing text and format codes.
 
     \*\*kwargs :
-        Keyword arguments to pass to :func:`print`
+        Keyword arguments to pass to :func:`print` and :func:`dahlia`.
     """
     no_reset = kwargs.pop("no_reset", False)
     print(*(dahlia(s, no_reset=no_reset) for s in string), **kwargs)
