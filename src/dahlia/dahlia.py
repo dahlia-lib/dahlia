@@ -132,7 +132,7 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def test():
+def test() -> None:
     """Prints all default format codes and their formatting."""
     dprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
 
