@@ -179,6 +179,34 @@ def dahlia(string: str, *, no_reset: bool = False) -> str:
 
 
 def dinput(prompt: str, *, no_reset: bool = False) -> str:
+    r""""
+    Wrapper over :func:`input`, calling the :func:`dahlia` function on the prompt.
+
+    Example
+    -------
+    .. code-block :: python
+
+        text = dinput("&bEnter text: ")
+    
+
+    Output would be
+
+    .. raw:: html
+
+        <pre>
+            <span class="&b">Enter text: </span>
+        </pre>
+    
+    Parameters
+    ----------
+    prompt :
+        String containing text and format codes to prompt the user with.
+    
+    Returns
+    -------
+    str :
+        User input entered after the formatted prompt.
+    """
     return input(dahlia(prompt, no_reset=no_reset))
 
 
