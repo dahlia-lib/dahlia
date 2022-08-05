@@ -240,3 +240,8 @@ def dprint(*string: str, **kwargs: Any) -> None:
     """
     no_reset = kwargs.pop("no_reset", False)
     print(*(dahlia(s, no_reset=no_reset) for s in string), **kwargs)
+
+
+def reset() -> None:
+    """Resets all modifiers. Equivalent to ``print(dahlia(""), end="")``."""
+    print(dahlia(""), end="")
