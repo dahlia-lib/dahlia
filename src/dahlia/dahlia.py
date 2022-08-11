@@ -247,5 +247,5 @@ def dprint(*string: str, **kwargs: Any) -> None:
 
 
 def reset() -> None:
-    """Resets all modifiers. Equivalent to ``print(dahlia(""), end="")``."""
-    print(dahlia(""), end="")
+    """Resets all modifiers. Equivalent to ``dprint("", end="")``."""
+    dprint("", end="")
