@@ -119,12 +119,12 @@ def clean_ansi(string: str) -> str:
 
     Parameters
     ----------
-    string :
+    string : str
         String to clear ANSI codes from.
 
     Returns
     -------
-    str :
+    str
         Cleaned string without codes.
     """
     for ansi_code in _find_ansi_codes(string):
@@ -163,12 +163,14 @@ def dahlia(string: str, *, no_reset: bool = False) -> str:
 
     Parameters
     ----------
-    string :
+    string : str
         String containing text and format codes.
+    no_reset : bool, default: False
+        Whether ``&r`` should not be appended to the end of the string.
     
     Returns
     -------
-    str :
+    str
         A formatted string with the appropriate formatting applied.
     """
     if not (string.endswith("&r") or no_reset):
@@ -199,12 +201,14 @@ def dinput(prompt: str, *, no_reset: bool = False) -> str:
     
     Parameters
     ----------
-    prompt :
+    prompt : str
         String containing text and format codes to prompt the user with.
+    no_reset : bool, default: False
+        Whether ``&r`` should not be appended to the end of the string.
     
     Returns
     -------
-    str :
+    str
         User input entered after the formatted prompt.
     """
     return input(dahlia(prompt, no_reset=no_reset))
@@ -232,10 +236,10 @@ def dprint(*string: str, **kwargs: Any) -> None:
 
     Parameters
     ----------
-    \*string :
+    \*string : str
         String(s) containing text and format codes.
 
-    \*\*kwargs :
+    \*\*kwargs
         Keyword arguments to pass to :func:`print` and :func:`dahlia`.
     """
     no_reset = kwargs.pop("no_reset", False)
