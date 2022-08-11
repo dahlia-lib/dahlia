@@ -25,6 +25,10 @@ test
 ----
 .. autofunction:: test
 
+reset
+----
+.. autofunction:: reset
+
 DahliaError
 ---------
 .. autoexception:: dahlia.dahlia.DahliaError
