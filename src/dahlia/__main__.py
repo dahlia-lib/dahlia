@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from argparse import ArgumentParser
 
-from .dahlia import clean, config, test, dprint
+from .dahlia import clean, Dahlia, Depth
 
 
-def parse_args() -> tuple[str, bool]:
+def main() -> None:
     UNSET = object()
     parser = ArgumentParser()
     parser.add_argument(
@@ -24,24 +24,20 @@ def parse_args() -> tuple[str, bool]:
         "string", nargs="?", help="the string to color", default=UNSET
     )
     args = parser.parse_args()
-    if args.depth is not None:
-        config.depth = args.depth
-    if args.string is UNSET:
+
+    d = Dahlia(depth=Depth(args.depth))
+    string = args.string
+    
+    if string is UNSET:
         if args.test:
-            test()
+            d.test()
         elif args.version:
-            print("Dahlia 1.1.0")
+            print("Dahlia 2.0.0")
         exit()
-    return args.string, args.clean
-
-
-def main() -> None:
-    string, clean_ = parse_args()
-    if clean_:
+    if args.clean:
         print(clean(string))
     else:
-        dprint(string)
-
+        d.print(string)
 
 if __name__ == "__main__":
     main()

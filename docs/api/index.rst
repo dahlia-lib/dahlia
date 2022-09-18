@@ -5,13 +5,9 @@ Dahlia API Reference
 
 .. currentmodule:: dahlia
 
-dahlia
+Dahlia
 ----
-.. autofunction:: dahlia
-
-dprint
-------
-.. autofunction:: dprint
+.. autoclass:: Dahlia
 
 clean
 -----
@@ -20,15 +16,3 @@ clean
 clean_ansi
 ----------
 .. autofunction:: clean_ansi
-
-test
-----
-.. autofunction:: test
-
-reset
-----
-.. autofunction:: reset
-
-DahliaError
----------
-.. autoexception:: dahlia.dahlia.DahliaError

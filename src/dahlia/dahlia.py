@@ -1,97 +1,250 @@
 from __future__ import annotations
-
-import json
-import os
-
-from dataclasses import dataclass
-from re import finditer
+from enum import Enum
+from os import system
+from re import compile
 from sys import platform
-from typing import Any
+
+if platform in ("win32", "cygwin"):
+    system("")
 
 
-if platform in {"win32", "cygwin"}:
-    os.system("")
+FORMATTERS = {"l": 1, "m": 9, "n": 4, "o": 3, "r": 0}
+
+COLORS_3BIT = {
+    "0": 30,
+    "1": 34,
+    "2": 32,
+    "3": 36,
+    "4": 31,
+    "5": 35,
+    "6": 33,
+    "7": 37,
+    "8": 30,
+    "9": 34,
+    "a": 32,
+    "b": 34,
+    "c": 31,
+    "d": 35,
+    "e": 33,
+    "f": 37,
+    "g": 35,
+}
+
+COLORS_8BIT = {
+    "0": 0,
+    "1": 19,
+    "2": 34,
+    "3": 37,
+    "4": 124,
+    "5": 127,
+    "6": 214,
+    "7": 248,
+    "8": 240,
+    "9": 147,
+    "a": 83,
+    "b": 87,
+    "c": 203,
+    "d": 207,
+    "e": 227,
+    "f": 15,
+    "g": 184,
+}
+
+COLORS_24BIT = {
+    "0": [0, 0, 0],
+    "1": [0, 0, 170],
+    "2": [0, 170, 0],
+    "3": [0, 170, 170],
+    "4": [170, 0, 0],
+    "5": [170, 0, 170],
+    "6": [255, 170, 0],
+    "7": [170, 170, 170],
+    "8": [85, 85, 85],
+    "9": [85, 85, 255],
+    "a": [85, 255, 85],
+    "b": [85, 255, 255],
+    "c": [255, 85, 85],
+    "d": [255, 85, 255],
+    "e": [255, 255, 85],
+    "f": [255, 255, 255],
+    "g": [221, 214, 5],
+}
+
+CODE_REGEXES = [compile(r"&(~?)([0-9a-gl-or])"), compile(r"&(~?)\[#([0-9a-fA-F]{6})\]")]
+
+ANSI_REGEXES = [
+    compile(r"\033\[(\d+)m"),
+    compile(r"\033\[(?:3|4)8;5;(\d+)m"),
+    compile(r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"),
+]
+
+FORMAT_TEMPLATES = {
+    3: "\033[{}m",
+    8: "\033[38;5;{}m",
+    24: "\033[38;2;{};{};{}m",
+}
+
+BG_FORMAT_TEMPLATES = {
+    3: "\033[{}m",
+    8: "\033[48;5;{}m",
+    24: "\033[48;2;{};{};{}m",
+}
 
 
-with open(f"{os.path.dirname(__file__)}/codes.json") as f:
-    _CODES = json.load(f)
+class Depth(Enum):
+    LOW = 3
+    MEDIUM = 8
+    HIGH = 24
 
 
-_FORMAT_TEMPLATES = {3: "\033[{}m", 8: "\033[38;5;{}m", 24: "\033[38;2;{};{};{}m"}
-_FORMAT_BG_TEMPLATES = {3: "\033[{}m", 8: "\033[48;5;{}m", 24: "\033[48;2;{};{};{}m"}
+class Dahlia:
+    def __init__(self, *, depth: Depth = Depth.HIGH, no_reset: bool = False) -> None:
+        self._depth = depth.value
+        self._no_reset = no_reset
 
-_STYLE_CODES = "lmnor"
-
-_DEFAULT_PATTERN = r"&(~?)([0-9a-gl-or])"
-_CUSTOM_PATTERN = r"&(~?)\[#([0-9a-fA-F]{6})\]"
-
-_ANSI_3BIT_PATTERN = r"\033\[(\d+)m"
-_ANSI_8BIT_PATTERN = r"\033\[(?:3|4)8;5;(\d+)m"
-_ANSI_24BIT_PATTERN = r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"
-
-
-class DahliaError(Exception):
-    """An Exception for errors within Dahlia."""
-    pass
-
-
-@dataclass
-class _Config:
-    _depth: int = 24
-
-    def __repr__(self) -> str:
-        return f"Config[{self.depth}]"
+    def __hash__(self) -> int:
+        return hash((self.depth, self.no_reset)) + 10
 
     @property
     def depth(self) -> int:
         return self._depth
 
-    @depth.setter
-    def depth(self, value: int) -> None:
-        if value not in {3, 8, 24}:
-            raise DahliaError(f"Invalid depth {value}, must be 3, 8, or 24")
-        self._depth = value
+    @property
+    def no_reset(self) -> bool:
+        return self._no_reset
+
+    def convert(self, string: str) -> str:
+        """
+        Formats a string using the format codes.
+
+        Example
+        -------
+
+        .. code-block :: python
+
+            dahlia = Dahlia()
+            text = dahlia.convert("&aHello\\n&cWorld")
+            print(text)
 
 
-config = _Config()
+        Output would be:
+
+        .. raw:: html
+
+            <pre>
+                <span class="&a">Hello</span>
+                <span class="&c">World</span>
+            </pre>
+
+        For more see :ref:`dahlia usage <usage>`
+
+        Parameters
+        ----------
+        string : str
+            String containing text and format codes.
+
+        Returns
+        -------
+        str
+            A formatted string with the appropriate formatting applied.
+        """
+        if not (string.endswith("&r") or self.no_reset):
+            string += "&r"
+        for code, bg, color in _find_codes(string):
+            string = string.replace(code, self.__get_ansi(color, bg))
+        return string
+
+    def input(self, prompt: str) -> str:
+        """
+        Wrapper over :func:`input`, calling the :func:`dahlia` function on the prompt.
+
+        Example
+        -------
+        .. code-block :: python
+
+            dahlia = Dahlia()
+            text = dahlia.input("&bEnter text: ")
 
 
-def _find_codes(string: str) -> list[tuple[str, bool, str]]:
-    codes: list[tuple[str, bool, str]] = []
-    for pattern in (_DEFAULT_PATTERN, _CUSTOM_PATTERN):
-        for match in finditer(pattern, string):
-            s, bg, color = (match.group(0), *match.groups())
-            codes.append((s, bg == "~", color))
-    return codes
+        Output would be:
+
+        .. raw:: html
+
+            <pre>
+                <span class="&b">Enter text: </span>
+            </pre>
+
+        Parameters
+        ----------
+        prompt : str
+            String containing text and format codes to prompt the user with.
+
+        Returns
+        -------
+        str
+            User input entered after the formatted prompt.
+        """
+        return input(self.convert(prompt))
+
+    def print(self, *args, **kwargs) -> None:
+        r"""
+        Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
+
+        Example
+        -------
+        .. code-block :: python
+
+            dahlia = Dahlia()
+            text = dahlia.print("&bHello", "&5World", sep="\n")
 
 
-def _find_ansi_codes(string: str) -> list[str]:
-    return [
-        match.group(0)
-        for pattern in (_ANSI_3BIT_PATTERN, _ANSI_8BIT_PATTERN, _ANSI_24BIT_PATTERN)
-        for match in finditer(pattern, string)
-    ]
+        Output would be:
 
+        .. raw:: html
 
-def _get_ansi(code: str, bg: bool = False) -> str:
-    formats = _FORMAT_BG_TEMPLATES if bg else _FORMAT_TEMPLATES
-    if len(code) == 6:
-        template = formats[24]
-        r, g, b = (int(code[i : i + 2], 16) for i in (0, 2, 4))
-        return template.format(r, g, b)
-    else:
-        if code in _STYLE_CODES:
-            template = formats[3]
-            value = _CODES["format"][code]
+            <pre>
+                <span class="&b">Hello</span>
+                <span class="&5">World</span>
+            </pre>
+
+        Parameters
+        ----------
+        \*args : str
+            Objects to print.
+
+        \*\*kwargs
+            Keyword arguments to pass to :func:`print`.
+        """
+        print(*map(self.convert, map(str, args)), **kwargs)
+
+    def reset(self) -> None:
+        """Resets all modifiers."""
+        self.print("&r", end="")
+
+    def test(self) -> None:
+        """Prints all default format codes and their formatting."""
+        self.print(
+            "".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo"
+        )
+
+    def __get_ansi(self, code: str, bg: bool) -> str:
+        formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
+        if len(code) == 6:
+            r, g, b = (int(code[i : i + 2], 16) for i in range(0, 6, 2))
+            return formats[24].format(r, g, b)
+        elif code in FORMATTERS:
+            return formats[3].format(FORMATTERS[code])
         else:
-            template = formats[config.depth]
-            value = _CODES[str(config.depth)][code]
-        if config.depth == 8 or code in _STYLE_CODES:
-            return template.format(value)
-        elif config.depth == 24:
-            return template.format(*value)
-        else:
-            return template.format(value + 10 * bg)
+            template = formats[self._depth]
+            if self.depth == 24:
+                r, g, b = COLORS_24BIT[code]
+                return template.format(r, g, b)
+            else:
+                color_map = COLORS_3BIT if self.depth == 3 else COLORS_8BIT
+                value = color_map[code]
+                if self.depth == 8 and bg:
+                    value += 10
+                return template.format(value)
 
 
 def clean(string: str) -> str:
@@ -132,120 +285,17 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def test() -> None:
-    """Prints all default format codes and their formatting."""
-    dprint("".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo")
+def _find_codes(string: str) -> list[tuple[str, bool, str]]:
+    codes = []
+    for pattern in CODE_REGEXES:
+        for match in pattern.finditer(string):
+            codes.append((match[0], match[1] == "~", match[2]))
+    return codes
 
 
-def dahlia(string: str, *, no_reset: bool = False) -> str:
-    """
-    Formats a string using the format codes.
-
-    Example
-    -------
-
-    .. code-block :: python
-
-        text = dahlia("&aHello\\n&cWorld")
-        print(text)
-
-
-    Output would be 
-    
-    .. raw:: html
-        
-        <pre>
-            <span class="&a">Hello</span>
-            <span class="&c">World</span>
-        </pre>
-
-    For more see :ref:`dahlia usage <usage>`
-
-    Parameters
-    ----------
-    string : str
-        String containing text and format codes.
-    no_reset : bool, default: False
-        Whether ``&r`` should not be appended to the end of the string.
-    
-    Returns
-    -------
-    str
-        A formatted string with the appropriate formatting applied.
-    """
-    if not (string.endswith("&r") or no_reset):
-        string += "&r"
-    for code, bg, color in _find_codes(string):
-        string = string.replace(code, _get_ansi(color, bg))
-    return string
-
-
-def dinput(prompt: str, *, no_reset: bool = False) -> str:
-    r""""
-    Wrapper over :func:`input`, calling the :func:`dahlia` function on the prompt.
-
-    Example
-    -------
-    .. code-block :: python
-
-        text = dinput("&bEnter text: ")
-    
-
-    Output would be
-
-    .. raw:: html
-
-        <pre>
-            <span class="&b">Enter text: </span>
-        </pre>
-    
-    Parameters
-    ----------
-    prompt : str
-        String containing text and format codes to prompt the user with.
-    no_reset : bool, default: False
-        Whether ``&r`` should not be appended to the end of the string.
-    
-    Returns
-    -------
-    str
-        User input entered after the formatted prompt.
-    """
-    return input(dahlia(prompt, no_reset=no_reset))
-
-
-def dprint(*string: str, **kwargs: Any) -> None:
-    r"""
-    Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
-
-    Example
-    -------
-    .. code-block :: python
-
-        text = dprint("&bHello\n&5World")
-
-
-    Output would be 
-    
-    .. raw:: html
-        
-        <pre>
-            <span class="&b">Hello</span>
-            <span class="&5">World</span>
-        </pre>
-
-    Parameters
-    ----------
-    \*string : str
-        String(s) containing text and format codes.
-
-    \*\*kwargs
-        Keyword arguments to pass to :func:`print` and :func:`dahlia`.
-    """
-    no_reset = kwargs.pop("no_reset", False)
-    print(*(dahlia(s, no_reset=no_reset) for s in string), **kwargs)
-
-
-def reset() -> None:
-    """Resets all modifiers. Equivalent to ``dprint("", end="")``."""
-    dprint("", end="")
+def _find_ansi_codes(string: str) -> list[str]:
+    ansi_codes = []
+    for pattern in ANSI_REGEXES:
+        for match in pattern.finditer(string):
+            ansi_codes.append(match.group(0))
+    return ansi_codes

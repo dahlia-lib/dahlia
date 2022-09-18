@@ -1,13 +1,13 @@
 Programmatic Dahlia
 =================
 
-The two ways Dahlia can be used with Python are with the functions :func:`~dahlia.dahlia` and :func:`~dahlia.dprint`.
+Dahlia is used by creating a ``Dahlia`` object. It can be used in 2 ways - using ``Dahlia.convert`` and ``Dahlia.print``.
 
-The difference between the two is :func:`~dahlia.dprint` will print the value while :func:`~dahlia.dahlia` will return it. 
-The underlying usage is the same. For brevity, the examples will mostly be using ``dprint``.
+The difference between the two is ``Dahlia.print`` will print the value while ``Dahlia.convert`` will return it.
+The underlying usage is the same. For brevity, the examples will mostly be using ``Dahlia.print``.
 
 .. note:: 
-    
+
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
 Formatting is done in Dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
@@ -17,10 +17,11 @@ To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 
 .. code-block:: python
 
-    from dahlia import dprint
-    dprint("&dHello There")
-    dprint("&aw&co&3o&6l")
-    dprint("&~0&bblack background")
+    from dahlia import Dahlia
+    d = Dahlia()
+    d.print("&dHello There")
+    d.print("&aw&co&3o&6l")
+    d.print("&~0&bblack background")
 
 .. raw:: html
 
@@ -37,8 +38,9 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
 
 .. code-block:: python
 
-    from dahlia import dprint
-    dprint("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
+    from dahlia import Dahlia
+    d = Dahlia()
+    d.print("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
 
 
 .. raw:: html
@@ -54,8 +56,9 @@ Terminals support a wide range of colors that are not covered by the base format
 
 .. code-block:: python
 
-    from dahlia import dprint
-    dprint("use &[#1793d1]ars&r")
+    from dahlia import Dahlia
+    d = Dahlia()
+    d.print("use &[#1793d1]ars&r")
 
 
 .. raw:: html
