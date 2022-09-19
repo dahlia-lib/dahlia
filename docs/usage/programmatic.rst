@@ -18,6 +18,7 @@ To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
 .. code-block:: python
 
     from dahlia import Dahlia
+
     d = Dahlia()
     d.print("&dHello There")
     d.print("&aw&co&3o&6l")
@@ -39,6 +40,7 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
 .. code-block:: python
 
     from dahlia import Dahlia
+
     d = Dahlia()
     d.print("&lBold &r&nUnderline&r &oItalics&r &mStrikethrough")
 
@@ -57,6 +59,7 @@ Terminals support a wide range of colors that are not covered by the base format
 .. code-block:: python
 
     from dahlia import Dahlia
+
     d = Dahlia()
     d.print("use &[#1793d1]ars&r")
 

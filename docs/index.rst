@@ -26,7 +26,7 @@ Text is formatted in similar way to in the game. With Dahlia, it is formatted by
 
     <div class="notranslate">
         <div class="highlight">
-        <pre><span class="o">&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">dahlia</span><span class="p">(</span><span class="s2">"&amp;aHello World"</span><span class="p">))</span>
+        <pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">Dahlia</span>().<span class="n">convert</span><span class="p">(</span><span class="s2">"&amp;aHello World"</span><span class="p">))</span>
     <span class="&a">Hello World</span></pre>
         </div>
     </div>

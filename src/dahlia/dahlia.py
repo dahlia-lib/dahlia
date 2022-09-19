@@ -3,6 +3,7 @@ from enum import Enum
 from os import system
 from re import compile
 from sys import platform
+from typing import Any
 
 if platform in ("win32", "cygwin"):
     system("")
@@ -102,15 +103,28 @@ class Dahlia:
         self._depth = depth.value
         self._no_reset = no_reset
 
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, Dahlia):
+            return (self.depth, self.no_reset) == (other.depth, other.no_reset)
+        else:
+            return NotImplemented
+
     def __hash__(self) -> int:
         return hash((self.depth, self.no_reset)) + 10
 
+    def __repr__(self) -> str:
+        no_reset = self.no_reset
+        depth = self.depth
+        return f"Dahlia({depth=}, {no_reset=})"
+
     @property
     def depth(self) -> int:
+        """Specifies what ANSI color set to use (in bits)."""
         return self._depth
 
     @property
     def no_reset(self) -> bool:
+        """When True, doesn't add an "&r" at the end when converting strings."""
         return self._no_reset
 
     def convert(self, string: str) -> str:
