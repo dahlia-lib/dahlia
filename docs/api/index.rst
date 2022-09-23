@@ -8,14 +8,7 @@ Dahlia API Reference
 Dahlia
 ----
 .. autoclass:: Dahlia
-
-.. autosummary::
-
-    Dahlia.depth
-    Dahlia.no_reset
-    Dahlia.convert
-    Dahlia.input
-    Dahlia.print
+    :members:
 
 Depth
 ----
