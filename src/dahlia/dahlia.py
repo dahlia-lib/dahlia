@@ -115,9 +115,7 @@ class Dahlia:
         return hash((self.depth, self.no_reset)) + 10
 
     def __repr__(self) -> str:
-        no_reset = self.no_reset
-        depth = self.depth
-        return f"Dahlia({depth=}, {no_reset=})"
+        return f"Dahlia(depth={self.depth}, no_reset={self.no_reset})"
 
     @property
     def depth(self) -> int:
