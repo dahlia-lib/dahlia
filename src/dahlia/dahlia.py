@@ -1,6 +1,6 @@
 from __future__ import annotations
 from enum import Enum
-from os import system
+from os import environ, system
 from re import compile
 from sys import platform
 from typing import Any
@@ -91,6 +91,8 @@ BG_FORMAT_TEMPLATES = {
     24: "\033[48;2;{};{};{}m",
 }
 
+NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
+
 
 class Depth(Enum):
     LOW = 3
@@ -162,6 +164,8 @@ class Dahlia:
         str
             A formatted string with the appropriate formatting applied.
         """
+        if NO_COLOR:
+            return clean(string)
         if not (string.endswith("&r") or self.no_reset):
             string += "&r"
         for code, bg, color in _find_codes(string):
