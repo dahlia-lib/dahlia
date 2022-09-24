@@ -25,7 +25,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    d = Dahlia(depth=Depth(args.depth))
+    d = Dahlia(depth=Depth(args.depth) if args.depth is not None else Depth.HIGH)
     string = args.string
     
     if string is UNSET:
