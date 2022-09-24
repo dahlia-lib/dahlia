@@ -18,6 +18,7 @@ release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 
+autodoc_member_order = 'bysource'
 
 extensions = [
     'sphinx.ext.napoleon',
