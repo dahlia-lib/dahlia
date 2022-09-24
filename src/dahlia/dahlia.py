@@ -95,9 +95,13 @@ NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
 
 
 class Depth(Enum):
+    """Specifies usable color depth levels."""
     LOW = 3
+    """3-bit color"""
     MEDIUM = 8
+    """8-bit color"""
     HIGH = 24
+    """24-bit color (true color)"""
 
 
 class Dahlia:
