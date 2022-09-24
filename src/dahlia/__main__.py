@@ -9,7 +9,7 @@ def main() -> None:
     UNSET = object()
     parser = ArgumentParser()
     parser.add_argument(
-        "-d", "--depth", help="set the color depth", type=int, choices={3, 8, 24}
+        "-d", "--depth", help="set the color depth", type=int, choices={3, 8, 24}, default=24
     )
     parser.add_argument(
         "-t", "--test", help="test the colors", action="store_true"
@@ -25,7 +25,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    d = Dahlia(depth=Depth(args.depth) if args.depth is not None else Depth.HIGH)
+    d = Dahlia(depth=Depth(args.depth))
     string = args.string
     
     if string is UNSET:
