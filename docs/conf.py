@@ -22,7 +22,8 @@ release = '2.0.0'
 extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
+    'enum_tools.autoenum'
 ]
 
 
