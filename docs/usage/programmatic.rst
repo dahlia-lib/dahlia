@@ -12,7 +12,7 @@ The underlying usage is the same. For brevity, the examples will mostly be using
 
 Formatting is done in Dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
 The primary color codes are a number from ``0`` through ``9`` or a letter from ``a`` through ``g``.
-To apply the coloring to the background, insert a ``~`` between. (ex: ``&~a`` )
+To apply the coloring to the background, insert a ``~`` inbetween. (ex: ``&~a`` )
 
 
 .. code-block:: python

@@ -68,6 +68,6 @@ _____
 .. code-block:: bash
 
     $ dahlia -c "&aw&co&3o&~0&6l"
-    dahlia
+    wool
 
 
