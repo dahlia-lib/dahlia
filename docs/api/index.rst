@@ -13,6 +13,7 @@ Dahlia
 Depth
 ----
 .. autoenum:: Depth
+    :members:
 
 clean
 -----
