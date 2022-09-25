@@ -5,7 +5,7 @@
 
 Dahlia is a simple text formatting package, inspired by text formatting in the game Minecraft.
 
-Text is formatted in similar way to in the game. With Dahlia, it is formatted by typing a special character ``&`` followed by a format code and finally the text to be formatted.
+Text is formatted in a similar way to in the game. With Dahlia, it is formatted by typing a special character `&` followed by a format code and finally the text to be formatted.
 
 ## Installation
 
