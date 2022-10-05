@@ -6,7 +6,7 @@ from sys import platform
 from typing import Any
 
 if platform in ("win32", "cygwin"):
-    system("")
+    system("")  # type: ignore
 
 
 FORMATTERS = {"l": 1, "m": 9, "n": 4, "o": 3, "r": 0}
@@ -71,7 +71,10 @@ COLORS_24BIT = {
     "g": [221, 214, 5],
 }
 
-CODE_REGEXES = [compile(r"&(~?)([0-9a-gl-or])"), compile(r"&(~?)\[#([0-9a-fA-F]{6})\]")]
+CODE_REGEXES = [
+    compile(r"&(~?)([0-9a-gl-or])"),
+    compile(r"&(~?)\[#([0-9a-fA-F]{6})\]"),
+]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
@@ -96,6 +99,7 @@ NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
 
 class Depth(Enum):
     """Specifies usable color depth levels."""
+
     LOW = 3
     """3-bit color"""
     MEDIUM = 8
@@ -206,7 +210,7 @@ class Dahlia:
         """
         return input(self.convert(prompt))
 
-    def print(self, *args, **kwargs) -> None:
+    def print(self, *args: Any, **kwargs: Any) -> None:
         r"""
         Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
 
@@ -306,7 +310,7 @@ def clean_ansi(string: str) -> str:
 
 
 def _find_codes(string: str) -> list[tuple[str, bool, str]]:
-    codes = []
+    codes: list[tuple[str, bool, str]] = []
     for pattern in CODE_REGEXES:
         for match in pattern.finditer(string):
             codes.append((match[0], match[1] == "~", match[2]))
@@ -314,7 +318,7 @@ def _find_codes(string: str) -> list[tuple[str, bool, str]]:
 
 
 def _find_ansi_codes(string: str) -> list[str]:
-    ansi_codes = []
+    ansi_codes: list[str] = []
     for pattern in ANSI_REGEXES:
         for match in pattern.finditer(string):
             ansi_codes.append(match.group(0))
