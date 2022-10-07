@@ -71,10 +71,7 @@ COLORS_24BIT = {
     "g": [221, 214, 5],
 }
 
-CODE_REGEXES = [
-    compile(r"&(~?)([0-9a-gl-or])"),
-    compile(r"&(~?)\[#([0-9a-fA-F]{6})\]"),
-]
+CODE_REGEXES = [compile(r"&(~?)([0-9a-gl-or])"), compile(r"&(~?)\[#([0-9a-fA-F]{6})\]")]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
