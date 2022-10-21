@@ -27,7 +27,7 @@ def main() -> None:
 
     d = Dahlia(depth=Depth(args.depth))
     string = args.string
-    
+
     if string is UNSET:
         if args.test:
             d.test()
@@ -38,6 +38,7 @@ def main() -> None:
         print(clean(string))
     else:
         d.print(string)
+
 
 if __name__ == "__main__":
     main()
