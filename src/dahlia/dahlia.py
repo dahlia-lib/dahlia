@@ -115,7 +115,7 @@ class Dahlia:
         return NotImplemented
 
     def __hash__(self) -> int:
-        return hash((self.depth, self.no_reset)) + 10
+        return hash((self.depth, self.no_reset, 10))
 
     def __repr__(self) -> str:
         return f"Dahlia(depth={self.depth}, no_reset={self.no_reset})"
