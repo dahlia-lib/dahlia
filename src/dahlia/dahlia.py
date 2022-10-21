@@ -112,8 +112,7 @@ class Dahlia:
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, Dahlia):
             return (self.depth, self.no_reset) == (other.depth, other.no_reset)
-        else:
-            return NotImplemented
+        return NotImplemented
 
     def __hash__(self) -> int:
         return hash((self.depth, self.no_reset)) + 10
