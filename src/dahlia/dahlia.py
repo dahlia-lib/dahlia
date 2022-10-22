@@ -121,9 +121,11 @@ class Depth(Enum):
 
 
 class Dahlia:
+    __slots__ = ("__depth", "__no_reset")
+
     def __init__(self, *, depth: Depth = Depth.HIGH, no_reset: bool = False) -> None:
-        self._depth = depth.value
-        self._no_reset = no_reset
+        self.__depth = depth.value
+        self.__no_reset = no_reset
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, Dahlia):
@@ -139,12 +141,12 @@ class Dahlia:
     @property
     def depth(self) -> int:
         """Specifies what ANSI color set to use (in bits)."""
-        return self._depth
+        return self.__depth
 
     @property
     def no_reset(self) -> bool:
         """When True, doesn't add an "&r" at the end when converting strings."""
-        return self._no_reset
+        return self.__no_reset
 
     def convert(self, string: str) -> str:
         """
@@ -270,7 +272,7 @@ class Dahlia:
         elif code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
         else:
-            template = formats[self._depth]
+            template = formats[self.__depth]
             if self.depth == 24:
                 r, g, b = COLORS_24BIT[code]
                 return template.format(r, g, b)
