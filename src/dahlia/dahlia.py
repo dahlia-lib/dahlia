@@ -31,6 +31,17 @@ COLORS_3BIT = {
     "g": 35,
 }
 
+COLORS_4BIT = COLORS_3BIT | {
+    "8": 90,
+    "9": 94,
+    "a": 92,
+    "b": 96,
+    "c": 91,
+    "d": 95,
+    "e": 93,
+    "f": 97
+}
+
 COLORS_8BIT = {
     "0": 0,
     "1": 19,
@@ -81,12 +92,14 @@ ANSI_REGEXES = [
 
 FORMAT_TEMPLATES = {
     3: "\033[{}m",
+    4: "\033[{}m",
     8: "\033[38;5;{}m",
     24: "\033[38;2;{};{};{}m",
 }
 
 BG_FORMAT_TEMPLATES = {
     3: "\033[{}m",
+    4: "\033[{}m",
     8: "\033[48;5;{}m",
     24: "\033[48;2;{};{};{}m",
 }
@@ -97,8 +110,10 @@ NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
 class Depth(Enum):
     """Specifies usable color depth levels."""
 
-    LOW = 3
-    """3-bit color"""
+    TTY = 3
+    """3-bit color (tty)"""
+    LOW = 4
+    """4-bit color"""
     MEDIUM = 8
     """8-bit color"""
     HIGH = 24
