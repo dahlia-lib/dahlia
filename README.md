@@ -9,7 +9,7 @@ Text is formatted in a similar way to in the game. With Dahlia, it is formatted 
 
 ## Installation
 
-Dahlia is available on PyPI and can be installed with pip, or any other package manager:
+Dahlia is available on PyPI and can be installed with pip, or any other Python package manager:
 
 ```
 $ pip install dahlia
