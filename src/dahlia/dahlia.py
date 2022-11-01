@@ -39,7 +39,7 @@ COLORS_4BIT = COLORS_3BIT | {
     "c": 91,
     "d": 95,
     "e": 93,
-    "f": 97
+    "f": 97,
 }
 
 COLORS_8BIT = {
