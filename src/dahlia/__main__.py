@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from argparse import ArgumentParser
 
-from .dahlia import clean, Dahlia, Depth
+from .dahlia import Dahlia, Depth, clean
 
 
 def main() -> None:

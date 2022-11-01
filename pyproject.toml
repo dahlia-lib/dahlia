@@ -16,6 +16,7 @@ dahlia = "dahlia.__main__:main"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
+isort = "^5.10.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

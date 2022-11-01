@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from enum import Enum
 from os import environ, system
 from re import compile
