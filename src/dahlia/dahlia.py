@@ -309,6 +309,9 @@ def clean(string: str, marker: str = "&") -> str:
     string :
         String to clear formatting from.
 
+    marker :
+        Specifies the prefix used by format codes ("&" by default)
+
     Returns
     -------
     str :
