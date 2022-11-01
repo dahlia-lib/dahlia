@@ -106,8 +106,9 @@ if it's not present. That can be disabled by enabling the `no_reset` flag:
 .. raw:: html
     <div class="notranslate">
         <div class="highlight">
-        <pre id="data-highlight" class="&f">hi <span class="&5">jane</span> :)</pre>
-        <pre id="data-highlight" class="&f">hi <span class="&5">jane :)</span></pre>
+        <pre id="data-highlight" class="&f">hi <span class="&5">jane</span> :&#41;</pre>
+        <pre id="data-highlight" class="&f">hi <span class="&5">jane :&#41;</span></pre>
         </div>
     </div>
+
 
