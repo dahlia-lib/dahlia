@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from os import environ, system
-from re import Pattern, compile
+from os import system
 from sys import platform
 from typing import Any
 
@@ -12,8 +11,6 @@ from .constants import (
     COLORS_4BIT,
     COLORS_8BIT,
     COLORS_24BIT,
-    CODE_REGEXES,
-    ANSI_REGEXES,
     FORMAT_TEMPLATES,
     BG_FORMAT_TEMPLATES,
     NO_COLOR,
