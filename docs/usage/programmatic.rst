@@ -91,8 +91,8 @@ Dahlia also supports custom markers (`&` being the default):
     </div>
 
 
-By default, Dahlia automatically adds the `&r` code at the end of the string
-if it's not present. That can be disabled by enabling the `no_reset` flag:
+By default, Dahlia automatically adds the ``&r`` code at the end of the string
+if it's not present. That can be disabled by enabling the ``no_reset`` flag:
 
 .. code-block:: python
 
@@ -104,6 +104,7 @@ if it's not present. That can be disabled by enabling the `no_reset` flag:
     bar.print("hi &5jane", ":)")
 
 .. raw:: html
+
     <div class="notranslate">
         <div class="highlight">
         <pre id="data-highlight" class="&f">hi <span class="&5">jane</span> :&#41;</pre>
