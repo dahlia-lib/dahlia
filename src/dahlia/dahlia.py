@@ -338,6 +338,22 @@ def clean_ansi(string: str) -> str:
     return string
 
 
+def dprint(
+    *args: Any,
+    depth: Depth = Depth.HIGH,
+    no_reset: bool = False,
+    marker: str = "&",
+    **kwargs: Any,
+) -> None:
+    Dahlia(depth=depth, no_reset=no_reset, marker=marker).print(*args, **kwargs)
+
+
+def dahlia(
+    string: str, *, depth: Depth = Depth.HIGH, no_reset: bool = False, marker: str = "&"
+) -> str:
+    return Dahlia(depth=depth, no_reset=no_reset, marker=marker).convert(string)
+
+
 def _find_codes(string: str, patterns: list[Pattern]) -> list[tuple[str, bool, str]]:
     codes: list[tuple[str, bool, str]] = []
     for pattern in patterns:
