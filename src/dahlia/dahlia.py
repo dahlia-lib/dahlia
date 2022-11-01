@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import Enum
 from os import environ, system
-from re import compile
+from re import Pattern, compile
 from sys import platform
 from typing import Any
 
@@ -83,7 +83,7 @@ COLORS_24BIT = {
     "g": [221, 214, 5],
 }
 
-CODE_REGEXES = [compile(r"&(~?)([0-9a-gl-or])"), compile(r"&(~?)\[#([0-9a-fA-F]{6})\]")]
+CODE_REGEXES = [r"(~?)([0-9a-gl-or])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
@@ -122,27 +122,41 @@ class Depth(Enum):
 
 
 class Dahlia:
-    __slots__ = ("__depth", "__no_reset")
+    __slots__ = ("__depth", "__no_reset", "__patterns", "__marker", "__reset")
 
-    def __init__(self, *, depth: Depth = Depth.HIGH, no_reset: bool = False) -> None:
+    def __init__(
+        self, *, depth: Depth = Depth.HIGH, no_reset: bool = False, marker: str = "&"
+    ) -> None:
         self.__depth = depth.value
         self.__no_reset = no_reset
+        self.__patterns = _with_marker(marker)
+        self.__marker = marker
+        self.__reset = marker + "r"
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, Dahlia):
-            return (self.depth, self.no_reset) == (other.depth, other.no_reset)
+            return (self.depth, self.no_reset, self.marker) == (
+                other.depth,
+                other.no_reset,
+                self.marker,
+            )
         return NotImplemented
 
     def __hash__(self) -> int:
-        return hash((self.depth, self.no_reset, 10))
+        return hash((self.depth, self.no_reset, self.marker))
 
     def __repr__(self) -> str:
-        return f"Dahlia(depth={self.depth}, no_reset={self.no_reset})"
+        return f"Dahlia(depth={self.depth}, no_reset={self.no_reset}, marker={self.marker!r})"
 
     @property
     def depth(self) -> int:
         """Specifies what ANSI color set to use (in bits)."""
         return self.__depth
+
+    @property
+    def marker(self) -> str:
+        """Specifies the prefix used by format codes ("&" by default)."""
+        return self.__marker
 
     @property
     def no_reset(self) -> bool:
@@ -186,9 +200,9 @@ class Dahlia:
         """
         if NO_COLOR:
             return clean(string)
-        if not (string.endswith("&r") or self.no_reset):
-            string += "&r"
-        for code, bg, color in _find_codes(string):
+        if not (string.endswith(self.__reset) or self.no_reset):
+            string += self.__reset
+        for code, bg, color in _find_codes(string, self.__patterns):
             string = string.replace(code, self.__get_ansi(color, bg))
         return string
 
@@ -257,12 +271,13 @@ class Dahlia:
 
     def reset(self) -> None:
         """Resets all modifiers."""
-        self.print("&r", end="")
+        self.print(self.__reset, end="")
 
     def test(self) -> None:
         """Prints all default format codes and their formatting."""
         self.print(
-            "".join(f"&{i}{i}" for i in "0123456789abcdefg") + "&r&ll&r&mm&r&nn&r&oo"
+            "".join(f"{self.marker}{i}{i}" for i in "0123456789abcdefg")
+            + "&r&ll&r&mm&r&nn&r&oo".replace("&", self.marker)
         )
 
     def __get_ansi(self, code: str, bg: bool) -> str:
@@ -285,7 +300,7 @@ class Dahlia:
                 return template.format(value)
 
 
-def clean(string: str) -> str:
+def clean(string: str, marker: str = "&") -> str:
     """
     Removes all Dahlia formatting from a string.
 
@@ -299,7 +314,7 @@ def clean(string: str) -> str:
     str :
         Cleaned string without formatting.
     """
-    for code, *_ in _find_codes(string):
+    for code, *_ in _find_codes(string, _with_marker(marker)):
         string = string.replace(code, "", 1)
     return string
 
@@ -323,9 +338,9 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def _find_codes(string: str) -> list[tuple[str, bool, str]]:
+def _find_codes(string: str, patterns: list[Pattern]) -> list[tuple[str, bool, str]]:
     codes: list[tuple[str, bool, str]] = []
-    for pattern in CODE_REGEXES:
+    for pattern in patterns:
         for match in pattern.finditer(string):
             codes.append((match[0], match[1] == "~", match[2]))
     return codes
@@ -337,3 +352,9 @@ def _find_ansi_codes(string: str) -> list[str]:
         for match in pattern.finditer(string):
             ansi_codes.append(match.group(0))
     return ansi_codes
+
+
+def _with_marker(marker: str) -> list[Pattern]:
+    if len(marker) != 1:
+        raise ValueError("The marker has to be a single character")
+    return [compile(marker + i) for i in CODE_REGEXES]
