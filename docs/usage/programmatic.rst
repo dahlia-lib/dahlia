@@ -110,3 +110,4 @@ if it's not present. That can be disabled by enabling the `no_reset` flag:
         <pre id="data-highlight" class="&f">hi <span class="&5">jane :)</span></pre>
         </div>
     </div>
+
