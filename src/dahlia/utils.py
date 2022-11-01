@@ -1,6 +1,6 @@
 from re import Pattern, compile
 
-from .constants import CODE_REGEXES, ANSI_REGEXES
+from .constants import ANSI_REGEXES, CODE_REGEXES
 
 
 def clean(string: str, marker: str = "&") -> str:

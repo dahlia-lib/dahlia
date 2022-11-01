@@ -1,6 +1,6 @@
 from typing import Any
 
-from .dahlia import Depth, Dahlia
+from .dahlia import Dahlia, Depth
 
 
 def dprint(

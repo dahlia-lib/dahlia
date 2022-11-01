@@ -6,16 +6,16 @@ from sys import platform
 from typing import Any
 
 from .constants import (
-    FORMATTERS,
+    BG_FORMAT_TEMPLATES,
     COLORS_3BIT,
     COLORS_4BIT,
     COLORS_8BIT,
     COLORS_24BIT,
     FORMAT_TEMPLATES,
-    BG_FORMAT_TEMPLATES,
+    FORMATTERS,
     NO_COLOR,
 )
-from .utils import clean, _find_codes, _with_marker
+from .utils import _find_codes, _with_marker, clean
 
 if platform in ("win32", "cygwin"):
     system("")  # type: ignore
