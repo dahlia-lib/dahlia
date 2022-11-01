@@ -293,7 +293,7 @@ class Dahlia:
             r, g, b = COLORS_24BIT[code]
             return template.format(r, g, b)
 
-        color_map = COLORS_3BIT if self.depth == 3 else COLORS_8BIT
+        color_map = [COLORS_3BIT, COLORS_4BIT, COLORS_8BIT][self.depth]
         value = color_map[code]
         if self.depth == 8 and bg:
             value += 10
