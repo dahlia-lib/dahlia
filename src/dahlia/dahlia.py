@@ -285,19 +285,19 @@ class Dahlia:
         if len(code) == 6:
             r, g, b = (int(code[i : i + 2], 16) for i in range(0, 6, 2))
             return formats[24].format(r, g, b)
-        elif code in FORMATTERS:
+        if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
-        else:
-            template = formats[self.__depth]
-            if self.depth == 24:
-                r, g, b = COLORS_24BIT[code]
-                return template.format(r, g, b)
-            else:
-                color_map = COLORS_3BIT if self.depth == 3 else COLORS_8BIT
-                value = color_map[code]
-                if self.depth == 8 and bg:
-                    value += 10
-                return template.format(value)
+
+        template = formats[self.__depth]
+        if self.depth == 24:
+            r, g, b = COLORS_24BIT[code]
+            return template.format(r, g, b)
+
+        color_map = COLORS_3BIT if self.depth == 3 else COLORS_8BIT
+        value = color_map[code]
+        if self.depth == 8 and bg:
+            value += 10
+        return template.format(value)
 
 
 def clean(string: str, marker: str = "&") -> str:
@@ -306,8 +306,11 @@ def clean(string: str, marker: str = "&") -> str:
 
     Parameters
     ----------
-    string :
+    string : str
         String to clear formatting from.
+
+    marker : str
+        Specifies the prefix used by format codes ("&" by default)
 
     Returns
     -------
