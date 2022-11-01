@@ -14,7 +14,7 @@ project = "dahlia"
 copyright = "2022, trag1c"
 author = "trag1c"
 
-release = "2.1.0"
+release = "2.1.1"
 
 
 # -- General configuration ---------------------------------------------------

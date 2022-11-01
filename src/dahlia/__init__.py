@@ -1,3 +1,3 @@
-from .dahlia import Dahlia, Depth, clean, clean_ansi
+from .dahlia import Dahlia, Depth, clean, clean_ansi, dahlia, dprint
 
-__all__ = ("clean", "clean_ansi", "Dahlia", "Depth")
+__all__ = ("clean", "clean_ansi", "Dahlia", "Depth", "dahlia", "dprint")

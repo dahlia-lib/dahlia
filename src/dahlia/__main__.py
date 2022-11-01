@@ -31,7 +31,7 @@ def main() -> None:
         if args.test:
             d.test()
         elif args.version:
-            print("Dahlia 2.1.0")
+            print("Dahlia 2.1.1")
         exit()
     if args.clean:
         print(clean(string))
