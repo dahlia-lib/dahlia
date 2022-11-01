@@ -61,7 +61,7 @@ Terminals support a wide range of colors that are not covered by the base format
     from dahlia import Dahlia
 
     d = Dahlia()
-    d.print("use &[#1793d1]ars&r")
+    d.print("use &[#1793d1]ars")
 
 
 .. raw:: html
@@ -73,4 +73,40 @@ Terminals support a wide range of colors that are not covered by the base format
     </div>
 
 
+Dahlia also supports custom markers (`&` being the default):
 
+.. code-block:: python
+
+    from dahlia import Dahlia
+
+    foo = Dahlia(marker="§")  # Has to be a single char!
+    foo.print("hi §daster§r!")
+
+.. raw:: html
+
+    <div class="notranslate">
+        <div class="highlight">
+        <pre id="data-highlight" class="&f">hi <span class="&d">aster</span>!</pre>
+        </div>
+    </div>
+
+
+By default, Dahlia automatically adds the `&r` code at the end of the string
+if it's not present. That can be disabled by enabling the `no_reset` flag:
+
+.. code-block:: python
+
+    from dahlia import Dahlia
+
+    foo = Dahlia()
+    foo.print("hi &5jane", ":)")
+    bar = Dahlia(no_reset=True)
+    bar.print("hi &5jane", ":)")
+
+.. raw:: html
+    <div class="notranslate">
+        <div class="highlight">
+        <pre id="data-highlight" class="&f">hi <span class="&5">jane</span> :)</pre>
+        <pre id="data-highlight" class="&f">hi <span class="&5">jane :)</span></pre>
+        </div>
+    </div>

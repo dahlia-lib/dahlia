@@ -22,3 +22,11 @@ clean
 clean_ansi
 ----------
 .. autofunction:: clean_ansi
+
+dahlia
+----------
+.. autofunction:: dahlia
+
+dprint
+----------
+.. autofunction:: dprint
