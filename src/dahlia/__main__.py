@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from argparse import ArgumentParser
 
 from .dahlia import Dahlia, Depth, clean
@@ -33,7 +34,7 @@ def main() -> None:
             d.test()
         elif args.version:
             print("Dahlia 2.1.1")
-        exit()
+        sys.exit()
     if args.clean:
         print(clean(string))
     else:
