@@ -59,7 +59,10 @@ class Dahlia:
         return hash((self.depth, self.no_reset, self.marker))
 
     def __repr__(self) -> str:
-        return f"Dahlia(depth={self.depth}, no_reset={self.no_reset}, marker={self.marker!r})"
+        return (
+            f"Dahlia(depth={self.depth}, "
+            f"no_reset={self.no_reset}, marker={self.marker!r})"
+        )
 
     @property
     def depth(self) -> int:
@@ -116,7 +119,7 @@ class Dahlia:
         if not (string.endswith(self.__reset) or self.no_reset):
             string += self.__reset
         for code, bg, color in _find_codes(string, self.__patterns):
-            string = string.replace(code, self.__get_ansi(color, bg))
+            string = string.replace(code, self.__get_ansi(color, bg=bg))
         return string
 
     def input(self, prompt: str) -> str:
@@ -193,7 +196,7 @@ class Dahlia:
             + "&r&ll&r&mm&r&nn&r&oo".replace("&", self.marker)
         )
 
-    def __get_ansi(self, code: str, bg: bool) -> str:
+    def __get_ansi(self, code: str, *, bg: bool) -> str:
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
         if len(code) == 6:
             r, g, b = (int(code[i : i + 2], 16) for i in range(0, 6, 2))
