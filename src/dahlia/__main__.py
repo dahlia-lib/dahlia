@@ -4,9 +4,10 @@ from argparse import ArgumentParser
 
 from .dahlia import Dahlia, Depth, clean
 
+UNSET = object()
+
 
 def main() -> None:
-    UNSET = object()
     parser = ArgumentParser()
     parser.add_argument(
         "-d",
