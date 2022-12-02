@@ -75,6 +75,12 @@ COLORS_24BIT = {
     "g": [221, 214, 5],
 }
 
+COLOR_SETS: dict[int, dict[str, int]] = {
+    3: COLORS_3BIT,
+    4: COLORS_4BIT,
+    8: COLORS_8BIT,
+}
+
 CODE_REGEXES = [r"(~?)([0-9a-gl-or])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
 
 ANSI_REGEXES = [

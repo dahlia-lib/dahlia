@@ -7,9 +7,7 @@ from typing import Any
 
 from .constants import (
     BG_FORMAT_TEMPLATES,
-    COLORS_3BIT,
-    COLORS_4BIT,
-    COLORS_8BIT,
+    COLOR_SETS,
     COLORS_24BIT,
     FORMAT_TEMPLATES,
     FORMATTERS,
@@ -209,7 +207,7 @@ class Dahlia:
             r, g, b = COLORS_24BIT[code]
             return template.format(r, g, b)
 
-        color_map = [COLORS_3BIT, COLORS_4BIT, COLORS_8BIT][self.depth]
+        color_map = COLOR_SETS[self.depth]
         value = color_map[code]
         if self.depth == 8 and bg:
             value += 10
