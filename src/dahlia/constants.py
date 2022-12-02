@@ -23,7 +23,8 @@ COLORS_3BIT = {
     "g": 35,
 }
 
-COLORS_4BIT = COLORS_3BIT | {
+COLORS_4BIT = {
+    **COLORS_3BIT,
     "8": 90,
     "9": 94,
     "a": 92,
