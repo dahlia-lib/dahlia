@@ -40,7 +40,7 @@ class Dahlia:
         *,
         depth: Depth
         | Literal["tty", "low", "medium", "high"]
-        | Literal[3, 4, 8, 24] = Depth.HIGH,
+        | Literal[3, 4, 8, 24] = Depth.TTY,
         marker: str = "&",
         no_reset: bool = False,
     ) -> None:
