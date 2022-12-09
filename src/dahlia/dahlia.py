@@ -97,7 +97,7 @@ class Dahlia:
         return self.__no_reset
 
     def convert(self, string: str) -> str:
-        """
+        r"""
         Formats a string using the format codes.
 
         Example
@@ -106,7 +106,7 @@ class Dahlia:
         .. code-block :: python
 
             dahlia = Dahlia()
-            text = dahlia.convert("&aHello\\n&cWorld")
+            text = dahlia.convert("&aHello\n&cWorld")
             print(text)
 
 
@@ -209,14 +209,14 @@ class Dahlia:
     def test(self) -> None:
         """Prints all default format codes and their formatting."""
         self.print(
-            "".join(f"{self.marker}{i}{i}" for i in "0123456789abcdefg")
+            "".join(f"{self.marker}{i * 2}" for i in "0123456789abcdefg")
             + "&r&ll&r&mm&r&nn&r&oo".replace("&", self.marker)
         )
 
     def __get_ansi(self, code: str, *, bg: bool) -> str:
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
         if len(code) == 6:
-            r, g, b = (int(code[i : i + 2], 16) for i in range(0, 6, 2))
+            r, g, b = (int(code[i : i + 2], 16) for i in (0, 2, 4))
             return formats[24].format(r, g, b)
         if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
