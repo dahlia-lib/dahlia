@@ -36,8 +36,18 @@ class Dahlia:
     __slots__ = ("__depth", "__no_reset", "__patterns", "__marker", "__reset")
 
     def __init__(
-        self, *, depth: Depth = Depth.HIGH, no_reset: bool = False, marker: str = "&"
+        self,
+        *,
+        depth: Depth
+        | Literal["tty", "low", "medium", "high"]
+        | Literal[3, 4, 8, 24] = Depth.HIGH,
+        marker: str = "&",
+        no_reset: bool = False,
     ) -> None:
+        if isinstance(depth, int):
+            depth = Depth(depth)
+        elif isinstance(depth, str):
+            depth = Depth.__members__[depth.upper()]
         self.__depth = depth.value
         self.__no_reset = no_reset
         self.__patterns = _with_marker(marker)
