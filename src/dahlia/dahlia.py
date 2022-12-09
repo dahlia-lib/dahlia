@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from os import system
 from sys import platform
-from typing import Any
+from typing import Any, Literal
 
 from .constants import (
     BG_FORMAT_TEMPLATES,
@@ -33,7 +33,14 @@ class Depth(Enum):
 
 
 class Dahlia:
-    __slots__ = ("__depth", "__no_reset", "__patterns", "__marker", "__reset")
+    __slots__ = (
+        "__depth",
+        "__marker",
+        "__no_color",
+        "__no_reset",
+        "__patterns",
+        "__reset",
+    )
 
     def __init__(
         self,
@@ -42,6 +49,7 @@ class Dahlia:
         | Literal["tty", "low", "medium", "high"]
         | Literal[3, 4, 8, 24] = Depth.TTY,
         marker: str = "&",
+        no_color: bool | None = None,
         no_reset: bool = False,
     ) -> None:
         if isinstance(depth, int):
@@ -49,9 +57,10 @@ class Dahlia:
         elif isinstance(depth, str):
             depth = Depth.__members__[depth.upper()]
         self.__depth = depth.value
+        self.__marker = marker
+        self.__no_color = NO_COLOR if no_color is None else no_color
         self.__no_reset = no_reset
         self.__patterns = _with_marker(marker)
-        self.__marker = marker
         self.__reset = marker + "r"
 
     def __eq__(self, other: Any) -> bool:
@@ -122,7 +131,7 @@ class Dahlia:
         str
             A formatted string with the appropriate formatting applied.
         """
-        if NO_COLOR:
+        if self.__no_color:
             return clean(string)
         if not (string.endswith(self.__reset) or self.no_reset):
             string += self.__reset
