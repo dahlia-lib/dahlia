@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 from .dahlia import Dahlia, Depth
@@ -6,6 +8,7 @@ from .dahlia import Dahlia, Depth
 def dprint(
     *args: Any,
     depth: Depth = Depth.LOW,
+    no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
     **kwargs: Any,
@@ -24,11 +27,18 @@ def dprint(
     marker : str
         Specifies the prefix used by format codes ("&" by default)
     """
-    Dahlia(depth=depth, no_reset=no_reset, marker=marker).print(*args, **kwargs)
+    Dahlia(depth=depth, no_color=no_color, no_reset=no_reset, marker=marker).print(
+        *args, **kwargs
+    )
 
 
 def dahlia(
-    string: str, *, depth: Depth = Depth.LOW, no_reset: bool = False, marker: str = "&"
+    string: str,
+    *,
+    depth: Depth = Depth.LOW,
+    no_color: bool | None = None,
+    no_reset: bool = False,
+    marker: str = "&",
 ) -> str:
     """
     Functional, legacy alternative to ``Dahlia.convert``.
@@ -49,4 +59,6 @@ def dahlia(
     str
         A formatted string with the appropriate formatting applied
     """
-    return Dahlia(depth=depth, no_reset=no_reset, marker=marker).convert(string)
+    return Dahlia(
+        depth=depth, no_color=no_color, no_reset=no_reset, marker=marker
+    ).convert(string)
