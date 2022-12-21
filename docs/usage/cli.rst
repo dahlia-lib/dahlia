@@ -16,7 +16,34 @@ This shows all the formatting codes and their resulting formatting.
 
     <div class="highlight-bash notranslate">
         <div class="highlight">
-            <pre><span class="&0">0</span><span class="&1">1</span><span class="&2">2</span><span class="&3">3</span><span class="&4">4</span><span class="&5">5</span><span class="&6">6</span><span class="&7">7</span><span class="&8">8</span><span class="&9">9</span><span class="&a">a</span><span class="&b">b</span><span class="&c">c</span><span class="&d">d</span><span class="&e">e</span><span class="&f">f</span><span class="&g">g</span><span class="&l &f">l</span><span class="&m &f">m</span><span class="&n &f">n</span><span class="&o &f">o</span></pre>
+            <pre>
+                <span class="&0">0</span>
+                <span class="&1">1</span>
+                <span class="&2">2</span>
+                <span class="&3">3</span>
+                <span class="&4">4</span>
+                <span class="&5">5</span>
+                <span class="&6">6</span>
+                <span class="&7">7</span>
+                <span class="&8">8</span>
+                <span class="&9">9</span>
+                <span class="&a">a</span>
+                <span class="&b">b</span>
+                <span class="&c">c</span>
+                <span class="&d">d</span>
+                <span class="&e">e</span>
+                <span class="&f">f</span>
+                <span class="&g">g</span>
+                <span class="&f">h</span>
+                <span class="&f">i</span>
+                <span class="&8">j</span>
+                <span class="&f">k</span>
+                <span class="&l &f">l</span>
+                <span class="&m &f">m</span>
+                <span class="&n &f">n</span>
+                <span class="&o &f">o</span>
+                <span class="&f">p</span>
+            </pre>
         </div>
     </div>
 

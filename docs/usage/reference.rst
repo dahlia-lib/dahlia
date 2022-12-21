@@ -113,6 +113,12 @@ Formatting Codes
     
     * - Code
       - Result
+    * - ``i``
+      - Invert
+    * - ``j``
+      - Dim
+    * - ``k``
+      - Hide
     * - ``l``
       - Bold
     * - ``m``
@@ -121,6 +127,8 @@ Formatting Codes
       - Underline
     * - ``o``
       - Italic
+    * - ``p``
+      - Blink
     * - ``r``
       - Reset formatting
 

@@ -1,7 +1,17 @@
 from os import environ
 from re import compile
 
-FORMATTERS = {"l": 1, "m": 9, "n": 4, "o": 3, "r": 0}
+FORMATTERS = {
+    "i": 7,
+    "j": 2,
+    "k": 8,
+    "l": 1,
+    "m": 9,
+    "n": 4,
+    "o": 3,
+    "p": 5,
+    "r": 0,
+}
 
 COLORS_3BIT = {
     "0": 30,
@@ -81,7 +91,7 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
-CODE_REGEXES = [r"(~?)([0-9a-gl-or])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
+CODE_REGEXES = [r"(~?)([0-9a-gi-pr])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
