@@ -36,10 +36,7 @@ The primary argument is the text to be formatted.
 
     <div class="highlight-bash notranslate">
         <div class="highlight">
-            <pre>
-                <span class="&a">w</span><span class="&c">o</span>
-                <span class="&3">o</span><span class="&~0 &6">l</span>
-            </pre>
+            <pre><span class="&a">w</span><span class="&c">o</span><span class="&3">o</span><span class="&~0 &6">l</span></pre>
         </div>
     </div>
 
@@ -61,10 +58,7 @@ See :ref:`Format Reference <formatref>` for what the depths correspond to.
 
     <div class="highlight-bash notranslate">
         <div class="highlight">
-            <pre>
-                <span class="&~0"><span class="&6">24</span>
-                <span class="&7">-</span><span class="&a">bit</span></span>
-            </pre>
+            <pre><span class="&~0"><span class="&6">24</span><span class="&7">-</span><span class="&a">bit</span></span></pre>
         </div>
     </div>
 
