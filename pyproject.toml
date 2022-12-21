@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dahlia"
-version = "2.1.3"
+version = "2.2.0"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
