@@ -1,18 +1,21 @@
 Programmatic Dahlia
 =================
 
-Dahlia is used by creating a ``Dahlia`` object. It can be used in 2 ways - using ``Dahlia.convert`` and ``Dahlia.print``.
+Dahlia is used by creating a ``Dahlia`` object. It can be used in 2 ways -
+using ``Dahlia.convert`` and ``Dahlia.print``.
 
-The difference between the two is ``Dahlia.print`` will print the value while ``Dahlia.convert`` will return it.
-The underlying usage is the same. For brevity, the examples will mostly be using ``Dahlia.print``.
+The difference between the two is ``Dahlia.print`` will print the value while
+``Dahlia.convert`` will return it. The underlying usage is the same. For
+brevity, the examples will mostly be using ``Dahlia.print``.
 
 .. note:: 
 
     For a full reference of each code, see :ref:`Format Reference <formatref>`
 
-Formatting is done in Dahlia by prefixing with ``&`` followed by a format code. (ex: ``&a``)
-The primary color codes are a number from ``0`` through ``9`` or a letter from ``a`` through ``g``.
-To apply the coloring to the background, insert a ``~`` inbetween. (ex: ``&~a`` )
+Formatting is done in Dahlia by prefixing with ``&`` followed by a format code.
+(ex: ``&a``) The primary color codes are a number from ``0`` through ``9`` or a
+letter from ``a`` through ``g``. To apply the coloring to the background, insert
+a ``~`` inbetween. (ex: ``&~a`` )
 
 
 .. code-block:: python
@@ -54,7 +57,8 @@ Text can also be bold, strikethrough, underline, italic, or removed of formattin
     </div>
 
 
-Terminals support a wide range of colors that are not covered by the base format codes. Dahlia can use hex codes to display a specific color as well.
+Terminals support a wide range of colors that are not covered by the base format
+codes. Dahlia can use hex codes to display a specific color as well.
 
 .. code-block:: python
 

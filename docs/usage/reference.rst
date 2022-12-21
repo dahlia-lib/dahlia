@@ -8,7 +8,8 @@ Color Format Codes
 ------------------
 
 Each digit/letter corresponds to a hex value (dependent on the color depth).
-The coloring can be applied to the background if a ``~`` is inserted between ``&`` and the code.
+The coloring can be applied to the background if a ``~`` is inserted between
+``&`` and the code.
 
 .. list-table:: 
     :header-rows: 1
