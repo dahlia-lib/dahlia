@@ -5,7 +5,7 @@ from .dahlia import Dahlia, Depth
 
 def dprint(
     *args: Any,
-    depth: Depth = Depth.HIGH,
+    depth: Depth = Depth.LOW,
     no_reset: bool = False,
     marker: str = "&",
     **kwargs: Any,
@@ -28,7 +28,7 @@ def dprint(
 
 
 def dahlia(
-    string: str, *, depth: Depth = Depth.HIGH, no_reset: bool = False, marker: str = "&"
+    string: str, *, depth: Depth = Depth.LOW, no_reset: bool = False, marker: str = "&"
 ) -> str:
     """
     Functional, legacy alternative to ``Dahlia.convert``.
