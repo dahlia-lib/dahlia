@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `no_color` kwarg (has priority over the `NO_COLOR` environment variable)
 
 ### Changed
-- Changed the default depth to LOW (3-bit)
+- Changed the default depth to LOW (4-bit)
 
 ### Fixed
 - Fixed encoding background colors for lower color depths
