@@ -16,7 +16,7 @@ def main() -> None:
         help="set the color depth",
         type=int,
         choices={3, 4, 8, 24},
-        default=24,
+        default=4,
     )
     parser.add_argument("-t", "--test", help="test the colors", action="store_true")
     parser.add_argument(
