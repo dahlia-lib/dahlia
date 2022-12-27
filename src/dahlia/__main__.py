@@ -9,7 +9,7 @@ UNSET = object()
 
 
 def main() -> None:
-    parser = ArgumentParser()
+    parser = ArgumentParser(prog="Dahlia")
     parser.add_argument(
         "-d",
         "--depth",
@@ -20,7 +20,11 @@ def main() -> None:
     )
     parser.add_argument("-t", "--test", help="test the colors", action="store_true")
     parser.add_argument(
-        "-v", "--version", help="print the version", action="store_true"
+        "-v",
+        "--version",
+        help="print the version",
+        action="version",
+        version="%(prog)s 2.2.0",
     )
     parser.add_argument("-c", "--clean", help="clean codes", action="store_true")
     parser.add_argument("string", nargs="?", help="the string to color", default=UNSET)
@@ -32,8 +36,6 @@ def main() -> None:
     if string is UNSET:
         if args.test:
             d.test()
-        elif args.version:
-            print("Dahlia 2.2.0")
         sys.exit()
     if args.clean:
         print(clean(string))
