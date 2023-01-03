@@ -5,6 +5,21 @@ from typing import Any, Literal
 from .dahlia import Dahlia, Depth
 
 
+def dinput(
+    prompt: str,
+    *,
+    depth: Depth
+    | Literal["tty", "low", "medium", "high"]
+    | Literal[3, 4, 8, 24] = Depth.LOW,
+    no_color: bool | None = None,
+    no_reset: bool = False,
+    marker: str = "&",
+) -> str:
+    return Dahlia(
+        depth=depth, no_color=no_color, no_reset=no_reset, marker=marker
+    ).input(prompt)
+
+
 def dprint(
     *args: Any,
     depth: Depth
