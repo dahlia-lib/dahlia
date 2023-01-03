@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 from .dahlia import Dahlia, Depth
 
 
 def dprint(
     *args: Any,
-    depth: Depth = Depth.LOW,
+    depth: Depth
+    | Literal["tty", "low", "medium", "high"]
+    | Literal[3, 4, 8, 24] = Depth.LOW,
     no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
@@ -35,7 +37,9 @@ def dprint(
 def dahlia(
     string: str,
     *,
-    depth: Depth = Depth.LOW,
+    depth: Depth
+    | Literal["tty", "low", "medium", "high"]
+    | Literal[3, 4, 8, 24] = Depth.LOW,
     no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
