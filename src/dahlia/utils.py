@@ -1,6 +1,7 @@
 from re import Pattern, compile, Match
 from typing import Literal
 from math import dist
+from abc import ABC, abstractmethod
 
 from .constants import ANSI_REGEXES, CODE_REGEXES
 
@@ -73,7 +74,7 @@ ANSI_REGEX = compile(
 )
 
 
-COLORS_3 = {
+_COLORS_3 = {
     (0, 0, 0): 30,  # black
     (128, 0, 0): 31,  # dark red
     (0, 128, 0): 32,  # dark green
@@ -83,7 +84,6 @@ COLORS_3 = {
     (0, 128, 128): 36,  # dark cyan
     (192, 192, 192): 37,  # light gray
     (128, 128, 128): 30,  # dark gray
-
     # Birght colors are added and linked to the darker ones to improve results.
     (128, 128, 128): 30,  # dark gray
     (255, 0, 0): 31,  # bright red
@@ -96,8 +96,8 @@ COLORS_3 = {
 }
 
 
-COLORS_4 = {
-    **COLORS_3,
+_COLORS_4 = {
+    **_COLORS_3,
     **{
         (128, 128, 128): 90,  # dark gray
         (255, 0, 0): 91,  # bright red
@@ -111,7 +111,7 @@ COLORS_4 = {
 }
 
 
-def quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | str:
+def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | str:
     if 0 <= ansi_code <= 7:
         return f"{30+ansi_code}"
 
@@ -131,49 +131,24 @@ def quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | 
     return (r * 51, g * 51, b * 51)
 
 
-class _ANSI:
-    """Intermiate representation of an ANSI code"""
+class _ANSI(ABC):
+    background: bool
 
-    def __init__(self, ansi: str) -> None:
-        self.old_ansi = ansi
-        self.color_3: int | None = None
-        self.color_4: int | None = None
-        self.color_8: int | None = None
-        self.color_24: tuple[int, int, int] | None = None
-        self.background: bool = False
-        self.bold: bool = False
+    @abstractmethod
+    def __init__(self, ansi: list[str], old_ansi: list[str]) -> None:
+        ...
 
-        ansi_ = ansi.split(";")
-        ansi_[0] = ansi_[0].removeprefix("\x1b[")
-        ansi_[-1] = ansi_[-1].removesuffix("m")
+    @abstractmethod
+    def to_3(self):
+        ...
 
-        if len(ansi_) < 3:
-            # only 3 and 4 bit ansi are less than 3 in length
-            if ansi_[0] == 1:
-                self.bold = True
-                color = int(ansi_[1])
-            else:
-                color = int(ansi_[0])
+    @abstractmethod
+    def to_4(self):
+        ...
 
-            if color < 90:
-                self.color_3 = color % 10
-            else:
-                self.color_4 = color % 10
-
-            if 40 <= color <= 47 or 100 <= color <= 107:
-                self.background = True
-
-            return
-
-        if ansi_[1] == "5":
-            # Handle 8 bit ansi
-            self.color_8 = int(ansi_[2])
-            self.background = ansi_[0] == 48
-
-        if ansi_[1] == "2":
-            # Handle 24 bit ansi
-            self.color_24 = (int(ansi_[2]), int(ansi_[3]), int(ansi_[4]))
-            self.background = ansi_[0] == 48
+    @abstractmethod
+    def to_8(self):
+        ...
 
     def estimate(
         self, rgb: tuple[int, int, int], colors: dict[tuple[int, int, int], int]
@@ -184,23 +159,38 @@ class _ANSI:
             num += 10
         return f"\x1b[{num}m"
 
-    def to_3(self) -> str:
-        if self.color_24:
-            return self.estimate(self.color_24, COLORS_3)
 
-        if self.color_8:
-            eight = quantize_8_bit(self.color_8, to=3)
+class _ANSI_3(_ANSI):
+    def __init__(self, ansi: list[str], old_ansi: str) -> None:
+        if ansi[0] == 1:
+            self.bold = True
+            color = int(ansi[1])
+        else:
+            color = int(ansi[0])
 
-            if isinstance(eight, str):
-                return f"\x1b[{eight}m"
-            else:
-                return self.estimate(eight, COLORS_3)
+        if color < 90:
+            self.color = color % 10
+        else:
+            self.color = color % 10
 
-        if self.color_3:
-            color = self.color_3 + 30
+        if 40 <= color <= 47 or 100 <= color <= 107:
+            self.background = True
 
-        if self.color_4:
-            color = self.color_4 + 30
+        self.old_ansi = old_ansi
+
+    def to_3(self):
+        return self.old_ansi
+
+    def to_4(self):
+        return self.old_ansi
+
+    def to_8(self):
+        return self.old_ansi
+
+
+class _ANSI_4(_ANSI_3):
+    def to_3(self):
+        color = self.color + 30
 
         if self.background:
             color += 10
@@ -210,35 +200,86 @@ class _ANSI:
 
         return f"\x1b[{color}m"
 
+
+class _ANSI_8(_ANSI):
+    def __init__(self, ansi: list[str], old_ansi: str) -> None:
+        self.color = int(ansi[2])
+        self.background = ansi[0] == 48
+        self.old_ansi = old_ansi
+
+    def to_3(self) -> str:
+        # TODO: HANDLE BACKGROUNDS
+        eight = _quantize_8_bit(self.color, to=3)
+
+        if isinstance(eight, str):
+            return f"\x1b[{eight}m"
+        else:
+            return self.estimate(eight, _COLORS_3)
+
     def to_4(self) -> str:
-        if self.color_24:
-            return self.estimate(self.color_24, COLORS_4)
+        # TODO: HANDLE BACKGROUNDS
+        eight = _quantize_8_bit(self.color, to=4)
 
-        if self.color_8:
-            eight = quantize_8_bit(self.color_8, to=3)
-
-            if isinstance(eight, str):
-                return f"\x1b[{eight}m"
-            else:
-                return self.estimate(eight, COLORS_4)
-
-        return self.old_ansi
+        if isinstance(eight, str):
+            return f"\x1b[{eight}m"
+        else:
+            return self.estimate(eight, _COLORS_3)
 
     def to_8(self) -> str:
-        if self.color_24:
-            r, g, b = self.color_24
-
-            color = 36 * (r // 51) + 6 * (g // 51) + (b // 51)
-
-            return f"\x1b[{48 if self.background else 38};5;{color + 16}m"
-
         return self.old_ansi
+
+
+class _ANSI_24(_ANSI):
+    def __init__(self, ansi: list[str], old_ansi: str) -> None:
+        self.rgb = (int(ansi[2]), int(ansi[3]), int(ansi[4]))
+        self.background = ansi[0] == 48
+
+    def to_3(self) -> str:
+        return self.estimate(self.rgb, _COLORS_3)
+
+    def to_4(self) -> str:
+        return self.estimate(self.rgb, _COLORS_4)
+
+    def to_8(self) -> str:
+        r, g, b = self.rgb
+
+        color = 36 * (r // 51) + 6 * (g // 51) + (b // 51)
+
+        return f"\x1b[{48 if self.background else 38};5;{color + 16}m"
+
+
+def _build_ansi(old_ansi: str) -> _ANSI:
+    ansi = old_ansi.split(";")
+
+    ansi[0] = ansi[0].removeprefix("\x1b[")
+    ansi[-1] = ansi[-1].removesuffix("m")
+
+    if len(ansi) < 3:
+        if ansi[0] == 1:
+            color = int(ansi[1])
+        else:
+            color = int(ansi[0])
+
+        if color < 90:
+            return _ANSI_3(ansi, old_ansi)
+        else:
+            return _ANSI_4(ansi, old_ansi)
+
+    if ansi[1] == "5":
+        return _ANSI_8(ansi, old_ansi)
+
+    if ansi[1] == "2":
+        return _ANSI_24(ansi, old_ansi)
+
+    raise NotImplementedError(
+        "There should never be an ansi that does not follow these rules."
+    )
 
 
 def quantize_ansi(ansi: str, to: Literal[3, 4, 8]) -> str:
     def replace_color(match: Match[str]) -> str:
         m = match.group()
-        ansi_ = _ANSI(m)
+        ansi_ = _build_ansi(m)
 
         if to == 3:
             return ansi_.to_3()
