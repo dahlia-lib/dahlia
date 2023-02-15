@@ -175,7 +175,7 @@ class _ANSI_3(_ANSI):
         return self.old_ansi
 
 
-class _ANSI_4(_ANSI_3):
+class _ANSI_4(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         if ansi[0] == 1:
             self.bold = True
