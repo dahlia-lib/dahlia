@@ -111,12 +111,12 @@ _COLORS_4 = {
 }
 
 
-def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | str:
+def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | int:
     if 0 <= ansi_code <= 7:
-        return f"{30+ansi_code}"
+        return 30 + ansi_code
 
     if 8 <= ansi_code <= 15:
-        return f"{(90 if to == 4 else 30) +ansi_code-8}"
+        return (90 if to == 4 else 30) + ansi_code - 8
 
     if 232 <= ansi_code <= 255:
         step = int(float(255 / 24) * (255 - ansi_code))
@@ -208,22 +208,20 @@ class _ANSI_8(_ANSI):
         self.old_ansi = old_ansi
 
     def to_3(self) -> str:
-        # TODO: HANDLE BACKGROUNDS
         eight = _quantize_8_bit(self.color, to=3)
 
-        if isinstance(eight, str):
-            return f"\x1b[{eight}m"
+        if isinstance(eight, int):
+            return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
             return self.estimate(eight, _COLORS_3)
 
     def to_4(self) -> str:
-        # TODO: HANDLE BACKGROUNDS
         eight = _quantize_8_bit(self.color, to=4)
 
-        if isinstance(eight, str):
-            return f"\x1b[{eight}m"
+        if isinstance(eight, int):
+            return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return self.estimate(eight, _COLORS_3)
+            return self.estimate(eight, _COLORS_4)
 
     def to_8(self) -> str:
         return self.old_ansi
