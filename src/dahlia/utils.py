@@ -162,6 +162,20 @@ class _ANSI(ABC):
 
 
 class _ANSI_3(_ANSI):
+    def __init__(self, _ansi: list[str], old_ansi: str) -> None:
+        self.old_ansi = old_ansi
+
+    def to_3(self):
+        return self.old_ansi
+
+    def to_4(self):
+        return self.old_ansi
+
+    def to_8(self):
+        return self.old_ansi
+
+
+class _ANSI_4(_ANSI_3):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         if ansi[0] == 1:
             self.bold = True
@@ -180,17 +194,6 @@ class _ANSI_3(_ANSI):
         self.old_ansi = old_ansi
 
     def to_3(self):
-        return self.old_ansi
-
-    def to_4(self):
-        return self.old_ansi
-
-    def to_8(self):
-        return self.old_ansi
-
-
-class _ANSI_4(_ANSI_3):
-    def to_3(self):
         color = self.color + 30
 
         if self.background:
@@ -200,6 +203,12 @@ class _ANSI_4(_ANSI_3):
             return f"\x1b[1;{color}m"
 
         return f"\x1b[{color}m"
+
+    def to_4(self):
+        return self.old_ansi
+
+    def to_8(self):
+        return self.old_ansi
 
 
 class _ANSI_8(_ANSI):
