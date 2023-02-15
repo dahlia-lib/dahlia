@@ -70,7 +70,7 @@ def _with_marker(marker: str) -> list[Pattern]:
 
 
 ANSI_REGEX = compile(
-    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|(38|48);5;([0-9]+)|38|48;2;(\d+;\d+;\d+))m"
+    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|(38|48);5;([0-9]+)|(38|48);2;(\d+;\d+;\d+))m"
 )
 
 
@@ -285,7 +285,6 @@ def quantize_ansi(ansi: str, to: Literal[3, 4, 8]) -> str:
     def replace_color(match: Match[str]) -> str:
         m = match.group()
         ansi_ = _build_ansi(m)
-
         if to == 3:
             return ansi_.to_3()
         if to == 4:
