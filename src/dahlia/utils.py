@@ -235,7 +235,7 @@ class _ANSI_8(_ANSI):
 
 
 class _ANSI_24(_ANSI):
-    def __init__(self, ansi: list[str], old_ansi: str) -> None:
+    def __init__(self, ansi: list[str], _old_ansi: str) -> None:
         self.rgb = (int(ansi[2]), int(ansi[3]), int(ansi[4]))
         self.background = ansi[0] == "48"
 
