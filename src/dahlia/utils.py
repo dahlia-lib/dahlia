@@ -183,10 +183,7 @@ class _ANSI_4(_ANSI_3):
         else:
             color = int(ansi[0])
 
-        if color < 90:
-            self.color = color % 10
-        else:
-            self.color = color % 10
+        self.color = color % 10
 
         if 40 <= color <= 47 or 100 <= color <= 107:
             self.background = True
