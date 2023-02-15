@@ -70,7 +70,7 @@ def _with_marker(marker: str) -> list[Pattern]:
 
 
 ANSI_REGEX = compile(
-    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|38;5;([0-9]+)|38;2;(\d+;\d+;\d+))m"
+    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|(38|48);5;([0-9]+)|38|48;2;(\d+;\d+;\d+))m"
 )
 
 
@@ -132,8 +132,6 @@ def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] |
 
 
 class _ANSI(ABC):
-    background: bool
-
     @abstractmethod
     def __init__(self, ansi: list[str], old_ansi: list[str]) -> None:
         ...
@@ -151,11 +149,14 @@ class _ANSI(ABC):
         ...
 
     def estimate(
-        self, rgb: tuple[int, int, int], colors: dict[tuple[int, int, int], int]
+        self,
+        rgb: tuple[int, int, int],
+        colors: dict[tuple[int, int, int], int],
+        background: bool,
     ) -> str:
         closest = min(colors.keys(), key=lambda x: dist(rgb, x))
         num = colors[closest]
-        if self.background:
+        if background:
             num += 10
         return f"\x1b[{num}m"
 
@@ -204,7 +205,7 @@ class _ANSI_4(_ANSI_3):
 class _ANSI_8(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         self.color = int(ansi[2])
-        self.background = ansi[0] == 48
+        self.background = ansi[0] == "48"
         self.old_ansi = old_ansi
 
     def to_3(self) -> str:
@@ -213,7 +214,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return self.estimate(eight, _COLORS_3)
+            return self.estimate(eight, _COLORS_3, background=self.background)
 
     def to_4(self) -> str:
         eight = _quantize_8_bit(self.color, to=4)
@@ -221,7 +222,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return self.estimate(eight, _COLORS_4)
+            return self.estimate(eight, _COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         return self.old_ansi
@@ -230,13 +231,13 @@ class _ANSI_8(_ANSI):
 class _ANSI_24(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         self.rgb = (int(ansi[2]), int(ansi[3]), int(ansi[4]))
-        self.background = ansi[0] == 48
+        self.background = ansi[0] == "48"
 
     def to_3(self) -> str:
-        return self.estimate(self.rgb, _COLORS_3)
+        return self.estimate(self.rgb, _COLORS_3, background=self.background)
 
     def to_4(self) -> str:
-        return self.estimate(self.rgb, _COLORS_4)
+        return self.estimate(self.rgb, _COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         r, g, b = self.rgb
