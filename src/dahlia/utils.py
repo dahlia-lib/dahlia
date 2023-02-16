@@ -109,15 +109,15 @@ class _ANSI(ABC):
         ...
 
     @abstractmethod
-    def to_3(self):
+    def to_3(self) -> str:
         ...
 
     @abstractmethod
-    def to_4(self):
+    def to_4(self) -> str:
         ...
 
     @abstractmethod
-    def to_8(self):
+    def to_8(self) -> str:
         ...
 
 
@@ -125,13 +125,13 @@ class _ANSI_3(_ANSI):
     def __init__(self, _ansi: list[str], old_ansi: str) -> None:
         self.old_ansi = old_ansi
 
-    def to_3(self):
+    def to_3(self) -> str:
         return self.old_ansi
 
-    def to_4(self):
+    def to_4(self) -> str:
         return self.old_ansi
 
-    def to_8(self):
+    def to_8(self) -> str:
         return self.old_ansi
 
 
@@ -150,7 +150,7 @@ class _ANSI_4(_ANSI):
 
         self.old_ansi = old_ansi
 
-    def to_3(self):
+    def to_3(self) -> str:
         color = self.color + 30
 
         if self.background:
@@ -161,10 +161,10 @@ class _ANSI_4(_ANSI):
 
         return f"\x1b[{color}m"
 
-    def to_4(self):
+    def to_4(self) -> str:
         return self.old_ansi
 
-    def to_8(self):
+    def to_8(self) -> str:
         return self.old_ansi
 
 
