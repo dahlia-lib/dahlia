@@ -276,7 +276,24 @@ def _build_ansi(old_ansi: str) -> _ANSI:
     )
 
 
-def quantize_ansi(ansi: str, *, to: Literal[3, 4, 8]) -> str:
+def quantize_ansi(string: str, *, to: Literal[3, 4, 8]) -> str:
+    """
+    Quantize the ANSI codes in a string to ANSI codes with of a lower amount of
+    bits.
+
+    Parameters
+    ----------
+    string : str
+        String to quantize ANSI in.
+
+    to : int
+        The amount of bits to convert to.
+
+    Returns
+    -------
+    str :
+        String with quantized ANSI.
+    """
     def replace_color(match: Match[str]) -> str:
         m = match.group()
         ansi_ = _build_ansi(m)
@@ -287,4 +304,4 @@ def quantize_ansi(ansi: str, *, to: Literal[3, 4, 8]) -> str:
 
         return ansi_.to_8()
 
-    return ANSI_COLOR_REGEX.sub(replace_color, ansi)
+    return ANSI_COLOR_REGEX.sub(replace_color, string)
