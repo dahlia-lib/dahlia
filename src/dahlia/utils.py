@@ -121,7 +121,7 @@ class _ANSI(ABC):
         ...
 
 
-class _ANSI_3(_ANSI):
+class _ANSI3(_ANSI):
     def __init__(self, _ansi: list[str], old_ansi: str) -> None:
         self.old_ansi = old_ansi
 
@@ -135,7 +135,7 @@ class _ANSI_3(_ANSI):
         return self.old_ansi
 
 
-class _ANSI_4(_ANSI):
+class _ANSI4(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         if ansi[0] == 1:
             self.bold = True
@@ -168,7 +168,7 @@ class _ANSI_4(_ANSI):
         return self.old_ansi
 
 
-class _ANSI_8(_ANSI):
+class _ANSI8(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
         self.color = int(ansi[2])
         self.background = ansi[0] == "48"
@@ -194,7 +194,7 @@ class _ANSI_8(_ANSI):
         return self.old_ansi
 
 
-class _ANSI_24(_ANSI):
+class _ANSI24(_ANSI):
     def __init__(self, ansi: list[str], _old_ansi: str) -> None:
         self.rgb = (int(ansi[2]), int(ansi[3]), int(ansi[4]))
         self.background = ansi[0] == "48"
@@ -226,15 +226,15 @@ def _build_ansi(old_ansi: str) -> _ANSI:
             color = int(ansi[0])
 
         if color < 90:
-            return _ANSI_3(ansi, old_ansi)
+            return _ANSI3(ansi, old_ansi)
         else:
-            return _ANSI_4(ansi, old_ansi)
+            return _ANSI4(ansi, old_ansi)
 
     if ansi[1] == "5":
-        return _ANSI_8(ansi, old_ansi)
+        return _ANSI8(ansi, old_ansi)
 
     if ansi[1] == "2":
-        return _ANSI_24(ansi, old_ansi)
+        return _ANSI24(ansi, old_ansi)
 
     raise NotImplementedError(
         "There should never be an ANSI code that does not follow these rules."
