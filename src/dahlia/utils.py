@@ -180,16 +180,16 @@ class _ANSI8(_ANSI):
 
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
-        else:
-            return _estimate_ansi_color(eight, COLORS_3, background=self.background)
+        
+        return _estimate_ansi_color(eight, COLORS_3, background=self.background)
 
     def to_4(self) -> str:
         eight = _quantize_8_bit(self.color, to=4)
 
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
-        else:
-            return _estimate_ansi_color(eight, COLORS_4, background=self.background)
+
+        return _estimate_ansi_color(eight, COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         return self.old_ansi
@@ -221,10 +221,7 @@ def _build_ansi(old_ansi: str) -> _ANSI:
     ansi[-1] = ansi[-1].removesuffix("m")
 
     if len(ansi) < 3:
-        if ansi[0] == 1:
-            color = int(ansi[1])
-        else:
-            color = int(ansi[0])
+        color = int(ansi[1] if ansi[0] == 1 else ansi[0])
 
         if color < 90:
             return _ANSI3(ansi, old_ansi)
