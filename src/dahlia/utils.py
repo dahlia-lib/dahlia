@@ -276,7 +276,7 @@ def _build_ansi(old_ansi: str) -> _ANSI:
     )
 
 
-def quantize_ansi(ansi: str, to: Literal[3, 4, 8]) -> str:
+def quantize_ansi(ansi: str, *, to: Literal[3, 4, 8]) -> str:
     def replace_color(match: Match[str]) -> str:
         m = match.group()
         ansi_ = _build_ansi(m)
