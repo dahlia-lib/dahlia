@@ -1,9 +1,10 @@
-from re import Pattern, compile, Match
-from typing import Literal
-from math import dist
 from abc import ABC, abstractmethod
+from math import dist
+from re import Match, Pattern, compile
+from typing import Literal
 
-from .constants import ANSI_COLOR_REGEX, CODE_REGEXES, ANSI_REGEXES
+from .constants import (ANSI_COLOR_REGEX, ANSI_REGEXES, CODE_REGEXES, COLORS_3,
+                        COLORS_4)
 
 
 def clean(string: str, marker: str = "&") -> str:
@@ -67,43 +68,6 @@ def _with_marker(marker: str) -> list[Pattern]:
     if len(marker) != 1:
         raise ValueError("The marker has to be a single character")
     return [compile(marker + i) for i in CODE_REGEXES]
-
-
-_COLORS_3 = {
-    (0, 0, 0): 30,  # black
-    (128, 0, 0): 31,  # dark red
-    (0, 128, 0): 32,  # dark green
-    (128, 128, 0): 33,  # dark yellow
-    (0, 0, 128): 34,  # dark blue
-    (128, 0, 128): 35,  # dark magenta
-    (0, 128, 128): 36,  # dark cyan
-    (192, 192, 192): 37,  # light gray
-    (128, 128, 128): 30,  # dark gray
-    # Bright colors are added and linked to the darker ones to improve results.
-    (128, 128, 128): 30,  # dark gray
-    (255, 0, 0): 31,  # bright red
-    (0, 255, 0): 32,  # bright green
-    (255, 255, 0): 33,  # bright yellow
-    (0, 0, 255): 34,  # bright blue
-    (255, 0, 255): 35,  # bright magenta
-    (0, 255, 255): 36,  # bright cyan
-    (255, 255, 255): 37,  # white
-}
-
-
-_COLORS_4 = {
-    **_COLORS_3,
-    **{
-        (128, 128, 128): 90,  # dark gray
-        (255, 0, 0): 91,  # bright red
-        (0, 255, 0): 92,  # bright green
-        (255, 255, 0): 93,  # bright yellow
-        (0, 0, 255): 94,  # bright blue
-        (255, 0, 255): 95,  # bright magenta
-        (0, 255, 255): 96,  # bright cyan
-        (255, 255, 255): 97,  # white
-    },
-}
 
 
 def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] | int:
@@ -215,7 +179,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return _estimate_ansi_color(eight, _COLORS_3, background=self.background)
+            return _estimate_ansi_color(eight, COLORS_3, background=self.background)
 
     def to_4(self) -> str:
         eight = _quantize_8_bit(self.color, to=4)
@@ -223,7 +187,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return _estimate_ansi_color(eight, _COLORS_4, background=self.background)
+            return _estimate_ansi_color(eight, COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         return self.old_ansi
@@ -235,10 +199,10 @@ class _ANSI_24(_ANSI):
         self.background = ansi[0] == "48"
 
     def to_3(self) -> str:
-        return _estimate_ansi_color(self.rgb, _COLORS_3, background=self.background)
+        return _estimate_ansi_color(self.rgb, COLORS_3, background=self.background)
 
     def to_4(self) -> str:
-        return _estimate_ansi_color(self.rgb, _COLORS_4, background=self.background)
+        return _estimate_ansi_color(self.rgb, COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         r, g, b = self.rgb
@@ -294,6 +258,7 @@ def quantize_ansi(string: str, *, to: Literal[3, 4, 8]) -> str:
     str :
         String with quantized ANSI.
     """
+
     def replace_color(match: Match[str]) -> str:
         m = match.group()
         ansi_ = _build_ansi(m)

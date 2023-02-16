@@ -5,14 +5,8 @@ from os import system
 from sys import platform
 from typing import Any, Literal
 
-from .constants import (
-    BG_FORMAT_TEMPLATES,
-    COLOR_SETS,
-    COLORS_24BIT,
-    FORMAT_TEMPLATES,
-    FORMATTERS,
-    NO_COLOR,
-)
+from .constants import (BG_FORMAT_TEMPLATES, COLOR_SETS, COLORS_24BIT,
+                        FORMAT_TEMPLATES, FORMATTERS, NO_COLOR)
 from .utils import _find_codes, _with_marker, clean
 
 if platform in ("win32", "cygwin"):
