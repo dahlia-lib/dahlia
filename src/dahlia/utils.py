@@ -272,7 +272,7 @@ def _build_ansi(old_ansi: str) -> _ANSI:
         return _ANSI_24(ansi, old_ansi)
 
     raise NotImplementedError(
-        "There should never be an ansi that does not follow these rules."
+        "There should never be an ANSI code that does not follow these rules."
     )
 
 
