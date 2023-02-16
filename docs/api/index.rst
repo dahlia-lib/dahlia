@@ -23,6 +23,10 @@ clean_ansi
 ----------
 .. autofunction:: clean_ansi
 
+quantize_ansi
+----------
+.. autofunction:: quantize_ansi
+
 dahlia
 ----------
 .. autofunction:: dahlia
@@ -30,5 +34,3 @@ dahlia
 dprint
 ----------
 .. autofunction:: dprint
-
-
