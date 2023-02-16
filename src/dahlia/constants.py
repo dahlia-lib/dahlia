@@ -99,9 +99,7 @@ ANSI_REGEXES = [
     compile(r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"),
 ]
 
-ANSI_COLOR_REGEX = compile(
-    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|(38|48);5;([0-9]+)|(38|48);2;(\d+;\d+;\d+))m"
-)
+ANSI_COLOR_REGEX = compile(r"\033\[(?:\d{1,3};)+\d{1,3}m")
 
 FORMAT_TEMPLATES = {
     3: "\033[{}m",
