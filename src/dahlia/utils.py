@@ -94,6 +94,7 @@ def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] |
 def _estimate_ansi_color(
     rgb: tuple[int, int, int],
     colors: dict[tuple[int, int, int], int],
+    *,
     background: bool,
 ) -> str:
     closest = min(colors.keys(), key=lambda x: dist(rgb, x))
