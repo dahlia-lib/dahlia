@@ -131,6 +131,18 @@ def _quantize_8_bit(ansi_code: int, to: Literal[3, 4]) -> tuple[int, int, int] |
     return (r * 51, g * 51, b * 51)
 
 
+def _estimate_ansi_color(
+    rgb: tuple[int, int, int],
+    colors: dict[tuple[int, int, int], int],
+    background: bool,
+) -> str:
+    closest = min(colors.keys(), key=lambda x: dist(rgb, x))
+    num = colors[closest]
+    if background:
+        num += 10
+    return f"\x1b[{num}m"
+
+
 class _ANSI(ABC):
     @abstractmethod
     def __init__(self, ansi: list[str], old_ansi: list[str]) -> None:
@@ -147,18 +159,6 @@ class _ANSI(ABC):
     @abstractmethod
     def to_8(self):
         ...
-
-    def estimate(
-        self,
-        rgb: tuple[int, int, int],
-        colors: dict[tuple[int, int, int], int],
-        background: bool,
-    ) -> str:
-        closest = min(colors.keys(), key=lambda x: dist(rgb, x))
-        num = colors[closest]
-        if background:
-            num += 10
-        return f"\x1b[{num}m"
 
 
 class _ANSI_3(_ANSI):
@@ -220,7 +220,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return self.estimate(eight, _COLORS_3, background=self.background)
+            return _estimate_ansi_color(eight, _COLORS_3, background=self.background)
 
     def to_4(self) -> str:
         eight = _quantize_8_bit(self.color, to=4)
@@ -228,7 +228,7 @@ class _ANSI_8(_ANSI):
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
         else:
-            return self.estimate(eight, _COLORS_4, background=self.background)
+            return _estimate_ansi_color(eight, _COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         return self.old_ansi
@@ -240,10 +240,10 @@ class _ANSI_24(_ANSI):
         self.background = ansi[0] == "48"
 
     def to_3(self) -> str:
-        return self.estimate(self.rgb, _COLORS_3, background=self.background)
+        return _estimate_ansi_color(self.rgb, _COLORS_3, background=self.background)
 
     def to_4(self) -> str:
-        return self.estimate(self.rgb, _COLORS_4, background=self.background)
+        return _estimate_ansi_color(self.rgb, _COLORS_4, background=self.background)
 
     def to_8(self) -> str:
         r, g, b = self.rgb
