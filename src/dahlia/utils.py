@@ -3,8 +3,7 @@ from math import dist
 from re import Match, Pattern, compile
 from typing import Literal
 
-from .constants import (ANSI_COLOR_REGEX, ANSI_REGEXES, CODE_REGEXES, COLORS_3,
-                        COLORS_4)
+from .constants import ANSI_COLOR_REGEX, ANSI_REGEXES, CODE_REGEXES, COLORS_3, COLORS_4
 
 
 def clean(string: str, marker: str = "&") -> str:
