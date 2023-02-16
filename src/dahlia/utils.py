@@ -3,7 +3,7 @@ from typing import Literal
 from math import dist
 from abc import ABC, abstractmethod
 
-from .constants import ANSI_REGEXES, CODE_REGEXES
+from .constants import ANSI_COLOR_REGEX, CODE_REGEXES, ANSI_REGEXES
 
 
 def clean(string: str, marker: str = "&") -> str:
@@ -67,11 +67,6 @@ def _with_marker(marker: str) -> list[Pattern]:
     if len(marker) != 1:
         raise ValueError("The marker has to be a single character")
     return [compile(marker + i) for i in CODE_REGEXES]
-
-
-ANSI_REGEX = compile(
-    r"\033\[(?:(3[0-7]|[012][0-7])|4(?:[0-7]|8[0-5])|(38|48);5;([0-9]+)|(38|48);2;(\d+;\d+;\d+))m"
-)
 
 
 _COLORS_3 = {
@@ -292,4 +287,4 @@ def quantize_ansi(ansi: str, to: Literal[3, 4, 8]) -> str:
 
         return ansi_.to_8()
 
-    return ANSI_REGEX.sub(replace_color, ansi)
+    return ANSI_COLOR_REGEX.sub(replace_color, ansi)
