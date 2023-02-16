@@ -24,7 +24,7 @@ def main() -> None:
         "--version",
         help="print the version",
         action="version",
-        version="%(prog)s 2.2.2",
+        version="%(prog)s 2.3.0",
     )
     parser.add_argument("-c", "--clean", help="clean codes", action="store_true")
     parser.add_argument("string", nargs="?", help="the string to color", default=UNSET)
