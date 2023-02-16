@@ -79,7 +79,7 @@ _COLORS_3 = {
     (0, 128, 128): 36,  # dark cyan
     (192, 192, 192): 37,  # light gray
     (128, 128, 128): 30,  # dark gray
-    # Birght colors are added and linked to the darker ones to improve results.
+    # Bright colors are added and linked to the darker ones to improve results.
     (128, 128, 128): 30,  # dark gray
     (255, 0, 0): 31,  # bright red
     (0, 255, 0): 32,  # bright green
