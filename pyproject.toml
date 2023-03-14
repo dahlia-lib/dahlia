@@ -5,7 +5,7 @@ description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
 documentation = "https://dahlia.readthedocs.io/en/latest"
-repository = "https://github.com/trag1c/Dahlia"
+repository = "https://github.com/dahlia-lib/dahlia"
 readme = "README.md"
 
 [tool.poetry.dependencies]
