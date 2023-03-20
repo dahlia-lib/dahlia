@@ -126,16 +126,14 @@ COLORS_3 = {
 
 COLORS_4 = {
     **COLORS_3,
-    **{
-        (128, 128, 128): 90,  # dark gray
-        (255, 0, 0): 91,  # bright red
-        (0, 255, 0): 92,  # bright green
-        (255, 255, 0): 93,  # bright yellow
-        (0, 0, 255): 94,  # bright blue
-        (255, 0, 255): 95,  # bright magenta
-        (0, 255, 255): 96,  # bright cyan
-        (255, 255, 255): 97,  # white
-    },
+    (128, 128, 128): 90,  # dark gray
+    (255, 0, 0): 91,  # bright red
+    (0, 255, 0): 92,  # bright green
+    (255, 255, 0): 93,  # bright yellow
+    (0, 0, 255): 94,  # bright blue
+    (255, 0, 255): 95,  # bright magenta
+    (0, 255, 255): 96,  # bright cyan
+    (255, 255, 255): 97,  # white
 }
 
 FORMAT_TEMPLATES = {
