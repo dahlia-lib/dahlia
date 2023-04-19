@@ -68,7 +68,7 @@ class Dahlia:
             return (self.depth, self.no_reset, self.marker) == (
                 other.depth,
                 other.no_reset,
-                self.marker,
+                other.marker,
             )
         return NotImplemented
 
