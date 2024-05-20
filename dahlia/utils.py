@@ -63,9 +63,7 @@ def _find_codes(
 
 def _find_ansi_codes(string: str) -> list[str]:
     return [
-        match.group(0)
-        for pattern in ANSI_REGEXES
-        for match in pattern.finditer(string)
+        match.group(0) for pattern in ANSI_REGEXES for match in pattern.finditer(string)
     ]
 
 
@@ -242,9 +240,7 @@ def _build_ansi(old_ansi: str) -> _ANSI:
 
     else:
         msg = "There should never be an ANSI code that does not follow these rules."
-        raise NotImplementedError(
-            msg
-        )
+        raise NotImplementedError(msg)
 
     return out
 

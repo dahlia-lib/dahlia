@@ -45,8 +45,7 @@ class Dahlia:
     def __init__(
         self,
         *,
-        depth: Depth
-        | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
+        depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
         marker: str = "&",
         no_color: bool | None = None,
         no_reset: bool = False,
