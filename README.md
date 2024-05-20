@@ -18,10 +18,11 @@ $ pip install dahlia
 
 ## Documentation
 
-> [!warning]
+> [!important]
 > Dahlia is currently undergoing some changes and will be hosting its
-> documentation somewhere else.\
-> For v2.3.2 docs, see https://dahlia.readthedocs.io.
+> documentation somewhere else. Dahlia <v3.0.0 documentation's source files can
+> be viewed under the
+> [v2.3.2 tag](https://github.com/dahlia-lib/dahlia/releases/tag/2.3.2).
 
 ## License
 
