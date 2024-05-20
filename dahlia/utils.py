@@ -49,7 +49,9 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def _find_codes(string: str, patterns: list[Pattern[str]]) -> list[tuple[str, bool, str]]:
+def _find_codes(
+    string: str, patterns: list[Pattern[str]]
+) -> list[tuple[str, bool, str]]:
     codes: list[tuple[str, bool, str]] = []
     for pattern in patterns:
         for match in pattern.finditer(string):
@@ -106,20 +108,16 @@ def _estimate_ansi_color(
 
 class _ANSI(ABC):
     @abstractmethod
-    def __init__(self, ansi: list[str], old_ansi: list[str]) -> None:
-        ...
+    def __init__(self, ansi: list[str], old_ansi: list[str]) -> None: ...
 
     @abstractmethod
-    def to_3(self) -> str:
-        ...
+    def to_3(self) -> str: ...
 
     @abstractmethod
-    def to_4(self) -> str:
-        ...
+    def to_4(self) -> str: ...
 
     @abstractmethod
-    def to_8(self) -> str:
-        ...
+    def to_8(self) -> str: ...
 
 
 class _ANSI3(_ANSI):
@@ -180,7 +178,7 @@ class _ANSI8(_ANSI):
 
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
-        
+
         return _estimate_ansi_color(eight, COLORS_3, background=self.background)
 
     def to_4(self) -> str:
