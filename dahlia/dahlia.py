@@ -16,7 +16,7 @@ from .constants import (
 from .utils import _find_codes, _with_marker, clean
 
 if platform in ("win32", "cygwin"):
-    system("")  # type: ignore
+    system("")
 
 
 class Depth(Enum):

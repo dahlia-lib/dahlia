@@ -49,7 +49,7 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def _find_codes(string: str, patterns: list[Pattern]) -> list[tuple[str, bool, str]]:
+def _find_codes(string: str, patterns: list[Pattern[str]]) -> list[tuple[str, bool, str]]:
     codes: list[tuple[str, bool, str]] = []
     for pattern in patterns:
         for match in pattern.finditer(string):
@@ -65,7 +65,7 @@ def _find_ansi_codes(string: str) -> list[str]:
     return ansi_codes
 
 
-def _with_marker(marker: str) -> list[Pattern]:
+def _with_marker(marker: str) -> list[Pattern[str]]:
     if len(marker) != 1:
         raise ValueError("The marker has to be a single character")
     return [compile(marker + i) for i in CODE_REGEXES]
@@ -217,12 +217,16 @@ class _ANSI24(_ANSI):
 def _build_ansi(old_ansi: str) -> _ANSI:
     ansi = old_ansi.split(";")
 
-    ansi[0] = ansi[0].removeprefix("\x1b[")
-    ansi[-1] = ansi[-1].removesuffix("m")
+    # NOTE: Commenting out 3.9+ code so mypy doesn't complain,
+    # to be removed either way.
+    # ansi[0] = ansi[0].removeprefix("\x1b[")
+    # ansi[-1] = ansi[-1].removesuffix("m")
 
     # bold = ansi[0] == "1"
     # if bold:
     #     ansi.pop(0)
+
+    out: _ANSI
 
     if len(ansi) < 3:
         color = int(ansi[1] if ansi[0] == "1" else ansi[0])
