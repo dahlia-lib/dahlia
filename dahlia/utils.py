@@ -1,3 +1,5 @@
+# ruff: noqa: ERA001
+# NOTE: ^temporary until quantization is removed
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -49,25 +51,26 @@ def clean_ansi(string: str) -> str:
     return string
 
 
-def _find_codes(string: str, patterns: list[Pattern]) -> list[tuple[str, bool, str]]:
-    codes: list[tuple[str, bool, str]] = []
-    for pattern in patterns:
-        for match in pattern.finditer(string):
-            codes.append((match[0], match[1] == "~", match[2]))
-    return codes
+def _find_codes(
+    string: str, patterns: list[Pattern[str]]
+) -> list[tuple[str, bool, str]]:
+    return [
+        (match[0], match[1] == "~", match[2])
+        for pattern in patterns
+        for match in pattern.finditer(string)
+    ]
 
 
 def _find_ansi_codes(string: str) -> list[str]:
-    ansi_codes: list[str] = []
-    for pattern in ANSI_REGEXES:
-        for match in pattern.finditer(string):
-            ansi_codes.append(match.group(0))
-    return ansi_codes
+    return [
+        match.group(0) for pattern in ANSI_REGEXES for match in pattern.finditer(string)
+    ]
 
 
-def _with_marker(marker: str) -> list[Pattern]:
+def _with_marker(marker: str) -> list[Pattern[str]]:
     if len(marker) != 1:
-        raise ValueError("The marker has to be a single character")
+        msg = "The marker has to be a single character"
+        raise ValueError(msg)
     return [compile(marker + i) for i in CODE_REGEXES]
 
 
@@ -106,20 +109,16 @@ def _estimate_ansi_color(
 
 class _ANSI(ABC):
     @abstractmethod
-    def __init__(self, ansi: list[str], old_ansi: list[str]) -> None:
-        ...
+    def __init__(self, ansi: list[str], old_ansi: list[str]) -> None: ...
 
     @abstractmethod
-    def to_3(self) -> str:
-        ...
+    def to_3(self) -> str: ...
 
     @abstractmethod
-    def to_4(self) -> str:
-        ...
+    def to_4(self) -> str: ...
 
     @abstractmethod
-    def to_8(self) -> str:
-        ...
+    def to_8(self) -> str: ...
 
 
 class _ANSI3(_ANSI):
@@ -180,7 +179,7 @@ class _ANSI8(_ANSI):
 
         if isinstance(eight, int):
             return f"\x1b[{eight + (10 if self.background else 0)}m"
-        
+
         return _estimate_ansi_color(eight, COLORS_3, background=self.background)
 
     def to_4(self) -> str:
@@ -217,20 +216,21 @@ class _ANSI24(_ANSI):
 def _build_ansi(old_ansi: str) -> _ANSI:
     ansi = old_ansi.split(";")
 
-    ansi[0] = ansi[0].removeprefix("\x1b[")
-    ansi[-1] = ansi[-1].removesuffix("m")
+    # NOTE: Commenting out 3.9+ code so mypy doesn't complain,
+    # to be removed either way.
+    # ansi[0] = ansi[0].removeprefix("\x1b[")
+    # ansi[-1] = ansi[-1].removesuffix("m")
 
     # bold = ansi[0] == "1"
     # if bold:
     #     ansi.pop(0)
 
+    out: _ANSI
+
     if len(ansi) < 3:
         color = int(ansi[1] if ansi[0] == "1" else ansi[0])
 
-        if color < 90:
-            out = _ANSI3(ansi, old_ansi)
-        else:
-            out = _ANSI4(ansi, old_ansi)
+        out = _ANSI3(ansi, old_ansi) if color < 90 else _ANSI4(ansi, old_ansi)
 
     elif ansi[1] == "5":
         out = _ANSI8(ansi, old_ansi)
@@ -239,9 +239,8 @@ def _build_ansi(old_ansi: str) -> _ANSI:
         out = _ANSI24(ansi, old_ansi)
 
     else:
-        raise NotImplementedError(
-            "There should never be an ANSI code that does not follow these rules."
-        )
+        msg = "There should never be an ANSI code that does not follow these rules."
+        raise NotImplementedError(msg)
 
     return out
 

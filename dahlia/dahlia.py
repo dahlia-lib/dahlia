@@ -16,7 +16,7 @@ from .constants import (
 from .utils import _find_codes, _with_marker, clean
 
 if platform in ("win32", "cygwin"):
-    system("")  # type: ignore
+    system("")  # noqa: S605, S607 (temporary)
 
 
 class Depth(Enum):
@@ -45,9 +45,7 @@ class Dahlia:
     def __init__(
         self,
         *,
-        depth: Depth
-        | Literal["tty", "low", "medium", "high"]
-        | Literal[3, 4, 8, 24] = Depth.LOW,
+        depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
         marker: str = "&",
         no_color: bool | None = None,
         no_reset: bool = False,
@@ -63,7 +61,7 @@ class Dahlia:
         self.__patterns = _with_marker(marker)
         self.__reset = marker + "r"
 
-    def __eq__(self, other: Any) -> bool:
+    def __eq__(self, other: object) -> bool:
         if isinstance(other, Dahlia):
             return (self.depth, self.no_reset, self.marker) == (
                 other.depth,

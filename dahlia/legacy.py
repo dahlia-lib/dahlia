@@ -8,9 +8,7 @@ from .dahlia import Dahlia, Depth
 def dinput(
     prompt: str,
     *,
-    depth: Depth
-    | Literal["tty", "low", "medium", "high"]
-    | Literal[3, 4, 8, 24] = Depth.LOW,
+    depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
     no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
@@ -22,9 +20,7 @@ def dinput(
 
 def dprint(
     *args: Any,
-    depth: Depth
-    | Literal["tty", "low", "medium", "high"]
-    | Literal[3, 4, 8, 24] = Depth.LOW,
+    depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
     no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
@@ -52,9 +48,7 @@ def dprint(
 def dahlia(
     string: str,
     *,
-    depth: Depth
-    | Literal["tty", "low", "medium", "high"]
-    | Literal[3, 4, 8, 24] = Depth.LOW,
+    depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
     no_color: bool | None = None,
     no_reset: bool = False,
     marker: str = "&",
