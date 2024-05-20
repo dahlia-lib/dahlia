@@ -101,41 +101,6 @@ ANSI_REGEXES = [
     compile(r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"),
 ]
 
-ANSI_COLOR_REGEX = compile(r"\033\[(?:\d{1,3};)+\d{1,3}m")
-
-COLORS_3 = {
-    (0, 0, 0): 30,  # black
-    (128, 0, 0): 31,  # dark red
-    (0, 128, 0): 32,  # dark green
-    (128, 128, 0): 33,  # dark yellow
-    (0, 0, 128): 34,  # dark blue
-    (128, 0, 128): 35,  # dark magenta
-    (0, 128, 128): 36,  # dark cyan
-    (192, 192, 192): 37,  # light gray
-    (128, 128, 128): 30,  # dark gray
-    # Bright colors are added and linked to the darker ones to improve results.
-    (255, 0, 0): 31,  # bright red
-    (0, 255, 0): 32,  # bright green
-    (255, 255, 0): 33,  # bright yellow
-    (0, 0, 255): 34,  # bright blue
-    (255, 0, 255): 35,  # bright magenta
-    (0, 255, 255): 36,  # bright cyan
-    (255, 255, 255): 37,  # white
-}
-
-
-COLORS_4 = {
-    **COLORS_3,
-    (128, 128, 128): 90,  # dark gray
-    (255, 0, 0): 91,  # bright red
-    (0, 255, 0): 92,  # bright green
-    (255, 255, 0): 93,  # bright yellow
-    (0, 0, 255): 94,  # bright blue
-    (255, 0, 255): 95,  # bright magenta
-    (0, 255, 255): 96,  # bright cyan
-    (255, 255, 255): 97,  # white
-}
-
 FORMAT_TEMPLATES = {
     3: "\033[{}m",
     4: "\033[{}m",

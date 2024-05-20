@@ -1,6 +1,6 @@
 from .dahlia import Dahlia, Depth
 from .legacy import dahlia, dinput, dprint
-from .utils import clean, clean_ansi, quantize_ansi
+from .utils import clean, clean_ansi
 
 __all__ = (
     "clean",
@@ -10,5 +10,4 @@ __all__ = (
     "dahlia",
     "dinput",
     "dprint",
-    "quantize_ansi",
 )
