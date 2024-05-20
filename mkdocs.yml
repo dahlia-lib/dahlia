@@ -1,0 +1,29 @@
+site_name: Dahlia
+repo_url: https://github.com/dahlia-lib/dahlia
+repo_name: dahlia-lib/dahlia
+copyright: Copyright &copy; 2022–2024 trag1c
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - API Reference: api.md
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: purple
+      accent: purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Enable dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: purple
+      accent: purple
+      toggle:
+        icon: material/toggle-switch
+        name: Disable dark mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences

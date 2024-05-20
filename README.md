@@ -1,6 +1,6 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/dahlia)](https://pypi.python.org/pypi/dahlia)
 [![PyPI version](https://badge.fury.io/py/dahlia.svg)](https://badge.fury.io/py/dahlia)
-[![Documentation Status](https://readthedocs.org/projects/dahlia/badge/?version=latest)](https://dahlia.readthedocs.io/en/latest/?badge=latest)
+
 # Dahlia
 
 Dahlia is a simple text formatting package, inspired by text formatting in the game Minecraft.
@@ -18,7 +18,10 @@ $ pip install dahlia
 
 ## Documentation
 
-Dahlia documentation is available at https://dahlia.readthedocs.io.
+> [!warning]
+> Dahlia is currently undergoing some changes and will be hosting its
+> documentation somewhere else.\
+> For v2.3.2 docs, see https://dahlia.readthedocs.io.
 
 ## License
 

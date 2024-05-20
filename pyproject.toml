@@ -4,7 +4,7 @@ version = "2.3.2"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
-documentation = "https://dahlia.readthedocs.io/en/latest"
+documentation = "https://dahlia-lib.github.io/dahlia/"
 repository = "https://github.com/dahlia-lib/dahlia"
 readme = "README.md"
 
@@ -17,6 +17,10 @@ dahlia = "dahlia.__main__:main"
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
 isort = "^5.10.1"
+
+[tool.poetry.group.dev.dependencies]
+mkdocs = "^1.6.0"
+mkdocs-material = "^9.5.24"
 
 [tool.isort]
 profile = "black"
