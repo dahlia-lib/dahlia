@@ -138,7 +138,7 @@ class _ANSI3(_ANSI):
 
 class _ANSI4(_ANSI):
     def __init__(self, ansi: list[str], old_ansi: str) -> None:
-        if ansi[0] == 1:
+        if ansi[0] == "1":
             self.bold = True
             color = int(ansi[1])
         else:
@@ -220,23 +220,30 @@ def _build_ansi(old_ansi: str) -> _ANSI:
     ansi[0] = ansi[0].removeprefix("\x1b[")
     ansi[-1] = ansi[-1].removesuffix("m")
 
+    # bold = ansi[0] == "1"
+    # if bold:
+    #     ansi.pop(0)
+
     if len(ansi) < 3:
-        color = int(ansi[1] if ansi[0] == 1 else ansi[0])
+        color = int(ansi[1] if ansi[0] == "1" else ansi[0])
 
         if color < 90:
-            return _ANSI3(ansi, old_ansi)
+            out = _ANSI3(ansi, old_ansi)
         else:
-            return _ANSI4(ansi, old_ansi)
+            out = _ANSI4(ansi, old_ansi)
 
-    if ansi[1] == "5":
-        return _ANSI8(ansi, old_ansi)
+    elif ansi[1] == "5":
+        out = _ANSI8(ansi, old_ansi)
 
-    if ansi[1] == "2":
-        return _ANSI24(ansi, old_ansi)
+    elif ansi[1] == "2":
+        out = _ANSI24(ansi, old_ansi)
 
-    raise NotImplementedError(
-        "There should never be an ANSI code that does not follow these rules."
-    )
+    else:
+        raise NotImplementedError(
+            "There should never be an ANSI code that does not follow these rules."
+        )
+
+    return out
 
 
 def quantize_ansi(string: str, *, to: Literal[3, 4, 8]) -> str:
