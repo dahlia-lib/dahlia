@@ -4,7 +4,7 @@ version = "2.3.2"
 description = "A library allowing you to use Minecraft format codes in strings."
 authors = ["trag1c <trag1cdev@yahoo.com>"]
 license = "MIT"
-documentation = "https://dahlia.readthedocs.io/en/latest"
+documentation = "https://dahlia-lib.github.io/dahlia/"
 repository = "https://github.com/dahlia-lib/dahlia"
 readme = "README.md"
 
