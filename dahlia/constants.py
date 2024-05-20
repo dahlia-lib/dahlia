@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from os import environ
 from re import compile
 
@@ -113,7 +114,6 @@ COLORS_3 = {
     (192, 192, 192): 37,  # light gray
     (128, 128, 128): 30,  # dark gray
     # Bright colors are added and linked to the darker ones to improve results.
-    (128, 128, 128): 30,  # dark gray
     (255, 0, 0): 31,  # bright red
     (0, 255, 0): 32,  # bright green
     (255, 255, 0): 33,  # bright yellow

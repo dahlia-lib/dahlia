@@ -1,3 +1,5 @@
+# ruff: noqa: ERA001
+# NOTE: ^temporary until quantization is removed
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -52,24 +54,25 @@ def clean_ansi(string: str) -> str:
 def _find_codes(
     string: str, patterns: list[Pattern[str]]
 ) -> list[tuple[str, bool, str]]:
-    codes: list[tuple[str, bool, str]] = []
-    for pattern in patterns:
-        for match in pattern.finditer(string):
-            codes.append((match[0], match[1] == "~", match[2]))
-    return codes
+    return [
+        (match[0], match[1] == "~", match[2])
+        for pattern in patterns
+        for match in pattern.finditer(string)
+    ]
 
 
 def _find_ansi_codes(string: str) -> list[str]:
-    ansi_codes: list[str] = []
-    for pattern in ANSI_REGEXES:
-        for match in pattern.finditer(string):
-            ansi_codes.append(match.group(0))
-    return ansi_codes
+    return [
+        match.group(0)
+        for pattern in ANSI_REGEXES
+        for match in pattern.finditer(string)
+    ]
 
 
 def _with_marker(marker: str) -> list[Pattern[str]]:
     if len(marker) != 1:
-        raise ValueError("The marker has to be a single character")
+        msg = "The marker has to be a single character"
+        raise ValueError(msg)
     return [compile(marker + i) for i in CODE_REGEXES]
 
 
@@ -229,10 +232,7 @@ def _build_ansi(old_ansi: str) -> _ANSI:
     if len(ansi) < 3:
         color = int(ansi[1] if ansi[0] == "1" else ansi[0])
 
-        if color < 90:
-            out = _ANSI3(ansi, old_ansi)
-        else:
-            out = _ANSI4(ansi, old_ansi)
+        out = _ANSI3(ansi, old_ansi) if color < 90 else _ANSI4(ansi, old_ansi)
 
     elif ansi[1] == "5":
         out = _ANSI8(ansi, old_ansi)
@@ -241,8 +241,9 @@ def _build_ansi(old_ansi: str) -> _ANSI:
         out = _ANSI24(ansi, old_ansi)
 
     else:
+        msg = "There should never be an ANSI code that does not follow these rules."
         raise NotImplementedError(
-            "There should never be an ANSI code that does not follow these rules."
+            msg
         )
 
     return out
