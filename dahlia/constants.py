@@ -15,6 +15,20 @@ FORMATTERS = {
     "r": 0,
 }
 
+RESET = {
+    "f": 39,
+    "b": 49,
+    "c": -1,
+    "h": 28,
+    "i": 27,
+    "j": 22,
+    "k": 25,
+    "l": 22,
+    "m": 29,
+    "n": 24,
+    "o": 23,
+}
+
 COLORS_3BIT = {
     "0": 30,
     "1": 34,
@@ -90,7 +104,12 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
-CODE_REGEXES = [r"_", r"(~?)([0-9a-fh-or])", r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});"]
+CODE_REGEXES = [
+    r"_",
+    r"r([bcfh-o])|R",
+    r"(~?)([0-9a-fh-o])",
+    r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});",
+]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
