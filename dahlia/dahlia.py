@@ -207,7 +207,7 @@ class Dahlia:
     def test(self) -> None:
         """Prints all default format codes and their formatting."""
         self.print(
-            "".join(f"{self.marker}{i * 2}" for i in "0123456789abcdefg")
+            "".join(f"{self.marker}{i * 2}" for i in "0123456789abcdef")
             + "&r&ll&r&mm&r&nn&r&oo".replace("&", self.marker)
         )
 
