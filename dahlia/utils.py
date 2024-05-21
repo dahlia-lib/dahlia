@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from re import Pattern, compile
+import re
 
 from .constants import ANSI_REGEX, CODE_REGEXES
 
@@ -20,7 +20,7 @@ def clean_ansi(string: str) -> str:
 
 
 def _find_codes(
-    string: str, patterns: list[Pattern[str]]
+    string: str, patterns: list[re.Pattern[str]]
 ) -> list[tuple[str, bool, str]]:
     return [
         (match[0], match[1] == "~", match[2])
@@ -35,8 +35,8 @@ def _find_ansi_codes(string: str) -> list[str]:
     return [match.group(0) for match in ANSI_REGEX.finditer(string)]
 
 
-def _with_marker(marker: str) -> list[Pattern[str]]:
+def _with_marker(marker: str) -> list[re.Pattern[str]]:
     if len(marker) != 1:
         msg = "The marker has to be a single character"
         raise ValueError(msg)
-    return [compile(marker + i) for i in CODE_REGEXES]
+    return [re.compile(marker + i) for i in CODE_REGEXES]
