@@ -52,7 +52,7 @@ def _find_codes(
     return [
         (match[0], match[1] == "~", match[2])
         if match.group(0)[1] != "_"
-        else (x := match.group(0), x, x)
+        else (x := match.group(0), False, x)
         for pattern in patterns
         for match in pattern.finditer(string)
     ]
