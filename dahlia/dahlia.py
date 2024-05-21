@@ -32,6 +32,7 @@ class Dahlia:
     __slots__ = (
         "_auto_reset",
         "_depth",
+        "_hash_fields",
         "_marker",
         "_no_color",
         "_patterns",
@@ -56,18 +57,15 @@ class Dahlia:
         self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
         self._reset = marker + "r"
+        self._hash_fields = (self._depth, self._auto_reset, self._marker)
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, Dahlia):
-            return (self.depth, self.auto_reset, self.marker) == (
-                other.depth,
-                other.auto_reset,
-                other.marker,
-            )
-        return NotImplemented
+        if not isinstance(other, Dahlia):
+            return NotImplemented
+        return self._hash_fields == other._hash_fields
 
     def __hash__(self) -> int:
-        return hash((self.depth, self.auto_reset, self.marker))
+        return hash(self._hash_fields)
 
     def __repr__(self) -> str:
         return (
@@ -87,7 +85,7 @@ class Dahlia:
 
     @property
     def auto_reset(self) -> bool:
-        """When True, doesn't add an "&r" at the end when converting strings."""
+        """When True, appends a full reset code to the transformed string."""
         return self._auto_reset
 
     def convert(self, string: str) -> str:
