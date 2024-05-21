@@ -213,8 +213,12 @@ class Dahlia:
 
     def __get_ansi(self, code: str, *, bg: bool) -> str:
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
-        if len(code) == 6:
-            r, g, b = (int(code[i : i + 2], 16) for i in (0, 2, 4))
+        if len(code) in {3, 6}:
+            code_size = len(code) // 3
+            r, g, b = (
+                int(code[i : i + code_size] * (3 - code_size), 16)
+                for i in (code_size * i for i in (0, 1, 2))
+            )
             return formats[24].format(r, g, b)
         if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])

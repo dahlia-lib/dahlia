@@ -90,7 +90,7 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
-CODE_REGEXES = [r"(~?)([0-9a-fi-pr])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
+CODE_REGEXES = [r"(~?)([0-9a-fi-pr])", r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});"]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
