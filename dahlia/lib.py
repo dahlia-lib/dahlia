@@ -52,7 +52,7 @@ class Dahlia:
             depth = Depth.__members__[depth.upper()]
         self._depth = depth.value
         self._marker = marker
-        self._no_color = NO_COLOR if no_color is None else no_color
+        self._no_color = NO_COLOR
         self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
         self._reset = marker + "r"
