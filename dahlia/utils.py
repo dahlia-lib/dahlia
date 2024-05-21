@@ -6,41 +6,14 @@ from .constants import ANSI_REGEXES, CODE_REGEXES
 
 
 def clean(string: str, marker: str = "&") -> str:
-    """
-    Removes all Dahlia formatting from a string.
-
-    Parameters
-    ----------
-    string : str
-        String to clear formatting from.
-
-    marker : str
-        Specifies the prefix used by format codes ("&" by default)
-
-    Returns
-    -------
-    str :
-        Cleaned string without formatting.
-    """
+    """Removes all Dahlia codes from a string."""
     for code, *_ in _find_codes(string, _with_marker(marker)):
         string = string.replace(code, "", 1)
     return string
 
 
 def clean_ansi(string: str) -> str:
-    """
-    Removes all ANSI codes from a string.
-
-    Parameters
-    ----------
-    string : str
-        String to clear ANSI codes from.
-
-    Returns
-    -------
-    str
-        Cleaned string without codes.
-    """
+    """Removes all ANSI codes from a string."""
     for ansi_code in _find_ansi_codes(string):
         string = string.replace(ansi_code, "", 1)
     return string

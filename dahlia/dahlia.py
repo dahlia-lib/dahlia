@@ -33,6 +33,7 @@ class Depth(Enum):
 
 
 class Dahlia:
+    """The main Dahlia class handling string transformations."""
     __slots__ = (
         "__depth",
         "__marker",
@@ -95,40 +96,7 @@ class Dahlia:
         return self.__no_reset
 
     def convert(self, string: str) -> str:
-        r"""
-        Formats a string using the format codes.
-
-        Example
-        -------
-
-        .. code-block :: python
-
-            dahlia = Dahlia()
-            text = dahlia.convert("&aHello\n&cWorld")
-            print(text)
-
-
-        Output would be:
-
-        .. raw:: html
-
-            <pre>
-                <span class="&a">Hello</span>
-                <span class="&c">World</span>
-            </pre>
-
-        For more see :ref:`dahlia usage <usage>`
-
-        Parameters
-        ----------
-        string : str
-            String containing text and format codes.
-
-        Returns
-        -------
-        str
-            A formatted string with the appropriate formatting applied.
-        """
+        """Transforms a Dahlia string to an ANSI string."""
         if self.__no_color:
             return clean(string)
         if not (string.endswith(self.__reset) or self.no_reset):
@@ -138,66 +106,11 @@ class Dahlia:
         return string.replace(self.__marker + "_", self.__marker)
 
     def input(self, prompt: str) -> str:
-        """
-        Wrapper over :func:`input`, calling the :func:`dahlia` function on the prompt.
-
-        Example
-        -------
-        .. code-block :: python
-
-            dahlia = Dahlia()
-            text = dahlia.input("&bEnter text: ")
-
-
-        Output would be:
-
-        .. raw:: html
-
-            <pre>
-                <span class="&b">Enter text: </span>
-            </pre>
-
-        Parameters
-        ----------
-        prompt : str
-            String containing text and format codes to prompt the user with.
-
-        Returns
-        -------
-        str
-            User input entered after the formatted prompt.
-        """
+        """Wraps the built-in `input` by transforming the prompt."""
         return input(self.convert(prompt))
 
     def print(self, *args: Any, **kwargs: Any) -> None:
-        r"""
-        Wrapper over :func:`print`, calling the :func:`dahlia` method for each argument.
-
-        Example
-        -------
-        .. code-block :: python
-
-            dahlia = Dahlia()
-            text = dahlia.print("&bHello", "&5World", sep="\n")
-
-
-        Output would be:
-
-        .. raw:: html
-
-            <pre>
-                <span class="&b">Hello</span>
-                <span class="&5">World</span>
-            </pre>
-
-        Parameters
-        ----------
-        \*args : str
-            Objects to print.
-
-        \*\*kwargs
-            Keyword arguments to pass to :func:`print`.
-        """
+        """Wraps the built-in `print` by transforming all of its args."""
         print(*map(self.convert, map(str, args)), **kwargs)
 
     def reset(self) -> None:
