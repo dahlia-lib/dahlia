@@ -135,7 +135,7 @@ class Dahlia:
             string += self.__reset
         for code, bg, color in _find_codes(string, self.__patterns):
             string = string.replace(code, self.__get_ansi(color, bg=bg))
-        return string
+        return string.replace(self.__marker + "_", self.__marker)
 
     def input(self, prompt: str) -> str:
         """
@@ -212,6 +212,8 @@ class Dahlia:
         )
 
     def __get_ansi(self, code: str, *, bg: bool) -> str:
+        if code == f"{self.__marker}_":
+            return code
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
         if len(code) in {3, 6}:
             code_size = len(code) // 3
