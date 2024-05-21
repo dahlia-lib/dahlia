@@ -4,14 +4,14 @@ from os import environ
 from re import compile
 
 FORMATTERS = {
+    "h": 8,
     "i": 7,
     "j": 2,
-    "k": 8,
+    "k": 5,
     "l": 1,
     "m": 9,
     "n": 4,
     "o": 3,
-    "p": 5,
     "r": 0,
 }
 
@@ -90,7 +90,7 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
-CODE_REGEXES = [r"_", r"(~?)([0-9a-fi-pr])", r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});"]
+CODE_REGEXES = [r"_", r"(~?)([0-9a-fh-or])", r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});"]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
