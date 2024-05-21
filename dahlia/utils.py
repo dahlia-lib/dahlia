@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from .constants import ANSI_REGEX, CODE_REGEXES
+from dahlia.constants import ANSI_REGEX, CODE_REGEXES
 
 
 def clean(string: str, marker: str = "&") -> str:

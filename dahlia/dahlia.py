@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Literal
 
-from .constants import (
+from dahlia.constants import (
     BG_FORMAT_TEMPLATES,
     COLOR_SETS,
     COLORS_24BIT,
@@ -11,7 +11,7 @@ from .constants import (
     FORMATTERS,
     NO_COLOR,
 )
-from .utils import _find_codes, _with_marker, clean
+from dahlia.utils import _find_codes, _with_marker, clean
 
 
 class Depth(Enum):
