@@ -4,15 +4,29 @@ from os import environ
 from re import compile
 
 FORMATTERS = {
+    "h": 8,
     "i": 7,
     "j": 2,
-    "k": 8,
+    "k": 5,
     "l": 1,
     "m": 9,
     "n": 4,
     "o": 3,
-    "p": 5,
     "r": 0,
+}
+
+RESET = {
+    "f": 39,
+    "b": 49,
+    "c": -1,
+    "h": 28,
+    "i": 27,
+    "j": 22,
+    "k": 25,
+    "l": 22,
+    "m": 29,
+    "n": 24,
+    "o": 23,
 }
 
 COLORS_3BIT = {
@@ -32,7 +46,6 @@ COLORS_3BIT = {
     "d": 35,
     "e": 33,
     "f": 37,
-    "g": 35,
 }
 
 COLORS_4BIT = {
@@ -64,7 +77,6 @@ COLORS_8BIT = {
     "d": 207,
     "e": 227,
     "f": 15,
-    "g": 184,
 }
 
 COLORS_24BIT = {
@@ -84,7 +96,6 @@ COLORS_24BIT = {
     "d": [255, 85, 255],
     "e": [255, 255, 85],
     "f": [255, 255, 255],
-    "g": [221, 214, 5],
 }
 
 COLOR_SETS: dict[int, dict[str, int]] = {
@@ -93,7 +104,12 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
-CODE_REGEXES = [r"(~?)([0-9a-gi-pr])", r"(~?)\[#([0-9a-fA-F]{6})\]"]
+CODE_REGEXES = [
+    r"_",
+    r"r([bcfh-o])|R",
+    r"(~?)([0-9a-fh-o])",
+    r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});",
+]
 
 ANSI_REGEXES = [
     compile(r"\033\[(\d+)m"),
