@@ -105,17 +105,6 @@ class Dahlia:
         """Wraps the built-in `print` by transforming all of its args."""
         print(*map(self.convert, map(str, args)), **kwargs)
 
-    def reset(self) -> None:
-        """Resets all modifiers."""
-        self.print(self._reset, end="")
-
-    def test(self) -> None:
-        """Prints all default format codes and their formatting."""
-        self.print(
-            "".join(f"{self.marker}{i * 2}" for i in "0123456789abcdef")
-            + "&r&ll&r&mm&r&nn&r&oo".replace("&", self.marker)
-        )
-
     def __get_ansi(self, code: str, *, bg: bool) -> str:
         if code == f"{self._marker}_":
             return code
