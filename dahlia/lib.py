@@ -44,7 +44,6 @@ class Dahlia:
         *,
         depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
         marker: str = "&",
-        no_color: bool | None = None,
         auto_reset: bool = True,
     ) -> None:
         if isinstance(depth, int):

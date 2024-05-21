@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from dahlia.dahlia import Dahlia, Depth
+from dahlia.lib import Dahlia, Depth
 
 
 @pytest.mark.parametrize(

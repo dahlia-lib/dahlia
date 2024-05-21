@@ -1,4 +1,4 @@
-from dahlia.dahlia import Dahlia, Depth
+from dahlia.lib import Dahlia, Depth
 from dahlia.utils import clean, clean_ansi
 
 __all__ = (
