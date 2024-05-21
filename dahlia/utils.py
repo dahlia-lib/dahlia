@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from re import Pattern, compile
 
-from .constants import ANSI_REGEXES, CODE_REGEXES
+from .constants import ANSI_REGEX, CODE_REGEXES
 
 
 def clean(string: str, marker: str = "&") -> str:
@@ -32,9 +32,7 @@ def _find_codes(
 
 
 def _find_ansi_codes(string: str) -> list[str]:
-    return [
-        match.group(0) for pattern in ANSI_REGEXES for match in pattern.finditer(string)
-    ]
+    return [match.group(0) for match in ANSI_REGEX.finditer(string)]
 
 
 def _with_marker(marker: str) -> list[Pattern[str]]:
