@@ -30,12 +30,12 @@ class Depth(Enum):
 class Dahlia:
     """The main Dahlia class handling string transformations."""
     __slots__ = (
-        "__depth",
-        "__marker",
-        "__no_color",
-        "__no_reset",
-        "__patterns",
-        "__reset",
+        "_depth",
+        "_marker",
+        "_no_color",
+        "_no_reset",
+        "_patterns",
+        "_reset",
     )
 
     def __init__(
@@ -50,12 +50,12 @@ class Dahlia:
             depth = Depth(depth)
         elif isinstance(depth, str):
             depth = Depth.__members__[depth.upper()]
-        self.__depth = depth.value
-        self.__marker = marker
-        self.__no_color = NO_COLOR if no_color is None else no_color
-        self.__no_reset = no_reset
-        self.__patterns = _with_marker(marker)
-        self.__reset = marker + "r"
+        self._depth = depth.value
+        self._marker = marker
+        self._no_color = NO_COLOR if no_color is None else no_color
+        self._no_reset = no_reset
+        self._patterns = _with_marker(marker)
+        self._reset = marker + "r"
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Dahlia):
@@ -78,27 +78,27 @@ class Dahlia:
     @property
     def depth(self) -> int:
         """Specifies what ANSI color set to use (in bits)."""
-        return self.__depth
+        return self._depth
 
     @property
     def marker(self) -> str:
         """Specifies the prefix used by format codes ("&" by default)."""
-        return self.__marker
+        return self._marker
 
     @property
     def no_reset(self) -> bool:
         """When True, doesn't add an "&r" at the end when converting strings."""
-        return self.__no_reset
+        return self._no_reset
 
     def convert(self, string: str) -> str:
         """Transforms a Dahlia string to an ANSI string."""
-        if self.__no_color:
+        if self._no_color:
             return clean(string)
-        if not (string.endswith(self.__reset) or self.no_reset):
-            string += self.__reset
-        for code, bg, color in _find_codes(string, self.__patterns):
+        if not (string.endswith(self._reset) or self.no_reset):
+            string += self._reset
+        for code, bg, color in _find_codes(string, self._patterns):
             string = string.replace(code, self.__get_ansi(color, bg=bg))
-        return string.replace(self.__marker + "_", self.__marker)
+        return string.replace(self._marker + "_", self._marker)
 
     def input(self, prompt: str) -> str:
         """Wraps the built-in `input` by transforming the prompt."""
@@ -110,7 +110,7 @@ class Dahlia:
 
     def reset(self) -> None:
         """Resets all modifiers."""
-        self.print(self.__reset, end="")
+        self.print(self._reset, end="")
 
     def test(self) -> None:
         """Prints all default format codes and their formatting."""
@@ -120,7 +120,7 @@ class Dahlia:
         )
 
     def __get_ansi(self, code: str, *, bg: bool) -> str:
-        if code == f"{self.__marker}_":
+        if code == f"{self._marker}_":
             return code
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
         if len(code) in {3, 6}:
@@ -133,7 +133,7 @@ class Dahlia:
         if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
 
-        template = formats[self.__depth]
+        template = formats[self._depth]
         if self.depth == 24:
             r, g, b = COLORS_24BIT[code]
             return template.format(r, g, b)
