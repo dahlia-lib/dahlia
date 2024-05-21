@@ -31,7 +31,7 @@ from dahlia.dahlia import Dahlia, Depth
     ],
 )
 def test_conversion(depth: Depth, string: str, expected: str) -> None:
-    assert Dahlia(depth=depth, no_reset=True).convert(string) == expected
+    assert Dahlia(depth=depth, auto_reset=True).convert(string) == expected
 
 
 @pytest.mark.parametrize(
@@ -46,7 +46,7 @@ def test_conversion(depth: Depth, string: str, expected: str) -> None:
     ],
 )
 def test_markers(marker: str, expected: str) -> None:
-    assert Dahlia(marker=marker, no_reset=True).convert("&ee§ee§§_4x") == expected
+    assert Dahlia(marker=marker, auto_reset=True).convert("&ee§ee§§_4x") == expected
 
 
 @pytest.mark.parametrize("marker", ["", "&&"])
@@ -57,7 +57,7 @@ def test_invalid_marker(marker: str) -> None:
 
 @pytest.mark.parametrize(("auto_reset", "expected"), [(True, "\x1b[0m"), (False, "")])
 def test_auto_reset(auto_reset: bool, expected: str) -> None:
-    assert Dahlia(no_reset=auto_reset).convert("") == expected
+    assert Dahlia(auto_reset=auto_reset).convert("") == expected
 
 
 def test_print(capsys: pytest.CaptureFixture[str]) -> None:

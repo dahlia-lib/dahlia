@@ -30,10 +30,10 @@ class Depth(Enum):
 class Dahlia:
     """The main Dahlia class handling string transformations."""
     __slots__ = (
+        "_auto_reset",
         "_depth",
         "_marker",
         "_no_color",
-        "_no_reset",
         "_patterns",
         "_reset",
     )
@@ -44,7 +44,7 @@ class Dahlia:
         depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
         marker: str = "&",
         no_color: bool | None = None,
-        no_reset: bool = False,
+        auto_reset: bool = True,
     ) -> None:
         if isinstance(depth, int):
             depth = Depth(depth)
@@ -53,26 +53,26 @@ class Dahlia:
         self._depth = depth.value
         self._marker = marker
         self._no_color = NO_COLOR if no_color is None else no_color
-        self._no_reset = no_reset
+        self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
         self._reset = marker + "r"
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Dahlia):
-            return (self.depth, self.no_reset, self.marker) == (
+            return (self.depth, self.auto_reset, self.marker) == (
                 other.depth,
-                other.no_reset,
+                other.auto_reset,
                 other.marker,
             )
         return NotImplemented
 
     def __hash__(self) -> int:
-        return hash((self.depth, self.no_reset, self.marker))
+        return hash((self.depth, self.auto_reset, self.marker))
 
     def __repr__(self) -> str:
         return (
             f"Dahlia(depth={self.depth}, "
-            f"no_reset={self.no_reset}, marker={self.marker!r})"
+            f"auto_reset={self.auto_reset}, marker={self.marker!r})"
         )
 
     @property
@@ -86,15 +86,15 @@ class Dahlia:
         return self._marker
 
     @property
-    def no_reset(self) -> bool:
+    def auto_reset(self) -> bool:
         """When True, doesn't add an "&r" at the end when converting strings."""
-        return self._no_reset
+        return self._auto_reset
 
     def convert(self, string: str) -> str:
         """Transforms a Dahlia string to an ANSI string."""
         if self._no_color:
             return clean(string)
-        if not (string.endswith(self._reset) or self.no_reset):
+        if not (string.endswith(self._reset) or self.auto_reset):
             string += self._reset
         for code, bg, color in _find_codes(string, self._patterns):
             string = string.replace(code, self.__get_ansi(color, bg=bg))
