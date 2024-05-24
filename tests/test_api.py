@@ -46,7 +46,10 @@ def test_conversion(depth: Depth, string: str, expected: str) -> None:
     ],
 )
 def test_markers(marker: str, expected: str) -> None:
-    assert Dahlia(marker=marker, auto_reset=False).convert("&ee§ee§§_4x") == expected
+    assert (
+        Dahlia(marker=marker, auto_reset=False, depth=Depth.LOW).convert("&ee§ee§§_4x")
+        == expected
+    )
 
 
 @pytest.mark.parametrize("marker", ["", "&&"])
@@ -77,7 +80,7 @@ def test_print_custom_sep_end(capsys: pytest.CaptureFixture[str]) -> None:
 
 
 def test_input(capsys: pytest.CaptureFixture[str]) -> None:
-    d = Dahlia()
+    d = Dahlia(depth=Depth.LOW)
     prompt = "&a&lprompt: "
     with patch(
         "builtins.input", side_effect=lambda _: (print(d.convert(prompt)), "ok")[1]

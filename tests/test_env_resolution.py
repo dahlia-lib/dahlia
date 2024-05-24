@@ -28,7 +28,8 @@ from dahlia.lib import Dahlia, Depth
 def test_depth_resolution(
     term: str | None, colorterm: str | None, expected: Depth
 ) -> None:
-    with patch("os.environ", {"TERM": term, "COLORTERM": colorterm}):
+    env = {k: v for k, v in (("TERM", term), ("COLORTERM", colorterm)) if v is not None}
+    with patch("dahlia.lib.getenv", env.get):
         assert Dahlia().depth is expected
 
 

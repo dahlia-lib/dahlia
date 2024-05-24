@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Literal
+from os import getenv
+from typing import Any, Literal, cast
 
 from dahlia.constants import (
     BG_FORMAT_TEMPLATES,
@@ -40,18 +41,28 @@ class Dahlia:
         "_reset",
     )
 
+    _depth: Literal[3, 4, 8, 24] | None
+
     def __init__(
         self,
         *,
-        depth: Depth | Literal["tty", "low", "medium", "high", 3, 4, 8, 24] = Depth.LOW,
+        depth: Depth
+        | Literal["tty", "low", "medium", "high", 3, 4, 8, 24]
+        | None = None,
         marker: str = "&",
         auto_reset: bool = True,
     ) -> None:
-        if isinstance(depth, int):
-            depth = Depth(depth)
+        self._no_color = False
+        if depth is None:
+            depth_ = _resolve_depth()
+            self._no_color = depth_ is None
+            self._depth = depth_ and depth_.value
+        elif isinstance(depth, int):
+            self._depth = Depth(depth).value
         elif isinstance(depth, str):
-            depth = Depth[depth.upper()]
-        self._depth = depth.value
+            self._depth = Depth[depth.upper()].value
+        else:
+            self._depth = depth.value
         self._marker = marker
         self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
@@ -73,9 +84,9 @@ class Dahlia:
         )
 
     @property
-    def depth(self) -> Depth:
+    def depth(self) -> Depth | None:
         """Specifies what ANSI color set to use (in bits)."""
-        return Depth(self._depth)
+        return self._depth and Depth(self._depth)
 
     @property
     def marker(self) -> str:
@@ -123,13 +134,28 @@ class Dahlia:
         if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
 
-        template = formats[self._depth]
-        if self._depth == 24:
+        depth = cast(int, self._depth)
+        template = formats[depth]
+        if depth == 24:
             r, g, b = COLORS_24BIT[code]
             return template.format(r, g, b)
 
-        color_map = COLOR_SETS[self._depth]
+        color_map = COLOR_SETS[depth]
         value = color_map[code]
-        if self._depth <= 4 and bg:
+        if depth <= 4 and bg:
             value += 10
         return template.format(value)
+
+
+def _resolve_depth() -> Depth | None:
+    if getenv("NO_COLOR") or (term := getenv("TERM", "")) == "dumb":
+        return None
+    if getenv("COLORTERM") in {"truecolor", "24bit"}:
+        return Depth.HIGH
+    if term in {"terminator", "mosh"}:
+        return Depth.HIGH
+    if "24bit" in term or "24-bit" in term:
+        return Depth.HIGH
+    if "256" in term:
+        return Depth.MEDIUM
+    return Depth.LOW
