@@ -68,8 +68,8 @@ class Dahlia:
 
     def __repr__(self) -> str:
         return (
-            f"Dahlia(depth={self.depth}, "
-            f"auto_reset={self.auto_reset}, marker={self.marker!r})"
+            f"Dahlia(depth={self._depth}, "
+            f"auto_reset={self._auto_reset}, marker={self._marker!r})"
         )
 
     @property
@@ -120,12 +120,12 @@ class Dahlia:
             return formats[3].format(FORMATTERS[code])
 
         template = formats[self._depth]
-        if self.depth == 24:
+        if self._depth == 24:
             r, g, b = COLORS_24BIT[code]
             return template.format(r, g, b)
 
-        color_map = COLOR_SETS[self.depth]
+        color_map = COLOR_SETS[self._depth]
         value = color_map[code]
-        if self.depth <= 4 and bg:
+        if self._depth <= 4 and bg:
             value += 10
         return template.format(value)
