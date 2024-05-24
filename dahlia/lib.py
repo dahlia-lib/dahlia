@@ -14,6 +14,8 @@ from dahlia.constants import (
 )
 from dahlia.utils import _find_codes, _with_marker, clean
 
+DepthInt = Literal[3, 4, 8, 24]
+
 
 class Depth(Enum):
     """Specifies usable color depth levels."""
@@ -41,14 +43,12 @@ class Dahlia:
         "_reset",
     )
 
-    _depth: Literal[3, 4, 8, 24] | None
+    _depth: DepthInt | None
 
     def __init__(
         self,
         *,
-        depth: Depth
-        | Literal["tty", "low", "medium", "high", 3, 4, 8, 24]
-        | None = None,
+        depth: Depth | DepthInt | str | None = None,
         marker: str = "&",
         auto_reset: bool = True,
     ) -> None:
@@ -56,7 +56,7 @@ class Dahlia:
         if depth is None:
             depth_ = _resolve_depth()
             self._no_color = depth_ is None
-            self._depth = cast("Literal[3, 4, 8, 24] | None", depth_ and depth_.value)
+            self._depth = cast("DepthInt | None", depth_ and depth_.value)
         elif isinstance(depth, int):
             self._depth = Depth(depth).value
         elif isinstance(depth, str):

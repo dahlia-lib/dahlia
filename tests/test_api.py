@@ -89,3 +89,7 @@ def test_input(capsys: pytest.CaptureFixture[str]) -> None:
 
     assert capsys.readouterr().out == d.convert(prompt) + "\n"
     assert ans == "ok"
+
+
+def test_depth_accepts_case_insensitive_str() -> None:
+    assert Dahlia(depth="lOw").depth is Depth.LOW
