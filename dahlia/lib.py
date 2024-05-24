@@ -56,7 +56,7 @@ class Dahlia:
         if depth is None:
             depth_ = _resolve_depth()
             self._no_color = depth_ is None
-            self._depth = depth_ and depth_.value
+            self._depth = cast("Literal[3, 4, 8, 24] | None", depth_ and depth_.value)
         elif isinstance(depth, int):
             self._depth = Depth(depth).value
         elif isinstance(depth, str):
