@@ -152,9 +152,7 @@ def _resolve_depth() -> Depth | None:
         return None
     if getenv("COLORTERM") in {"truecolor", "24bit"}:
         return Depth.HIGH
-    if term in {"terminator", "mosh"}:
-        return Depth.HIGH
-    if "24bit" in term or "24-bit" in term:
+    if term in {"terminator", "mosh"} or "24bit" in term or "24-bit" in term:
         return Depth.HIGH
     if "256" in term:
         return Depth.MEDIUM
