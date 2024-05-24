@@ -31,7 +31,7 @@ from dahlia.lib import Dahlia, Depth
     ],
 )
 def test_conversion(depth: Depth, string: str, expected: str) -> None:
-    assert Dahlia(depth=depth, auto_reset=True).convert(string) == expected
+    assert Dahlia(depth=depth, auto_reset=False).convert(string) == expected
 
 
 @pytest.mark.parametrize(
@@ -46,7 +46,7 @@ def test_conversion(depth: Depth, string: str, expected: str) -> None:
     ],
 )
 def test_markers(marker: str, expected: str) -> None:
-    assert Dahlia(marker=marker, auto_reset=True).convert("&ee§ee§§_4x") == expected
+    assert Dahlia(marker=marker, auto_reset=False).convert("&ee§ee§§_4x") == expected
 
 
 @pytest.mark.parametrize("marker", ["", "&&"])

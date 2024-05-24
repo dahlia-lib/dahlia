@@ -91,7 +91,7 @@ class Dahlia:
         """Transforms a Dahlia string to an ANSI string."""
         if self._no_color:
             return clean(string)
-        if not (string.endswith(self._reset) or self.auto_reset):
+        if not string.endswith(self._reset) and self.auto_reset:
             string += self._reset
         for code, bg, color in _find_codes(string, self._patterns):
             string = string.replace(code, self.__get_ansi(color, bg=bg))
