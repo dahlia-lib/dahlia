@@ -11,9 +11,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 
-[tool.poetry.scripts]
-dahlia = "dahlia.__main__:main"
-
 [tool.poetry.group.dev.dependencies]
 mkdocs = "^1.6.0"
 mkdocs-material = "^9.5.24"
