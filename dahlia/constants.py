@@ -12,7 +12,6 @@ FORMATTERS = {
     "m": 9,
     "n": 4,
     "o": 3,
-    "r": 0,
 }
 
 RESET = {
