@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-from os import environ
 
 FORMATTERS = {
     "h": 8,
@@ -131,5 +130,3 @@ BG_FORMAT_TEMPLATES = {
     8: "\033[48;5;{}m",
     24: "\033[48;2;{};{};{}m",
 }
-
-NO_COLOR = bool(environ.get("NO_COLOR"))

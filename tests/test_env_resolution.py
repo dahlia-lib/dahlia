@@ -28,9 +28,9 @@ from dahlia.lib import Dahlia, Depth
 def test_depth_resolution(
     term: str | None, colorterm: str | None, expected: Depth
 ) -> None:
-    with patch("os.environ", {"TERM": term, "COLORTERM": colorterm}):
-        assert Dahlia().depth == expected.value
-        # TODO(trag1c): make dahlia.depth use the enum
+    env = {k: v for k, v in (("TERM", term), ("COLORTERM", colorterm)) if v is not None}
+    with patch("dahlia.lib.getenv", env.get):
+        assert Dahlia().depth is expected
 
 
 @pytest.mark.parametrize(
@@ -39,6 +39,7 @@ def test_depth_resolution(
         {"TERM": "dumb"},
         {"NO_COLOR": "1"},
         {"NO_COLOR": "true"},
+        {"NO_COLOR": "0"},
     ],
 )
 def test_dumb_term_is_no_color(env: dict[str, str]) -> None:
@@ -49,7 +50,7 @@ def test_dumb_term_is_no_color(env: dict[str, str]) -> None:
 @pytest.mark.parametrize(
     "env",
     [
-        {"NO_COLOR": "0"},
+        {"NO_COLOR": ""},
         {"TERM": "some-term"},
         {},
     ],

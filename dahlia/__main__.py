@@ -36,7 +36,7 @@ def main() -> None:
 
     if string is UNSET:
         if args.test:
-            d.test()
+            d.test()  # type: ignore[attr-defined]
         sys.exit()
     if args.clean:
         print(clean(string))
