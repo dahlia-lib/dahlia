@@ -38,6 +38,7 @@ def test_depth_resolution(
         {"TERM": "dumb"},
         {"NO_COLOR": "1"},
         {"NO_COLOR": "true"},
+        {"NO_COLOR": "0"},
     ],
 )
 def test_dumb_term_is_no_color(env: dict[str, str]) -> None:
@@ -48,7 +49,7 @@ def test_dumb_term_is_no_color(env: dict[str, str]) -> None:
 @pytest.mark.parametrize(
     "env",
     [
-        {"NO_COLOR": "0"},
+        {"NO_COLOR": ""},
         {"TERM": "some-term"},
         {},
     ],
