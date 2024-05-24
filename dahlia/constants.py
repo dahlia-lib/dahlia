@@ -133,3 +133,5 @@ BG_FORMAT_TEMPLATES = {
 }
 
 NO_COLOR = bool(getenv("NO_COLOR"))
+TERM = getenv("TERM")
+COLORTERM = getenv("COLORTERM")
