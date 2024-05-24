@@ -9,7 +9,6 @@ from dahlia.constants import (
     COLORS_24BIT,
     FORMAT_TEMPLATES,
     FORMATTERS,
-    NO_COLOR,
     RESET,
 )
 from dahlia.utils import _find_codes, _with_marker, clean
@@ -54,7 +53,6 @@ class Dahlia:
             depth = Depth[depth.upper()]
         self._depth = depth.value
         self._marker = marker
-        self._no_color = NO_COLOR
         self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
         self._reset = marker + "R"

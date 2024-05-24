@@ -131,7 +131,3 @@ BG_FORMAT_TEMPLATES = {
     8: "\033[48;5;{}m",
     24: "\033[48;2;{};{};{}m",
 }
-
-NO_COLOR = bool(getenv("NO_COLOR"))
-TERM = getenv("TERM")
-COLORTERM = getenv("COLORTERM")
