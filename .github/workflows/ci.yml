@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  POETRY_VERSION: 1.8.3
+  PY_COLORS: 1
+
+jobs:
+  ci:
+    runs-on: "${{ matrix.platform }}-latest"
+    environment: "Test"
+    strategy:
+      fail-fast: false
+      # https://blog.jaraco.com/efficient-use-of-ci-resources/
+      matrix:
+        python: ["3.8", "3.12"]
+        platform: ["ubuntu", "macos", "windows"]
+        include:
+        - python: "3.9"
+          platform: "ubuntu"
+        - python: "3.10"
+          platform: "ubuntu"
+        - python: "3.11"
+          platform: "ubuntu"
+        - python: "pypy3.10"
+          platform: "ubuntu"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install poetry
+      run: pipx install poetry==${{ env.POETRY_VERSION }}
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python }}
+        cache: poetry
+    - name: Install project
+      run: poetry install
+    - name: Check coverage
+      run: |
+        poetry run pytest --cov dahlia --cov-report term-missing
+        poetry run interrogate -vv
+    - name: Lint code
+      if: always()
+      run: |
+        poetry run ruff check
+        poetry run ruff format --check
+    - name: Run mypy
+      if: always()
+      run: poetry run mypy --strict dahlia tests
