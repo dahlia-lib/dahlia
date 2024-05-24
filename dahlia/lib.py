@@ -10,6 +10,7 @@ from dahlia.constants import (
     FORMAT_TEMPLATES,
     FORMATTERS,
     NO_COLOR,
+    RESET,
 )
 from dahlia.utils import _find_codes, _with_marker, clean
 
@@ -29,6 +30,7 @@ class Depth(Enum):
 
 class Dahlia:
     """The main Dahlia class handling string transformations."""
+
     __slots__ = (
         "_auto_reset",
         "_depth",
@@ -55,7 +57,7 @@ class Dahlia:
         self._no_color = NO_COLOR
         self._auto_reset = auto_reset
         self._patterns = _with_marker(marker)
-        self._reset = marker + "r"
+        self._reset = marker + "R"
         self._hash_fields = (self._depth, self._auto_reset, self._marker)
 
     def __eq__(self, other: object) -> bool:
@@ -94,7 +96,7 @@ class Dahlia:
         if not string.endswith(self._reset) and self.auto_reset:
             string += self._reset
         for code, bg, color in _find_codes(string, self._patterns):
-            string = string.replace(code, self.__get_ansi(color, bg=bg))
+            string = string.replace(code, self._get_ansi(color, bg=bg))
         return string.replace(self._marker + "_", self._marker)
 
     def input(self, prompt: str) -> str:
@@ -105,9 +107,13 @@ class Dahlia:
         """Wraps the built-in `print` by transforming all of its args."""
         print(*map(self.convert, map(str, args)), **kwargs)
 
-    def __get_ansi(self, code: str, *, bg: bool) -> str:
-        if code == f"{self._marker}_":
-            return code
+    def _get_ansi(self, code: str, *, bg: bool | None) -> str:
+        if code == "R":
+            return "\033[0m"
+        if code == "_":
+            return self._marker + code
+        if code[0] == "r":
+            return f"\033[{RESET[code[1]]}m"
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
         if len(code) in {3, 6}:
             code_size = len(code) // 3
