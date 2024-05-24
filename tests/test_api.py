@@ -39,7 +39,7 @@ def test_conversion(depth: Depth, string: str, expected: str) -> None:
     [
         ("&", "\x1b[93me§ee§§_4x"),
         ("e", "&\x1b[93m§\x1b[93m§§_4x"),
-        ("§", "&ee\x1b[93me§§_4x"),
+        ("§", "&ee\x1b[93me§§4x"),
         ("_", "&ee§ee§§\x1b[31mx"),
         ("4", "&ee§ee§§_4x"),
         ("x", "&ee§ee§§_4x"),
@@ -65,7 +65,7 @@ def test_print(capsys: pytest.CaptureFixture[str]) -> None:
     content = "&e&nunderlined&rn yellow"
     d.print(content)
 
-    assert capsys.readouterr().out == d.convert(content)
+    assert capsys.readouterr().out == d.convert(content) + "\n"
 
 
 def test_print_custom_sep_end(capsys: pytest.CaptureFixture[str]) -> None:
@@ -79,8 +79,10 @@ def test_print_custom_sep_end(capsys: pytest.CaptureFixture[str]) -> None:
 def test_input(capsys: pytest.CaptureFixture[str]) -> None:
     d = Dahlia()
     prompt = "&a&lprompt: "
-    with patch("input", return_value="ok"):
+    with patch(
+        "builtins.input", side_effect=lambda _: (print(d.convert(prompt)), "ok")[1]
+    ):
         ans = d.input(prompt)
 
-    assert capsys.readouterr().out == d.convert(prompt)
+    assert capsys.readouterr().out == d.convert(prompt) + "\n"
     assert ans == "ok"

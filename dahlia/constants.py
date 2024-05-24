@@ -12,13 +12,12 @@ FORMATTERS = {
     "m": 9,
     "n": 4,
     "o": 3,
-    "r": 0,
 }
 
 RESET = {
     "f": 39,
     "b": 49,
-    "c": -1,
+    "c": "39m\033[49",  # &rf + &rb -> \033[39m\033[49m
     "h": 28,
     "i": 27,
     "j": 22,
@@ -104,9 +103,11 @@ COLOR_SETS: dict[int, dict[str, int]] = {
     8: COLORS_8BIT,
 }
 
+NO_GROUP_CODES = {"R", "_"}
+
 CODE_REGEXES = [
-    r"_",
-    r"r([bcfh-o])|R",
+    r"(R|_)",
+    r"(r[bcfh-o])",
     r"(~?)([0-9a-fh-o])",
     r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});",
 ]
@@ -131,4 +132,4 @@ BG_FORMAT_TEMPLATES = {
     24: "\033[48;2;{};{};{}m",
 }
 
-NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
+NO_COLOR = bool(environ.get("NO_COLOR"))
