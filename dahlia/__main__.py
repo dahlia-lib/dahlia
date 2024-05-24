@@ -1,48 +1,15 @@
 from __future__ import annotations
 
-import sys
-from argparse import ArgumentParser
+from .lib import Dahlia, Depth, _resolve_depth
 
-from .lib import Dahlia, Depth
-from .utils import clean
-
-UNSET = object()
-
-
-def main() -> None:
-    parser = ArgumentParser(prog="Dahlia")
-    parser.add_argument(
-        "-d",
-        "--depth",
-        help="set the color depth",
-        type=int,
-        choices={3, 4, 8, 24},
-        default=4,
-    )
-    parser.add_argument("-t", "--test", help="test the colors", action="store_true")
-    parser.add_argument(
-        "-v",
-        "--version",
-        help="print the version",
-        action="version",
-        version="%(prog)s 2.3.2",
-    )
-    parser.add_argument("-c", "--clean", help="clean codes", action="store_true")
-    parser.add_argument("string", nargs="?", help="the string to color", default=UNSET)
-    args = parser.parse_args()
-
-    d = Dahlia(depth=Depth(args.depth))
-    string = args.string
-
-    if string is UNSET:
-        if args.test:
-            d.test()  # type: ignore[attr-defined]
-        sys.exit()
-    if args.clean:
-        print(clean(string))
-    else:
-        d.print(string)
-
+TEST_STRING = "&R".join(f"&{c * 2}" for c in "0123456789abcdefhijklmno")
 
 if __name__ == "__main__":
-    main()
+    if (max_depth := _resolve_depth()) is None:
+        print("Disabled colors")
+    else:
+        print(f"Max depth: {max_depth.name} ({max_depth.value}-bit)")
+        for depth in Depth.__members__.values():
+            Dahlia(depth=depth).print(TEST_STRING)
+            if depth is max_depth:
+                break
