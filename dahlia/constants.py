@@ -133,4 +133,4 @@ BG_FORMAT_TEMPLATES = {
     24: "\033[48;2;{};{};{}m",
 }
 
-NO_COLOR = environ.get("NO_COLOR", "").casefold() in ("1", "true")
+NO_COLOR = bool(environ.get("NO_COLOR"))
