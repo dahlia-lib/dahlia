@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 from argparse import ArgumentParser
 
-from .dahlia import Dahlia, Depth
+from .lib import Dahlia, Depth
 from .utils import clean
 
 UNSET = object()

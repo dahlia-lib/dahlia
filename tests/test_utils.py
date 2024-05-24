@@ -22,7 +22,7 @@ def test_clean(content: str, marker: str, expected: str) -> None:
         ("\x1b[93m\x1b[4munderlined\x1b[0m yellow", "underlined yellow"),
         ("\x1b[38;2;255;255;85m\x1b[4munderlined\x1b[0m yellow", "underlined yellow"),
         ("\x1bxxx", "\x1bxxx"),
-        ("\x1b[x", "\x1b[xm"),
+        ("\x1b[xm", "\x1b[xm"),
     ],
 )
 def test_clean_ansi(content: str, expected: str) -> None:

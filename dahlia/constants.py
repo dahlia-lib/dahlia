@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+import re
 from os import environ
-from re import compile
 
 FORMATTERS = {
     "h": 8,
@@ -111,11 +111,11 @@ CODE_REGEXES = [
     r"(~?)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3});",
 ]
 
-ANSI_REGEXES = [
-    compile(r"\033\[(\d+)m"),
-    compile(r"\033\[(?:3|4)8;5;(\d+)m"),
-    compile(r"\033\[(?:3|4)8;2;(\d+);(\d+);(\d+)m"),
-]
+# Taken from https://github.com/chalk/ansi-regex/blob/main/index.js
+# Copyright (c) 2015 Sindre Sorhus, MIT License
+ANSI_REGEX = re.compile(
+    r"[\u001B\u009B][\[\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\d\/#&.:=?%@~_]+)*|[a-zA-Z\d]+(?:;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|(?:(?:\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-nq-uy=><~]))"
+)
 
 FORMAT_TEMPLATES = {
     3: "\033[{}m",

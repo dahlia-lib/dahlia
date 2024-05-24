@@ -1,5 +1,5 @@
-from .dahlia import Dahlia, Depth
-from .utils import clean, clean_ansi
+from dahlia.lib import Dahlia, Depth
+from dahlia.utils import clean, clean_ansi
 
 __all__ = (
     "Dahlia",
