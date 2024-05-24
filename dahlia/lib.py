@@ -51,7 +51,7 @@ class Dahlia:
         if isinstance(depth, int):
             depth = Depth(depth)
         elif isinstance(depth, str):
-            depth = Depth.__members__[depth.upper()]
+            depth = Depth[depth.upper()]
         self._depth = depth.value
         self._marker = marker
         self._no_color = NO_COLOR
@@ -75,9 +75,9 @@ class Dahlia:
         )
 
     @property
-    def depth(self) -> int:
+    def depth(self) -> Depth:
         """Specifies what ANSI color set to use (in bits)."""
-        return self._depth
+        return Depth(self._depth)
 
     @property
     def marker(self) -> str:

@@ -29,8 +29,7 @@ def test_depth_resolution(
     term: str | None, colorterm: str | None, expected: Depth
 ) -> None:
     with patch("os.environ", {"TERM": term, "COLORTERM": colorterm}):
-        assert Dahlia().depth == expected.value
-        # TODO(trag1c): make dahlia.depth use the enum
+        assert Dahlia().depth is expected
 
 
 @pytest.mark.parametrize(
