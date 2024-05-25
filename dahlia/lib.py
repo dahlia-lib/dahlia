@@ -141,7 +141,7 @@ class Dahlia:
         color_map = COLOR_SETS[depth]
         value = color_map[code]
         if depth <= 4 and bg:
-            value += 10
+            return template.format(int(value) + 10)
         return template.format(value)
 
 
