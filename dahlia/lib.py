@@ -122,13 +122,15 @@ class Dahlia:
         if code[0] == "r":
             return f"\033[{RESET[code[1]]}m"
         formats = BG_FORMAT_TEMPLATES if bg else FORMAT_TEMPLATES
-        if len(code) in {3, 6}:
-            code_size = len(code) // 3
-            r, g, b = (
-                int(code[i : i + code_size] * (3 - code_size), 16)
-                for i in (code_size * i for i in (0, 1, 2))
+        code_size, rem3 = divmod(len(code), 3)
+        if not rem3:
+            return formats[24].format(
+                *(
+                    (int(code[i : i + 2], 16) for i in (0, 2, 4))
+                    if code_size == 2
+                    else (int(i, 16) * 0x11 for i in code)
+                )
             )
-            return formats[24].format(r, g, b)
         if code in FORMATTERS:
             return formats[3].format(FORMATTERS[code])
 
