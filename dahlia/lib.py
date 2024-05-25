@@ -52,11 +52,9 @@ class Dahlia:
         marker: str = "&",
         auto_reset: bool = True,
     ) -> None:
-        self._no_color = False
+        self._no_color = bool(getenv("NO_COLOR")) or getenv("TERM") == "dumb"
         if depth is None:
-            depth_ = _resolve_depth()
-            self._no_color = depth_ is None
-            self._depth = cast("DepthInt | None", depth_ and depth_.value)
+            self._depth = None if self._no_color else _resolve_depth().value
         elif isinstance(depth, int):
             self._depth = Depth(depth).value
         elif isinstance(depth, str):
@@ -147,12 +145,14 @@ class Dahlia:
         return template.format(value)
 
 
-def _resolve_depth() -> Depth | None:
-    if getenv("NO_COLOR") or (term := getenv("TERM", "")) == "dumb":
-        return None
+def _resolve_depth() -> Depth:
     if getenv("COLORTERM") in {"truecolor", "24bit"}:
         return Depth.HIGH
-    if term in {"terminator", "mosh"} or "24bit" in term or "24-bit" in term:
+    if (
+        (term := getenv("TERM", "")) in {"terminator", "mosh"}
+        or "24bit" in term
+        or "24-bit" in term
+    ):
         return Depth.HIGH
     if "256" in term:
         return Depth.MEDIUM
