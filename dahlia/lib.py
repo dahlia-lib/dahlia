@@ -135,16 +135,10 @@ class Dahlia:
             return formats[3].format(FORMATTERS[code])
 
         depth = cast(int, self._depth)
-        template = formats[depth]
-        if depth == 24:
-            r, g, b = COLORS_24BIT[code]
-            return template.format(r, g, b)
-
-        color_map = COLOR_SETS[depth]
-        value = color_map[code]
-        if depth <= 4 and bg:
-            return template.format(int(value) + 10)
-        return template.format(value)
+        value = COLOR_SETS[depth][code]
+        if bg and depth <= 4:
+            return formats[depth].format(int(value) + 10)
+        return formats[depth].format(value)
 
 
 def _resolve_depth() -> Depth:
