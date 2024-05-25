@@ -7,7 +7,6 @@ from typing import Any, Literal, cast
 from dahlia.constants import (
     BG_FORMAT_TEMPLATES,
     COLOR_SETS,
-    COLORS_24BIT,
     FORMAT_TEMPLATES,
     FORMATTERS,
     RESET,
