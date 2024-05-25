@@ -109,7 +109,7 @@ class Dahlia:
         """Wraps the built-in `input` by transforming the prompt."""
         return input(self.convert(prompt))
 
-    def print(self, *args: Any, **kwargs: Any) -> None:
+    def print(self, *args: object, **kwargs: Any) -> None:
         """Wraps the built-in `print` by transforming all of its args."""
         print(*map(self.convert, map(str, args)), **kwargs)
 

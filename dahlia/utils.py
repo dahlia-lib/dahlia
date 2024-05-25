@@ -42,7 +42,7 @@ def _find_codes(
 
 
 def _find_ansi_codes(string: str) -> set[str]:
-    return {match.group(0) for match in ANSI_REGEX.finditer(string)}
+    return {match[0] for match in ANSI_REGEX.finditer(string)}
 
 
 def _with_marker(marker: str) -> list[re.Pattern[str]]:
