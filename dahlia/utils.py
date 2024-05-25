@@ -18,7 +18,7 @@ def clean(string: str, marker: str = "&") -> str:
 
 def clean_ansi(string: str) -> str:
     """Removes all ANSI codes from a string."""
-    for ansi_code in set(_find_ansi_codes(string)):
+    for ansi_code in _find_ansi_codes(string):
         string = string.replace(ansi_code, "")
     return string
 
