@@ -1,5 +1,6 @@
 import pytest
 
+from dahlia.__main__ import TEST_STRING
 from dahlia.utils import clean, clean_ansi
 
 
@@ -27,3 +28,7 @@ def test_clean(content: str, marker: str, expected: str) -> None:
 )
 def test_clean_ansi(content: str, expected: str) -> None:
     assert clean_ansi(content) == expected
+
+
+def test_cli_test_string() -> None:
+    assert clean(TEST_STRING) == "0123456789abcdefhijklmno"
