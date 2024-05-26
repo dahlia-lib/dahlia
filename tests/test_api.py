@@ -24,9 +24,10 @@ from dahlia.lib import Dahlia, Depth
         (Depth.TTY, "&alingualumina", "\x1b[32mlingualumina"),
         (Depth.TTY, "&3filariidae", "\x1b[36mfilariidae"),
         (Depth.LOW, "&4aura", "\x1b[31maura"),
+        (Depth.LOW, "&~4aura", "\x1b[41maura"),
         (Depth.TTY, "&r&R", "&r\x1b[0m"),
         (Depth.HIGH, "&9aspergillaceae", "\x1b[38;2;85;85;255maspergillaceae"),
-        (Depth.LOW, "&edemigod", "\x1b[93mdemigod"),
+        (Depth.LOW, "&~edemigod", "\x1b[103mdemigod"),
         (Depth.TTY, "&9miller", "\x1b[34mmiller"),
     ],
 )
@@ -93,3 +94,11 @@ def test_input(capsys: pytest.CaptureFixture[str]) -> None:
 
 def test_depth_accepts_case_insensitive_str() -> None:
     assert Dahlia(depth="lOw").depth is Depth.LOW
+
+
+def test_properties() -> None:
+    d = Dahlia(depth=Depth.TTY)
+    assert d.marker == "&"
+    assert hash(d) == hash(Dahlia(depth=Depth.TTY))
+    assert eval(repr(d)) == d  # noqa: S307
+    assert d != 1
