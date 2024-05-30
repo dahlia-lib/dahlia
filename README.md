@@ -16,14 +16,10 @@ $ pip install dahlia
 ```
 (Some systems may require you to use `pip3`, `python -m pip`, or `py -m pip` instead)
 
-## Documentation
-
-> [!important]
-> Dahlia is currently undergoing some changes and will be hosting its
-> documentation somewhere else. Dahlia <v3.0.0 documentation's source files can
-> be viewed under the
-> [v2.3.2 tag](https://github.com/dahlia-lib/dahlia/releases/tag/2.3.2).
+## [Documentation]
 
 ## License
 
 Dahlia is licensed under the MIT License.
+
+[Documentation]: https://dahlia-lib.github.io/dahlia/
