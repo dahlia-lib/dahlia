@@ -27,7 +27,3 @@ $ pip install dahlia
 ## License
 
 Dahlia is licensed under the MIT License.
-
-## Examples
-
-<img width="805" alt="Screen Shot 2022-10-05 at 22 56 57" src="https://user-images.githubusercontent.com/77130613/194162110-fb77713c-7008-4f5f-a79c-7a3666f2fd11.png">
