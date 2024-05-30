@@ -18,8 +18,28 @@ $ pip install dahlia
 
 ## [Documentation]
 
+## Contributing
+Contributions are welcome!
+
+Please open an issue before submitting a pull request (unless it's a minor
+change like fixing a typo).
+
+To get started:
+1. Clone your fork of the project.
+2. Set up the project with `just install` (make sure you have [poetry]
+   installed).
+3. After you're done, run `just check` to check your changes.
+
+> [!Note]
+> If you don't want to install [just], simply look up the recipes
+> in the project's [`justfile`][justfile].
+
+
 ## License
 
 Dahlia is licensed under the MIT License.
 
 [Documentation]: https://dahlia-lib.github.io/dahlia/
+[just]: https://github.com/casey/just
+[justfile]: https://github.com/dahlia-lib/dahlia/blob/master/justfile
+[poetry]: https://python-poetry.org/
