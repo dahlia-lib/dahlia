@@ -1,5 +1,6 @@
-[![Supported Python Versions](https://img.shields.io/pypi/pyversions/dahlia)](https://pypi.python.org/pypi/dahlia)
-[![PyPI version](https://badge.fury.io/py/dahlia.svg)](https://badge.fury.io/py/dahlia)
+[![Dahlia spec](https://img.shields.io/badge/Dahlia%20spec-v1.0-pink?style=flat)](https://github.com/dahlia-lib/spec)
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 # Dahlia
 
@@ -10,8 +11,7 @@ Text is formatted in a similar way to in the game. With Dahlia, it is formatted 
 ## Installation
 
 Dahlia is available on PyPI and can be installed with pip, or any other Python package manager:
-
-```
+```console
 $ pip install dahlia
 ```
 (Some systems may require you to use `pip3`, `python -m pip`, or `py -m pip` instead)
