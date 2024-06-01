@@ -26,4 +26,5 @@ theme:
 
 markdown_extensions:
   - admonition
+  - footnotes
   - pymdownx.superfences
