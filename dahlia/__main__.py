@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from .lib import Dahlia, Depth, _resolve_depth
+from dahlia.lib import Dahlia, Depth
 
 TEST_STRING = "&R".join(f"&{c * 2}" for c in "0123456789abcdefhijklmno")
 
 if __name__ == "__main__":
-    if (max_depth := _resolve_depth()) is None:
+    if (max_depth := Dahlia().depth) is None:
         print("Disabled colors")
     else:
         print(f"Max depth: {max_depth.name} ({max_depth.value}-bit)")
