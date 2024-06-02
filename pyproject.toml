@@ -19,6 +19,7 @@ mypy = "^1.10.0"
 pytest = "^8.2.1"
 pytest-cov = "^5.0.0"
 interrogate = "^1.7.0"
+mike = "^2.1.1"
 
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:", "if sys.version_info.*:", "if __name__ == \"__main__\":"]

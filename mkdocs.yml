@@ -28,3 +28,8 @@ markdown_extensions:
   - admonition
   - footnotes
   - pymdownx.superfences
+
+extra:
+  version:
+    provider: mike
+    alias: true
