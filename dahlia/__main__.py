@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .lib import Dahlia, Depth
+from dahlia.lib import Dahlia, Depth
 
 TEST_STRING = "&R".join(f"&{c * 2}" for c in "0123456789abcdefhijklmno")
 
