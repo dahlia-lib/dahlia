@@ -44,6 +44,10 @@ To get started:
 
 Dahlia is licensed under the MIT License.
 
+If you have any questions, or would like to get in touch, join my
+[Discord server]!
+
+[Discord server]: https://discord.gg/C8QE5tVQEq
 [Documentation]: https://dahlia-lib.github.io/dahlia/
 [just]: https://github.com/casey/just
 [justfile]: https://github.com/dahlia-lib/dahlia/blob/master/justfile
