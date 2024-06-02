@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2024-06-02
+
+This release follows the [Dahlia Specification v1.0.0][spec].
+
+### Added
+- Automatic color depth detection (as a consequence, `Dahlia`'s `depth`
+  parameter can now be `None`)
+- [Style-specific reset codes][spec-reset]
+- [The `&_` escape code][spec-esc]
+- The `clean_ansi` function 
+- The package can now be executed with `python -m dahlia` to show the current
+  terminal emulator's capabilities
+- Various performance improvements:
+  - String conversions are now approximately ~70% faster
+  - A comprehensive benchmark showed an overall library speedup of 20%
+
+### Changed
+- The "Blink" style code was changed from `&p` to `&k`
+- The custom color syntax was changed from `&[#ffaff3]` to `&#ffaff3;` and now
+  supports shorthand 3-digit codes
+- The `Dahlia.depth` property now returns a `Depth | None` instead of an `int`
+- The full reset code is now `&R` instead of `&r`
+- The "Hide" style code was changed from `&k` to `&h`
+- The `no_reset` parameter and property was renamed to `auto_reset` and now
+  defaults to `True`
+
+### Fixed
+- Type checkers no longer complain about non-lowercase depth strings
+
+### Removed
+- `Dahlia.reset`
+- `Dahlia.test`
+- Dahlia's `no_color` parameter
+- The CLI tool
+- The `&g` code
+- The legacy `dahlia`, `dprint`, and `dinput` functions
+- The `quantize_ansi` utility function
+
+[spec]: https://github.com/dahlia-lib/spec/
+[spec-reset]: https://github.com/dahlia-lib/spec/blob/main/SPECIFICATION.md#resetting
+[spec-esc]: https://github.com/dahlia-lib/spec/blob/main/SPECIFICATION.md#escaping
+
 ## [2.3.2] - 2023-04-19
 
 ### Fixed
@@ -123,3 +165,4 @@ Initial release 🎉
 [2.3.0]: https://github.com/trag1c/Dahlia/compare/2.2.2...2.3.0
 [2.3.1]: https://github.com/trag1c/Dahlia/compare/2.3.0...2.3.1
 [2.3.2]: https://github.com/trag1c/Dahlia/compare/2.3.1...2.3.2
+[3.0.0]: https://github.com/trag1c/Dahlia/compare/2.3.2...3.0.0
