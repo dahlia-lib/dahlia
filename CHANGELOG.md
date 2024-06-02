@@ -14,7 +14,7 @@ This release follows the [Dahlia Specification v1.0.0][spec].
   parameter can now be `None`)
 - [Style-specific reset codes][spec-reset]
 - [The `&_` escape code][spec-esc]
-- The `clean_ansi` function 
+- The `clean_ansi` function should now handle way more ANSI escape codes
 - The package can now be executed with `python -m dahlia` to show the current
   terminal emulator's capabilities
 - Various performance improvements:
