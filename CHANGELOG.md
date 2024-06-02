@@ -96,7 +96,7 @@ Also thanks to [@Sigmanificient](https://github.com/Sigmanificient) for minor im
 ### Changed
 - Functions `dahlia`, `dprint`, and `dinput` have been replaced by the `Dahlia` class with methods `convert`, `print`, and `input`, respectively
 
-### Remoevd
+### Removed
 - Global `config` variable
 
 ## [1.1.0] - 2022-08-12
