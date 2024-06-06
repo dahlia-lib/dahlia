@@ -61,7 +61,7 @@ def test_invalid_marker(marker: str) -> None:
 
 @pytest.mark.parametrize("marker", [123, [1], {"key": "value"}])
 def test_nonstring_marker(marker: str) -> None:
-    with pytest.raises(TypeError, match="The marker has to be a st"):
+    with pytest.raises(TypeError, match="The marker has to be a string"):
         Dahlia(marker=marker)
 
 
