@@ -59,6 +59,12 @@ def test_invalid_marker(marker: str) -> None:
         Dahlia(marker=marker)
 
 
+@pytest.mark.parametrize("marker", [123, [1], {"key": "value"}])
+def test_nonstring_marker(marker: str) -> None:
+    with pytest.raises(TypeError, match="The marker has to be a string"):
+        Dahlia(marker=marker)
+
+
 @pytest.mark.parametrize(("auto_reset", "expected"), [(True, "\x1b[0m"), (False, "")])
 def test_auto_reset(auto_reset: bool, expected: str) -> None:
     assert Dahlia(auto_reset=auto_reset).convert("") == expected

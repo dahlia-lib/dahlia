@@ -46,6 +46,9 @@ def _find_ansi_codes(string: str) -> set[str]:
 
 
 def _with_marker(marker: str) -> list[re.Pattern[str]]:
+    if not isinstance(marker, str):
+        msg = "The marker has to be a string"
+        raise TypeError(msg)
     if len(marker) != 1:
         msg = "The marker has to be a single character"
         raise ValueError(msg)
