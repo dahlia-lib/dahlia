@@ -58,10 +58,12 @@ def test_invalid_marker(marker: str) -> None:
     with pytest.raises(ValueError, match="The marker has to be a single character"):
         Dahlia(marker=marker)
 
+
 @pytest.mark.parametrize("marker", [123, [1], {"key": "value"}])
 def test_nonstring_marker(marker: str) -> None:
     with pytest.raises(TypeError, match="The marker has to be a st"):
         Dahlia(marker=marker)
+
 
 @pytest.mark.parametrize(("auto_reset", "expected"), [(True, "\x1b[0m"), (False, "")])
 def test_auto_reset(auto_reset: bool, expected: str) -> None:
