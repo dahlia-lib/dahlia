@@ -3,7 +3,12 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from dahlia.constants import ANSI_REGEX, CODE_REGEXES, NO_GROUP_CODES
+from dahlia.constants import (
+    ANSI_REGEX,
+    CODE_REGEXES,
+    NO_GROUP_CODES,
+    REGEX_BREAKING_MARKERS,
+)
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -52,4 +57,6 @@ def _with_marker(marker: str) -> list[re.Pattern[str]]:
     if len(marker) != 1:
         msg = "The marker has to be a single character"
         raise ValueError(msg)
+    if marker in REGEX_BREAKING_MARKERS:
+        marker = "\\" + marker
     return [re.compile(marker + i) for i in CODE_REGEXES]

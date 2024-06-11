@@ -131,3 +131,5 @@ BG_FORMAT_TEMPLATES = {
     8: "\033[48;5;{}m",
     24: "\033[48;2;{}m",
 }
+
+REGEX_BREAKING_MARKERS = set("^$.|()[]\\*+?")

@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
+from dahlia.constants import REGEX_BREAKING_MARKERS
 from dahlia.lib import Dahlia, Depth
 
 
@@ -46,10 +47,18 @@ def test_conversion(depth: Depth, string: str, expected: str) -> None:
         ("x", "&ee§ee§§_4x"),
     ],
 )
-def test_markers(marker: str, expected: str) -> None:
+def test_marker_clashing(marker: str, expected: str) -> None:
     assert (
         Dahlia(marker=marker, auto_reset=False, depth=Depth.LOW).convert("&ee§ee§§_4x")
         == expected
+    )
+
+
+@pytest.mark.parametrize("marker", REGEX_BREAKING_MARKERS)
+def test_regex_markers(marker: str) -> None:
+    assert (
+        Dahlia(depth=Depth.LOW, marker=marker).convert(f"{marker}4xe5")
+        == "\x1b[31mxe5\x1b[0m"
     )
 
 
