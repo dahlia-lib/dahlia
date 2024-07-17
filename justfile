@@ -2,20 +2,16 @@
 default:
     @just --list
 
-install:
-    poetry install
-    poetry shell
-
 fmt:
-    ruff check --select=I --fix
-    ruff format
+    poetry run ruff check --select=I --fix
+    poetry run ruff format
 
 coverage:
-    python -m pytest --cov dahlia --cov-report term-missing
-    interrogate -vv
+    poetry run python -m pytest --cov dahlia --cov-report term-missing
+    poetry run interrogate -vv
 
 check:
-    python -m pytest
-    mypy --strict dahlia tests
-    ruff check
-    ruff format --check
+    poetry run python -m pytest
+    poetry run mypy --strict dahlia tests
+    poetry run ruff check
+    poetry run ruff format --check

@@ -27,9 +27,8 @@ change like fixing a typo).
 
 To get started:
 1. Clone your fork of the project.
-2. Set up the project with `just install` (make sure you have [poetry]
-   installed).
-3. After you're done, run `just check` to check your changes.
+2. Install the project with `poetry install`.
+3. After you're done, run `just check` to verify your changes.
 
 > [!Note]
 > If you don't want to install [just], simply look up the recipes
