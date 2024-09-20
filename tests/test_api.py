@@ -30,6 +30,8 @@ from dahlia.lib import Dahlia, Depth
         (Depth.HIGH, "&9aspergillaceae", "\x1b[38;2;85;85;255maspergillaceae"),
         (Depth.LOW, "&~edemigod", "\x1b[103mdemigod"),
         (Depth.TTY, "&9miller", "\x1b[34mmiller"),
+        (Depth.HIGH, "&#ffaff3;gleaming", "\x1b[38;2;255;175;243mgleaming"),
+        (Depth.HIGH, "&#fbf;gweaming", "\x1b[38;2;255;187;255mgweaming"),
     ],
 )
 def test_conversion(depth: Depth, string: str, expected: str) -> None:
