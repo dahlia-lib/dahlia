@@ -124,10 +124,10 @@ class Dahlia:
         code_size, rem3 = divmod(len(code), 3)
         if not rem3:
             return formats[24].format(
-                *(
-                    (int(code[i : i + 2], 16) for i in (0, 2, 4))
+                ";".join(
+                    (str(int(code[i : i + 2], 16)) for i in (0, 2, 4))
                     if code_size == 2
-                    else (int(i, 16) * 0x11 for i in code)
+                    else (str(int(i, 16) * 0x11) for i in code)
                 )
             )
         if code in FORMATTERS:
