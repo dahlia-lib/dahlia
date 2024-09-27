@@ -100,9 +100,11 @@ Dahlia(auto_reset=False).print("&ehi", "&othere")
 
 ## Cleaning utilities
 Dahlia provides three utility functions:
+
 * `clean` for removing Dahlia codes from strings
 * `clean_ansi` for removing ANSI codes from strings
 * `escape` for escaping Dahlia codes in strings
+
 ```py
 from dahlia import Dahlia, clean, clean_ansi, escape
 
