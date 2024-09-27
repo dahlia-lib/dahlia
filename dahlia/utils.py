@@ -11,7 +11,7 @@ from dahlia.constants import (
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Iterable, Iterator
 
 
 def clean(string: str, marker: str = "&") -> str:
@@ -29,7 +29,7 @@ def clean_ansi(string: str) -> str:
 
 
 def _find_codes(
-    string: str, patterns: list[re.Pattern[str]]
+    string: str, patterns: Iterable[re.Pattern[str]]
 ) -> Iterator[tuple[str, bool | None, str]]:
     return reversed(
         dict.fromkeys(
