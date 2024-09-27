@@ -1,7 +1,7 @@
 import pytest
 
 from dahlia.__main__ import TEST_STRING
-from dahlia.utils import clean, clean_ansi
+from dahlia.utils import clean, clean_ansi, escape
 
 
 @pytest.mark.parametrize(
@@ -32,3 +32,17 @@ def test_clean_ansi(content: str, expected: str) -> None:
 
 def test_cli_test_string() -> None:
     assert clean(TEST_STRING) == "0123456789abcdefhijklmno"
+
+
+@pytest.mark.parametrize(
+    ("content", "marker", "expected"),
+    [
+        ("&e&nunderlined&rn yellow", "&", "&_e&_nunderlined&_rn yellow"),
+        ("&ame & &dher", "&", "&_ame &_ &_dher"),
+        ("&e&nunderlined&rn yellow", "!", "&e&nunderlined&rn yellow"),
+        ("!e!nunderlined!rn yellow", "!", "!_e!_nunderlined!_rn yellow"),
+        ("§_4 gives §4red", "§", "§__4 gives §_4red"),
+    ],
+)
+def test_escape(content: str, marker: str, expected: str) -> None:
+    assert escape(content, marker) == expected

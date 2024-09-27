@@ -99,10 +99,14 @@ Dahlia(auto_reset=False).print("&ehi", "&othere")
 
 
 ## Cleaning utilities
-Dahlia provides two utility functions, `clean` and `clean_ansi`, for removing
-Dahlia and ANSI codes from strings, respectively.
+Dahlia provides three utility functions:
+
+* `clean` for removing Dahlia codes from strings
+* `clean_ansi` for removing ANSI codes from strings
+* `escape` for escaping Dahlia codes in strings
+
 ```py
-from dahlia import Dahlia, clean, clean_ansi
+from dahlia import Dahlia, clean, clean_ansi, escape
 
 dahlia = Dahlia()
 a = "&aa &b&lbunch &c&nof &d&ostyles &e&mhere"
@@ -114,6 +118,8 @@ print()
 print(repr(b))
 print(b)
 print(clean_ansi(b))
+print(escape(a))
+print(dahlia.convert(escape(a)))
 ```
 <div class="highlight"><pre><code>&aa &b&lbunch &c&nof &d&ostyles &e&mhere
 a bunch of styles here
@@ -121,6 +127,8 @@ a bunch of styles here
 '\x1b[38;2;85;255;85ma \x1b[38;2;85;255;255m\x1b[1mbunch \x1b[38;2;255;85;85m\x1b[4mof \x1b[38;2;255;85;255m\x1b[3mstyles \x1b[38;2;255;255;85m\x1b[9mhere\x1b[0m'
 <span class="dha">a </span><span class="dhl"><span class="dhb">bunch </span><span class="dhc"><span class="dhn">of </span></span><span class="dho"><span class="dhd"><span class="dhn">styles </span></span><span class="dhe"><span class="dhm"><span class="dhn">here</span></span></span></span></span>
 a bunch of styles here
+&_aa &_b&_lbunch &_c&_nof &_d&_ostyles &_e&_mhere
+&aa &b&lbunch &c&nof &d&ostyles &e&mhere
 </code></pre></div>
 
 [glossary]: https://github.com/dahlia-lib/spec/blob/main/SPECIFICATION.md#glossary
