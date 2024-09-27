@@ -28,6 +28,11 @@ def clean_ansi(string: str) -> str:
     return string
 
 
+def escape(string: str, marker: str = "&") -> str:
+    """Escapes all instances of the marker in a string."""
+    return string.replace(marker, marker + "_")
+
+
 def _find_codes(
     string: str, patterns: Iterable[re.Pattern[str]]
 ) -> Iterator[tuple[str, bool | None, str]]:
