@@ -20,11 +20,9 @@ jobs:
       fail-fast: false
       # https://blog.jaraco.com/efficient-use-of-ci-resources/
       matrix:
-        python: ["3.8", "3.12"]
+        python: ["3.9", "3.12"]
         platform: ["ubuntu", "macos", "windows"]
         include:
-        - python: "3.9"
-          platform: "ubuntu"
         - python: "3.10"
           platform: "ubuntu"
         - python: "3.11"

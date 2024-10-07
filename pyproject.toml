@@ -9,7 +9,7 @@ repository = "https://github.com/dahlia-lib/dahlia"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 
 [tool.poetry.group.dev.dependencies]
 mkdocs = "^1.6.0"
