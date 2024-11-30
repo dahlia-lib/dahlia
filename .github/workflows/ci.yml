@@ -15,7 +15,6 @@ env:
 jobs:
   ci:
     runs-on: "${{ matrix.platform }}-latest"
-    environment: "Test"
     strategy:
       fail-fast: false
       # https://blog.jaraco.com/efficient-use-of-ci-resources/
