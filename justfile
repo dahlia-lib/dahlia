@@ -3,15 +3,15 @@ default:
     @just --list
 
 fmt:
-    poetry run ruff check --select=I --fix
-    poetry run ruff format
+    uv run ruff check --select=I --fix
+    uv run ruff format
 
 coverage:
-    poetry run python -m pytest --cov dahlia --cov-report term-missing
-    poetry run interrogate -vv
+    uv run pytest --cov src --cov-report term-missing
+    uv run interrogate -vv
 
 check:
-    poetry run python -m pytest
-    poetry run mypy --strict dahlia tests
-    poetry run ruff check
-    poetry run ruff format --check
+    uv run pytest
+    uv run mypy --strict src tests
+    uv run ruff check
+    uv run ruff format --check
