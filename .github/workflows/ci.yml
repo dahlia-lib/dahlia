@@ -9,8 +9,8 @@ on:
       - master
 
 env:
-  POETRY_VERSION: 1.8.3
   PY_COLORS: 1
+  UV_VERSION: 0.5.5
 
 jobs:
   ci:
@@ -32,24 +32,21 @@ jobs:
           platform: "ubuntu"
     steps:
     - uses: actions/checkout@v4
-    - name: Install poetry
-      run: pipx install poetry==${{ env.POETRY_VERSION }}
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v5
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v4
       with:
-        python-version: ${{ matrix.python }}
-        cache: poetry
+        version: ${{ env.UV_VERSION }}
     - name: Install project
-      run: poetry install
+      run: uv sync -p ${{ matrix.python }}
     - name: Check coverage
       run: |
-        poetry run pytest --cov dahlia --cov-report term-missing
-        poetry run interrogate -vv
+        uv run pytest --cov src --cov-report term-missing
+        uv run interrogate -vv
     - name: Lint code
       if: always()
       run: |
-        poetry run ruff check
-        poetry run ruff format --check
+        uv run ruff check
+        uv run ruff format --check
     - name: Run mypy
       if: always()
-      run: poetry run mypy --strict dahlia tests
+      run: uv run mypy --strict src tests

@@ -16,20 +16,22 @@ instead)
 ## Contributing
 Contributions are welcome!
 
-Please open an issue before submitting a pull request (unless it's a minor
-change like fixing a typo).
+Please open an issue before submitting a pull request
+(doesn't apply to minor changes like typos).
 
 To get started:
 
 1. Clone your fork of the project.
-2. Set up the project with `just install` (make sure you have [poetry]
-   installed).
-3. After you're done, run `just check` to check your changes.
-
-!!! note
-    If you don't want to install [just], simply look up the recipes
-    in the project's [`justfile`][justfile].
-
+2. Install the project with [uv]:
+```sh
+uv sync
+```
+3. After you're done, use the following [`just`][just] recipes to check your
+   changes (or run the commands manually):
+```sh
+just check     # pytest, mypy, ruff
+just coverage  # pytest (with coverage), interrogate (docstring coverage)
+```
 
 ## License
 
@@ -40,5 +42,4 @@ If you have any questions, or would like to get in touch, join my
 
 [Discord server]: https://discord.gg/C8QE5tVQEq
 [just]: https://github.com/casey/just
-[justfile]: https://github.com/dahlia-lib/dahlia/blob/master/justfile
-[poetry]: https://python-poetry.org/
+[uv]: https://docs.astral.sh/uv/
