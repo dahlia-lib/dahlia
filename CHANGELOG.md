@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2024-12-28
+
+### Added
+- Python 3.13 support
+- An `escape` utility function
+- Running `python -m dahlia` now displays the lib version
+
+### Changed
+- Improved error message for an invalid marker type
+  (by [@cadaniel02][cadaniel02])
+
+### Fixed
+- Corrected edge case behavior when trying to use a regex character (e.g. `?` or
+  `$`) as a marker
+- Fixed custom color processing
+
+### Removed
+- Python 3.8 support
+
+[cadaniel02]: https://github.com/cadaniel02/
+
 ## [3.0.0] - 2024-06-02
 
 This release follows the [Dahlia Specification v1.0.0][spec].
