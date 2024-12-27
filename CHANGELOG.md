@@ -187,3 +187,4 @@ Initial release 🎉
 [2.3.1]: https://github.com/trag1c/Dahlia/compare/2.3.0...2.3.1
 [2.3.2]: https://github.com/trag1c/Dahlia/compare/2.3.1...2.3.2
 [3.0.0]: https://github.com/trag1c/Dahlia/compare/2.3.2...3.0.0
+[3.1.0]: https://github.com/trag1c/Dahlia/compare/3.0.0...3.1.0
