@@ -10,6 +10,12 @@ def clean_ansi(string: str, marker: str = "&") -> str
 ```
 Removes all ANSI codes from a string.
 
+## `escape`
+```py
+def escape(string: str, marker: str = "&") -> str
+```
+Escapes all Dahlia codes in a string.
+
 ## `Dahlia`
 ```py
 DepthInt = Literal[3, 4, 8, 24]
